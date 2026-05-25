@@ -1,0 +1,118 @@
+name: Flutterwave Vocabulary
+providerId: flutterwave
+created: '2026-05-24'
+modified: '2026-05-24'
+description: Domain vocabulary for the Flutterwave for Business (F4B) v4 platform. Captures core concepts, payment
+  rails, payout rails, and ancillary services used across the API surface.
+tags:
+  - Payments
+  - Payouts
+  - Mobile Money
+  - Cards
+  - Africa
+  - Fintech
+concepts:
+  - term: Charge
+    description: A request to collect money from a customer via a specific payment method.
+    examples: [card charge, mobile money charge, bank transfer charge]
+  - term: Customer
+    description: A person or business that owns charges, orders, and transfers on the merchant account.
+  - term: Order
+    description: A server-side cart object that bundles line items and a customer for a checkout session.
+  - term: Payment Method
+    description: A tokenised representation of how a customer pays — card, mobile money, bank transfer, USSD, or OPay.
+  - term: Orchestrator
+    description: A helper endpoint that creates the customer, payment method, and charge (or order, or transfer) in one
+      atomic call.
+  - term: Transfer
+    description: A payout from the merchant balance to a recipient's bank account, mobile wallet, or wallet account.
+  - term: Recipient
+    description: The destination of a payout — identified by bank account, mobile money number, or wallet account.
+  - term: Sender
+    description: The KYC'd originator of a cross-border payout (regulator-mandated for remittance corridors).
+  - term: Settlement
+    description: An aggregate of successful charges netted against fees and paid out to the merchant's settlement account.
+  - term: Refund
+    description: A reversal of all or part of a previously successful charge.
+  - term: Chargeback
+    description: A customer-initiated dispute that reverses a charge until evidence is provided.
+  - term: Virtual Account
+    description: A bank account number (NUBAN) issued to a customer or merchant for collecting bank transfer payments.
+  - term: Wallet
+    description: A multi-currency balance held by the merchant on Flutterwave.
+  - term: Fee
+    description: The Flutterwave-computed charge applied to a transaction.
+  - term: Idempotency
+    description: A guarantee that retried POST requests with the same `X-Idempotency-Key` produce the same response.
+  - term: Encryption
+    description: Client-side AES-256 encryption of sensitive card fields with a 12-character nonce.
+payment_rails:
+  - id: card
+    name: Card Payments
+    description: Visa, Mastercard, Verve, AMEX (where available).
+  - id: mobile_money
+    name: Mobile Money
+    description: M-Pesa (Kenya, Tanzania), MTN MoMo (multiple), Airtel Money, Tigo, Vodafone Cash.
+  - id: bank_transfer
+    name: Pay With Bank Transfer
+    description: NGN virtual NUBAN-based collection.
+  - id: ussd
+    name: USSD
+    description: Offline payment via mobile network USSD strings.
+  - id: opay
+    name: OPay Wallet
+    description: Collect from OPay wallet balances.
+  - id: qr
+    name: Visa QR
+    description: QR-code-based payment.
+payout_rails:
+  - id: bank_account
+    name: Bank Account Transfer
+    description: Domestic and cross-border bank account credits.
+  - id: mobile_money
+    name: Mobile Money Transfer
+    description: Payouts to mobile wallets.
+  - id: wallet_to_wallet
+    name: Wallet-to-Wallet
+    description: Movement between Flutterwave wallets.
+geographies:
+  africa:
+    - Nigeria
+    - Cameroon
+    - Egypt
+    - Ghana
+    - Ivory Coast
+    - Kenya
+    - Malawi
+    - Mauritius
+    - Rwanda
+    - Senegal
+    - South Africa
+    - Tanzania
+    - Uganda
+    - Zambia
+  global:
+    - United Kingdom
+    - United States
+    - European Union
+ancillary_services:
+  - name: Card Issuing
+    description: Virtual card creation for cardholder programs.
+  - name: KYC
+    description: Identity verification APIs.
+  - name: Bill Payments
+    description: Airtime, data, electricity, cable TV bill payments.
+  - name: Send App
+    description: Consumer-facing remittance app.
+  - name: Swap
+    description: Currency exchange between NGN, USD, EUR, GBP.
+  - name: Afritickets
+    description: Event ticketing platform.
+  - name: Market
+    description: Online marketplace.
+  - name: Disha
+    description: Free creator website builder.
+  - name: Store
+    description: Free ecommerce store builder.
+  - name: Tuition
+    description: School fee payments.

@@ -1,0 +1,47 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.flutterwave.cloud/f4b/production/charges",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIs...",
+      "Content-Type": "application/json",
+      "X-Idempotency-Key": "5f3e9b21-6a55-44a4-92f8-3df0b78c1a9d"
+    },
+    "body": {
+      "amount": 25000,
+      "currency": "NGN",
+      "reference": "order_2026_05_24_001",
+      "customer": { "id": "cus_4fa9c2b5-1a82-4b6e-9c5b-2c1f7d8e9a01" },
+      "payment_method": {
+        "type": "mobile_money",
+        "mobile_money": {
+          "country_code": "234",
+          "phone_number": "8012345678",
+          "network": "MTN"
+        }
+      },
+      "redirect_url": "https://merchant.example.com/return",
+      "meta": { "order_id": "order_2026_05_24_001" }
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "status": "success",
+      "data": {
+        "id": "chg_e1f3a2b1-93f0-4a51-aa57-1d80c5e4c001",
+        "amount": 25000,
+        "currency": "NGN",
+        "status": "pending",
+        "reference": "order_2026_05_24_001",
+        "customer": { "id": "cus_4fa9c2b5-1a82-4b6e-9c5b-2c1f7d8e9a01" },
+        "payment_method": {
+          "type": "mobile_money",
+          "mobile_money": { "network": "MTN", "country_code": "234" }
+        },
+        "redirect_url": "https://merchant.example.com/return?status=pending&id=chg_e1f3a2b1...",
+        "created_datetime": "2026-05-24T15:33:11.005Z"
+      }
+    }
+  }
+}

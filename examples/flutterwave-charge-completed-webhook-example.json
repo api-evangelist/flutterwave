@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://merchant.example.com/webhooks/flutterwave",
+    "headers": {
+      "Content-Type": "application/json",
+      "verif-hash": "f5b8c9d2e0a14a7b8c1d2e3f4a5b6c7d"
+    },
+    "body": {
+      "type": "charge.completed",
+      "data": {
+        "id": "chg_e1f3a2b1-93f0-4a51-aa57-1d80c5e4c001",
+        "amount": 25000,
+        "currency": "NGN",
+        "status": "succeeded",
+        "reference": "order_2026_05_24_001",
+        "customer": {
+          "id": "cus_4fa9c2b5-1a82-4b6e-9c5b-2c1f7d8e9a01",
+          "email": "ada.lovelace@example.com"
+        },
+        "payment_method": {
+          "type": "mobile_money",
+          "mobile_money": { "network": "MTN", "country_code": "234" }
+        },
+        "processor_response": {
+          "type": "approved",
+          "code": "00"
+        },
+        "redirect_url": "https://merchant.example.com/return",
+        "created_datetime": "2026-05-24T15:34:09.001Z",
+        "meta": { "order_id": "order_2026_05_24_001" }
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": { "received": true }
+  }
+}

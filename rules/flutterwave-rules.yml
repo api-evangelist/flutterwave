@@ -1,0 +1,94 @@
+extends:
+  - spectral:oas
+rules:
+  flutterwave-info-contact:
+    description: All Flutterwave OpenAPI specs must declare an info.contact block pointing to the developer portal.
+    given: $.info
+    severity: warn
+    then:
+      field: contact
+      function: truthy
+  flutterwave-info-license:
+    description: All Flutterwave OpenAPI specs must include an info.license block.
+    given: $.info
+    severity: warn
+    then:
+      field: license
+      function: truthy
+  flutterwave-server-url-cloud:
+    description: Flutterwave production server URL must be on api.flutterwave.cloud.
+    given: $.servers[?(@.description == 'Production')].url
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://api\\.flutterwave\\.cloud/f4b/production'
+  flutterwave-server-url-sandbox:
+    description: Flutterwave sandbox server URL must be on api.flutterwave.cloud/f4b/sandbox.
+    given: $.servers[?(@.description == 'Sandbox')].url
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://api\\.flutterwave\\.cloud/f4b/sandbox'
+  flutterwave-operation-summary-title-case:
+    description: Operation summaries must be Title Case.
+    given: $.paths[*][get,post,put,delete,patch].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^([A-Z][a-zA-Z0-9]*\\s?)+$'
+  flutterwave-operation-id-camel-case:
+    description: operationId must be camelCase.
+    given: $.paths[*][get,post,put,delete,patch].operationId
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9]*$'
+  flutterwave-mutating-ops-idempotency-key:
+    description: POST and PUT operations should accept an X-Idempotency-Key header.
+    given: $.paths[*][post,put]
+    severity: info
+    then:
+      field: parameters
+      function: truthy
+  flutterwave-security-oauth2:
+    description: Flutterwave APIs must declare OAuth2 client credentials security.
+    given: $.components.securitySchemes
+    severity: error
+    then:
+      field: OAuth2
+      function: truthy
+  flutterwave-snake-case-properties:
+    description: Schema property names must be snake_case (matches Flutterwave's JSON conventions).
+    given: $.components.schemas[*].properties[*]~
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-z0-9_]*$'
+  flutterwave-monetary-fields-have-currency:
+    description: When an `amount` property is present, a sibling `currency` property must also be defined.
+    given: $.components.schemas[?(@.properties.amount)].properties
+    severity: warn
+    then:
+      field: currency
+      function: truthy
+  flutterwave-id-fields-are-strings:
+    description: All `id` properties must be strings (Flutterwave IDs are opaque strings, not integers).
+    given: $.components.schemas[*].properties.id
+    severity: error
+    then:
+      field: type
+      function: enumeration
+      functionOptions:
+        values: [string]
+  flutterwave-status-uses-enum:
+    description: Lifecycle `status` properties should be enumerated.
+    given: $.components.schemas[?(@.properties.status)].properties.status
+    severity: info
+    then:
+      field: enum
+      function: truthy

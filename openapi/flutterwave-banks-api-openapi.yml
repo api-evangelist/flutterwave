@@ -1,0 +1,163 @@
+openapi: 3.1.0
+info:
+  title: Flutterwave Banks API
+  description: |
+    Flutterwave v4 reference data APIs for supported banks, bank branches,
+    mobile networks, and bank account name resolution. These endpoints are
+    used to populate dropdowns and validate destination accounts before
+    initiating payouts.
+  version: '4.0.0'
+  contact:
+    name: Flutterwave
+    url: https://developer.flutterwave.com
+    email: developers@flutterwavego.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+servers:
+  - url: https://api.flutterwave.cloud/f4b/production
+    description: Production
+  - url: https://api.flutterwave.cloud/f4b/sandbox
+    description: Sandbox
+security:
+  - OAuth2: []
+tags:
+  - name: Banks
+    description: Banks and bank branches supported by country.
+  - name: MobileNetworks
+    description: Mobile money networks supported by country.
+  - name: AccountResolution
+    description: Bank account name resolution before initiating payouts.
+paths:
+  /banks:
+    get:
+      summary: Retrieve Banks
+      description: Retrieve supported banks by country.
+      operationId: listBanks
+      tags: [Banks]
+      parameters:
+        - in: query
+          name: country
+          required: true
+          schema: { type: string, example: NG }
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankList'
+  /banks/{id}/branches:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve Bank Branches
+      operationId: listBankBranches
+      tags: [Banks]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BranchList'
+  /bank-account/resolve:
+    post:
+      summary: Bank Account Look Up
+      description: Resolve a customer's bank account information.
+      operationId: resolveBankAccount
+      tags: [AccountResolution]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [account_number, bank_id]
+              properties:
+                account_number: { type: string }
+                bank_id: { type: string }
+                country: { type: string }
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+  /mobile-networks:
+    get:
+      summary: Retrieve Mobile Networks
+      description: Retrieve supported mobile networks by country.
+      operationId: listMobileNetworks
+      tags: [MobileNetworks]
+      parameters:
+        - in: query
+          name: country
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileNetworkList'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+          scopes: {}
+  schemas:
+    Bank:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        code: { type: string }
+        country: { type: string }
+    BankList:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Bank' }
+    Branch:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        bank_id: { type: string }
+        swift_code: { type: string }
+    BranchList:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Branch' }
+    BankAccount:
+      type: object
+      properties:
+        account_number: { type: string }
+        account_name: { type: string }
+        bank_id: { type: string }
+        bank_name: { type: string }
+    MobileNetwork:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        country: { type: string }
+        code: { type: string }
+    MobileNetworkList:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/MobileNetwork' }

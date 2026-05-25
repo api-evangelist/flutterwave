@@ -1,0 +1,126 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "flutterwave": "https://api.flutterwave.cloud/f4b/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Charge": {
+      "@id": "flutterwave:Charge",
+      "@context": {
+        "id": { "@id": "flutterwave:Charge/id", "@type": "xsd:string" },
+        "amount": { "@id": "schema:price", "@type": "xsd:decimal" },
+        "currency": { "@id": "schema:priceCurrency", "@type": "xsd:string" },
+        "status": { "@id": "flutterwave:Charge/status", "@type": "xsd:string" },
+        "reference": { "@id": "flutterwave:Charge/reference", "@type": "xsd:string" },
+        "customer": { "@id": "flutterwave:Charge/customer", "@type": "flutterwave:Customer" },
+        "payment_method": { "@id": "flutterwave:Charge/paymentMethod", "@type": "flutterwave:PaymentMethod" },
+        "processor_response": { "@id": "flutterwave:Charge/processorResponse" },
+        "redirect_url": { "@id": "schema:url", "@type": "xsd:anyURI" },
+        "created_datetime": { "@id": "dcterms:created", "@type": "xsd:dateTime" }
+      }
+    },
+
+    "Customer": {
+      "@id": "flutterwave:Customer",
+      "@context": {
+        "id": { "@id": "flutterwave:Customer/id", "@type": "xsd:string" },
+        "email": { "@id": "schema:email", "@type": "xsd:string" },
+        "name": { "@id": "schema:name" },
+        "phone": { "@id": "schema:telephone" },
+        "address": { "@id": "schema:address" }
+      }
+    },
+
+    "PaymentMethod": {
+      "@id": "flutterwave:PaymentMethod",
+      "@context": {
+        "id": { "@id": "flutterwave:PaymentMethod/id", "@type": "xsd:string" },
+        "type": { "@id": "flutterwave:PaymentMethod/type", "@type": "xsd:string" },
+        "card": { "@id": "flutterwave:PaymentMethod/card" },
+        "mobile_money": { "@id": "flutterwave:PaymentMethod/mobileMoney" },
+        "bank_transfer": { "@id": "flutterwave:PaymentMethod/bankTransfer" }
+      }
+    },
+
+    "Transfer": {
+      "@id": "flutterwave:Transfer",
+      "@context": {
+        "id": { "@id": "flutterwave:Transfer/id", "@type": "xsd:string" },
+        "amount": { "@id": "schema:price", "@type": "xsd:decimal" },
+        "currency": { "@id": "schema:priceCurrency", "@type": "xsd:string" },
+        "status": { "@id": "flutterwave:Transfer/status", "@type": "xsd:string" },
+        "reference": { "@id": "flutterwave:Transfer/reference", "@type": "xsd:string" },
+        "sender_id": { "@id": "flutterwave:Transfer/senderId", "@type": "xsd:string" },
+        "recipient_id": { "@id": "flutterwave:Transfer/recipientId", "@type": "xsd:string" },
+        "rate_id": { "@id": "flutterwave:Transfer/rateId", "@type": "xsd:string" },
+        "narration": { "@id": "schema:description", "@type": "xsd:string" },
+        "created_datetime": { "@id": "dcterms:created", "@type": "xsd:dateTime" }
+      }
+    },
+
+    "Settlement": {
+      "@id": "flutterwave:Settlement",
+      "@context": {
+        "id": { "@id": "flutterwave:Settlement/id", "@type": "xsd:string" },
+        "gross_amount": { "@id": "flutterwave:Settlement/grossAmount", "@type": "xsd:decimal" },
+        "fee": { "@id": "flutterwave:Settlement/fee", "@type": "xsd:decimal" },
+        "net_amount": { "@id": "flutterwave:Settlement/netAmount", "@type": "xsd:decimal" },
+        "currency": { "@id": "schema:priceCurrency", "@type": "xsd:string" }
+      }
+    },
+
+    "Refund": {
+      "@id": "flutterwave:Refund",
+      "@context": {
+        "id": { "@id": "flutterwave:Refund/id", "@type": "xsd:string" },
+        "charge_id": { "@id": "flutterwave:Refund/chargeId", "@type": "xsd:string" },
+        "amount": { "@id": "schema:price", "@type": "xsd:decimal" },
+        "currency": { "@id": "schema:priceCurrency", "@type": "xsd:string" },
+        "status": { "@id": "flutterwave:Refund/status", "@type": "xsd:string" },
+        "reason": { "@id": "schema:description", "@type": "xsd:string" }
+      }
+    },
+
+    "Chargeback": {
+      "@id": "flutterwave:Chargeback",
+      "@context": {
+        "id": { "@id": "flutterwave:Chargeback/id", "@type": "xsd:string" },
+        "charge_id": { "@id": "flutterwave:Chargeback/chargeId", "@type": "xsd:string" },
+        "amount": { "@id": "schema:price", "@type": "xsd:decimal" },
+        "currency": { "@id": "schema:priceCurrency", "@type": "xsd:string" },
+        "reason": { "@id": "schema:description", "@type": "xsd:string" },
+        "status": { "@id": "flutterwave:Chargeback/status", "@type": "xsd:string" }
+      }
+    },
+
+    "VirtualAccount": {
+      "@id": "flutterwave:VirtualAccount",
+      "@context": {
+        "id": { "@id": "flutterwave:VirtualAccount/id", "@type": "xsd:string" },
+        "account_number": { "@id": "schema:accountId", "@type": "xsd:string" },
+        "bank_name": { "@id": "schema:provider", "@type": "xsd:string" },
+        "currency": { "@id": "schema:priceCurrency", "@type": "xsd:string" }
+      }
+    },
+
+    "WalletBalance": {
+      "@id": "flutterwave:WalletBalance",
+      "@context": {
+        "currency": { "@id": "schema:priceCurrency", "@type": "xsd:string" },
+        "available_balance": { "@id": "flutterwave:WalletBalance/availableBalance", "@type": "xsd:decimal" },
+        "ledger_balance": { "@id": "flutterwave:WalletBalance/ledgerBalance", "@type": "xsd:decimal" }
+      }
+    },
+
+    "WebhookEvent": {
+      "@id": "flutterwave:WebhookEvent",
+      "@context": {
+        "type": { "@id": "flutterwave:WebhookEvent/type", "@type": "xsd:string" },
+        "data": { "@id": "flutterwave:WebhookEvent/data" }
+      }
+    }
+  }
+}

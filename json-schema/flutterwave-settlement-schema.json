@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/flutterwave/main/json-schema/flutterwave-settlement-schema.json",
+  "title": "Flutterwave Settlement",
+  "description": "A Flutterwave settlement object aggregating successful charges into a payout to the merchant.",
+  "type": "object",
+  "required": ["id", "gross_amount", "net_amount", "currency"],
+  "properties": {
+    "id": { "type": "string" },
+    "gross_amount": { "type": "number" },
+    "fee": { "type": "number" },
+    "net_amount": { "type": "number" },
+    "currency": { "type": "string" },
+    "status": { "type": "string" },
+    "reference": { "type": "string" },
+    "period_start": { "type": "string", "format": "date-time" },
+    "period_end": { "type": "string", "format": "date-time" },
+    "created_datetime": { "type": "string", "format": "date-time" }
+  }
+}

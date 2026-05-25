@@ -1,0 +1,377 @@
+aid: flutterwave
+url: https://raw.githubusercontent.com/api-evangelist/flutterwave/refs/heads/main/apis.yml
+apis:
+- aid: flutterwave:flutterwave-payments-api
+  name: Flutterwave Payments API
+  tags:
+  - Payments
+  - Charges
+  - Customers
+  - Orders
+  - Virtual Accounts
+  - Cards
+  - Mobile Money
+  humanURL: https://developer.flutterwave.com/reference
+  baseURL: https://api.flutterwave.cloud/f4b/production
+  properties:
+  - url: https://developer.flutterwave.com/docs/introduction-1.md
+    type: Documentation
+  - url: https://developer.flutterwave.com/reference/charges_post.md
+    type: Documentation
+  - url: openapi/flutterwave-payments-api-openapi.yml
+    type: OpenAPI
+  - url: capabilities/payments-customers.yaml
+    type: NaftikoCapability
+  - url: capabilities/payments-charges.yaml
+    type: NaftikoCapability
+  - url: capabilities/payments-payment-methods.yaml
+    type: NaftikoCapability
+  - url: capabilities/payments-orders.yaml
+    type: NaftikoCapability
+  - url: capabilities/payments-virtual-accounts.yaml
+    type: NaftikoCapability
+  - url: json-schema/flutterwave-charge-schema.json
+    type: JSONSchema
+  - url: json-schema/flutterwave-customer-schema.json
+    type: JSONSchema
+  - url: json-structure/flutterwave-charge-structure.json
+    type: JSONStructure
+  - url: json-ld/flutterwave-context.jsonld
+    type: JSONLD
+  - url: examples/flutterwave-create-charge-example.json
+    type: Example
+  - url: examples/flutterwave-create-customer-example.json
+    type: Example
+  description: Collect payments across cards, mobile money (M-Pesa, MTN, Airtel, Tigo), bank transfers, USSD, OPay, and
+    virtual NUBANs. Includes customers, charges, payment methods, orchestrator helpers, orders, and virtual accounts. The
+    primary surface for accepting money on Flutterwave.
+- aid: flutterwave:flutterwave-transfers-api
+  name: Flutterwave Transfers API
+  tags:
+  - Payouts
+  - Transfers
+  - Remittance
+  - FX
+  - Cross-Border
+  - Mobile Money
+  humanURL: https://developer.flutterwave.com/docs/introduction-3.md
+  baseURL: https://api.flutterwave.cloud/f4b/production
+  properties:
+  - url: https://developer.flutterwave.com/docs/introduction-3.md
+    type: Documentation
+  - url: https://developer.flutterwave.com/reference/transfers_post.md
+    type: Documentation
+  - url: openapi/flutterwave-transfers-api-openapi.yml
+    type: OpenAPI
+  - url: capabilities/transfers-transfers.yaml
+    type: NaftikoCapability
+  - url: capabilities/transfers-recipients.yaml
+    type: NaftikoCapability
+  - url: capabilities/transfers-senders.yaml
+    type: NaftikoCapability
+  - url: capabilities/transfers-rates.yaml
+    type: NaftikoCapability
+  - url: json-schema/flutterwave-transfer-schema.json
+    type: JSONSchema
+  - url: examples/flutterwave-create-transfer-example.json
+    type: Example
+  description: Disburse funds globally across bank account transfers, mobile money transfers, and wallet-to-wallet transfers
+    spanning 30+ African countries plus US/UK/EU/Asia corridors. Manage transfer recipients, transfer senders (KYC for
+    cross-border), and real-time FX conversion via the Rates endpoints.
+- aid: flutterwave:flutterwave-settlements-api
+  name: Flutterwave Settlements API
+  tags:
+  - Settlements
+  - Refunds
+  - Chargebacks
+  - Disputes
+  - Fees
+  - Reconciliation
+  humanURL: https://developer.flutterwave.com/docs/settlements.md
+  baseURL: https://api.flutterwave.cloud/f4b/production
+  properties:
+  - url: https://developer.flutterwave.com/docs/settlements.md
+    type: Documentation
+  - url: https://developer.flutterwave.com/docs/refunds.md
+    type: Documentation
+  - url: https://developer.flutterwave.com/docs/chargebacks-1.md
+    type: Documentation
+  - url: openapi/flutterwave-settlements-api-openapi.yml
+    type: OpenAPI
+  - url: capabilities/settlements-settlements.yaml
+    type: NaftikoCapability
+  - url: capabilities/settlements-refunds.yaml
+    type: NaftikoCapability
+  - url: capabilities/settlements-chargebacks.yaml
+    type: NaftikoCapability
+  - url: capabilities/settlements-fees.yaml
+    type: NaftikoCapability
+  - url: json-schema/flutterwave-settlement-schema.json
+    type: JSONSchema
+  - url: examples/flutterwave-create-refund-example.json
+    type: Example
+  description: Reconcile transaction volume with merchant payouts. Manage settlements, refunds, chargebacks (dispute
+    handling), and fee computation for cards, mobile money, and other rails. The finance-and-ops surface of the F4B
+    platform.
+- aid: flutterwave:flutterwave-wallets-api
+  name: Flutterwave Wallets API
+  tags:
+  - Wallets
+  - Balances
+  - Statements
+  - Multi-Currency
+  humanURL: https://developer.flutterwave.com/reference/fetch_wallet_balances.md
+  baseURL: https://api.flutterwave.cloud/f4b/production
+  properties:
+  - url: https://developer.flutterwave.com/reference/fetch_wallet_balances.md
+    type: Documentation
+  - url: https://developer.flutterwave.com/reference/get_wallet_statement.md
+    type: Documentation
+  - url: https://developer.flutterwave.com/reference/wallet_account_resolve_post.md
+    type: Documentation
+  - url: openapi/flutterwave-wallets-api-openapi.yml
+    type: OpenAPI
+  - url: capabilities/wallets-wallets.yaml
+    type: NaftikoCapability
+  - url: capabilities/wallets-account-resolution.yaml
+    type: NaftikoCapability
+  - url: json-schema/flutterwave-wallet-schema.json
+    type: JSONSchema
+  description: Inspect multi-currency wallet balances, retrieve wallet statements, and resolve mobile money wallet account
+    details. Backs the FAAS (Finance as a Service) and capital flows for merchants holding balances in NGN, USD, EUR,
+    GBP, KES, GHS, ZAR, UGX, TZS, RWF, XAF, XOF and other supported currencies.
+- aid: flutterwave:flutterwave-banks-api
+  name: Flutterwave Banks API
+  tags:
+  - Banks
+  - Reference Data
+  - Mobile Networks
+  - Account Resolution
+  humanURL: https://developer.flutterwave.com/reference/banks_get.md
+  baseURL: https://api.flutterwave.cloud/f4b/production
+  properties:
+  - url: https://developer.flutterwave.com/reference/banks_get.md
+    type: Documentation
+  - url: https://developer.flutterwave.com/reference/mobile_networks_get.md
+    type: Documentation
+  - url: https://developer.flutterwave.com/reference/bank_account_resolve_post.md
+    type: Documentation
+  - url: openapi/flutterwave-banks-api-openapi.yml
+    type: OpenAPI
+  - url: capabilities/banks-banks.yaml
+    type: NaftikoCapability
+  - url: capabilities/banks-mobile-networks.yaml
+    type: NaftikoCapability
+  - url: capabilities/banks-account-resolution.yaml
+    type: NaftikoCapability
+  description: Reference data for banks, bank branches, and mobile networks supported by country, plus bank account
+    name-enquiry endpoints. Used to populate checkout dropdowns and validate destination accounts before initiating
+    payouts.
+- aid: flutterwave:flutterwave-webhooks-api
+  name: Flutterwave Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Asynchronous
+  humanURL: https://developer.flutterwave.com/docs/webhooks.md
+  baseURL: https://your-webhook-endpoint.example.com
+  properties:
+  - url: https://developer.flutterwave.com/docs/webhooks.md
+    type: Documentation
+  - url: openapi/flutterwave-webhooks-api-openapi.yml
+    type: OpenAPI
+  - url: examples/flutterwave-charge-completed-webhook-example.json
+    type: Example
+  description: Outbound webhook callbacks delivered by Flutterwave for charges, transfers, refunds, chargebacks, and
+    virtual account funding. Receivers validate the `verif-hash` header against the merchant's configured secret hash
+    before trusting the payload.
+name: Flutterwave
+tags:
+- Payments
+- Payouts
+- Mobile Money
+- Cards
+- Africa
+- Fintech
+- Remittance
+- Virtual Accounts
+- Chargebacks
+- Multi-Currency
+kind: contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+common:
+- url: https://flutterwave.com
+  type: Portal
+- url: https://developer.flutterwave.com
+  name: Flutterwave Developer Portal
+  type: Portal
+- url: https://developer.flutterwave.com/docs
+  name: Flutterwave Documentation
+  type: Documentation
+- url: https://developer.flutterwave.com/reference
+  name: API Reference
+  type: Documentation
+- url: https://developer.flutterwave.com/llms.txt
+  name: LLM-friendly Documentation Index
+  type: Documentation
+- url: https://developer.flutterwave.com/docs/getting-started.md
+  name: Getting Started
+  type: GettingStarted
+- url: https://developer.flutterwave.com/docs/authentication.md
+  name: Authentication
+  type: Documentation
+- url: https://developer.flutterwave.com/docs/api-headers.md
+  name: API Headers
+  type: Documentation
+- url: https://developer.flutterwave.com/docs/encryption.md
+  name: Encryption
+  type: Documentation
+- url: https://developer.flutterwave.com/docs/common-errors.md
+  name: Errors
+  type: Errors
+- url: https://developer.flutterwave.com/docs/webhooks.md
+  name: Webhooks
+  type: Documentation
+- url: https://developer.flutterwave.com/docs/idempotency.md
+  name: Idempotency
+  type: Documentation
+- url: https://developer.flutterwave.com/docs/testing.md
+  name: Testing
+  type: Documentation
+- url: https://developer.flutterwave.com/docs/best-practices.md
+  name: Best Practices
+  type: Documentation
+- url: https://developer.flutterwave.com/docs/environments.md
+  name: Environments
+  type: Documentation
+- url: https://onboarding.flutterwave.com/signup
+  name: Sign Up
+  type: SignUp
+- url: https://status.flutterwave.com
+  name: Flutterwave Status
+  type: StatusPage
+- url: https://support.flutterwave.com
+  name: Flutterwave Support
+  type: Support
+- url: https://flutterwave.com/us/pricing
+  name: Pricing
+  type: Pricing
+- url: https://flutterwave.com/us/blog
+  name: Flutterwave Blog
+  type: Blog
+- url: https://flutterwave.com/us/terms
+  name: Terms of Service
+  type: TermsOfService
+- url: https://flutterwave.com/us/privacy-notice
+  name: Privacy Notice
+  type: PrivacyPolicy
+- url: https://flutterwave.com/us/contact-sales
+  name: Contact Sales
+  type: Contact
+- url: https://www.linkedin.com/company/flutterwave
+  type: LinkedIn
+- url: https://twitter.com/theflutterwave
+  type: Twitter
+- url: https://github.com/Flutterwave
+  type: GitHubOrganization
+- url: https://github.com/Flutterwave/Node-v3
+  name: Node.js SDK (v3)
+  type: SDK
+- url: https://github.com/Flutterwave/PHP-v3
+  name: PHP SDK (v3)
+  type: SDK
+- url: https://github.com/Flutterwave/Python-v2
+  name: Python SDK (v2)
+  type: SDK
+- url: https://github.com/Flutterwave/Ruby-v3
+  name: Ruby SDK (v3)
+  type: SDK
+- url: https://github.com/Flutterwave/Java-v3
+  name: Java SDK (v3)
+  type: SDK
+- url: https://github.com/Flutterwave/Dotnet-v2
+  name: .NET SDK (v2)
+  type: SDK
+- url: https://github.com/Flutterwave/React-v3
+  name: React SDK (v3)
+  type: SDK
+- url: https://github.com/Flutterwave/Angular-v3
+  name: Angular SDK (v3)
+  type: SDK
+- url: https://github.com/Flutterwave/Vue-v3
+  name: Vue.js SDK (v3)
+  type: SDK
+- url: https://github.com/Flutterwave/Flutter-v3
+  name: Flutter SDK (v3)
+  type: SDK
+- url: https://github.com/Flutterwave/React-Native
+  name: React Native SDK
+  type: SDK
+- url: https://github.com/Flutterwave/AndroidSDK
+  name: Android SDK
+  type: SDK
+- url: https://github.com/Flutterwave/iOS-v3
+  name: iOS SDK (v3)
+  type: SDK
+- url: https://github.com/Flutterwave/WordPress-v2
+  name: WordPress Plugin (v2)
+  type: Plugin
+- url: plans/flutterwave-plans-pricing.yml
+  type: Plans
+- url: rate-limits/flutterwave-rate-limits.yml
+  type: RateLimits
+- url: finops/flutterwave-finops.yml
+  type: FinOps
+- url: rules/flutterwave-rules.yml
+  type: SpectralRules
+- url: vocabulary/flutterwave-vocabulary.yml
+  type: Vocabulary
+- type: Features
+  data:
+  - Accept payments via cards (local + international), mobile money (M-Pesa, MTN, Airtel, Tigo, Vodafone, OPay), bank
+    transfers, USSD, and QR
+  - Real-time payouts to bank accounts and mobile wallets across 30+ African countries plus US/UK/EU/Asia corridors
+  - Virtual NUBANs (Nigerian Uniform Bank Account Numbers) for pay-with-bank-transfer collections
+  - Cross-border remittance with built-in KYC for senders and recipients
+  - Real-time FX conversion via the Transfer Rates endpoints
+  - Multi-currency wallets (30+ currencies) with statements and balance APIs
+  - Orchestrator helpers that combine customer creation, payment method tokenisation, and charge in one call
+  - Idempotency via `X-Idempotency-Key` (UUID) returned on retry with `X-Idempotency-Cache-Hit: true`
+  - AES-256 client-side encryption for sensitive card fields with a per-request 12-character nonce
+  - OAuth 2.0 Client Credentials with 10-minute bearer tokens issued by Keycloak IDP
+  - Webhooks for `charge.completed`, transfer completion, refunds, chargebacks, and virtual account funding
+  - Card Issuing (virtual cards) and Card Acquiring services
+  - Bill Payments and KYC services
+  - Settlements, refunds, chargebacks, and fee computation endpoints for finance and operations
+  - Industry solutions for Fintechs, Banks/OFIs, Travel/Hospitality, E-commerce, Remittance, Telecommunications, Loan
+    Disbursements
+  - Hosted checkout via Payment Links and Standard payment flow
+  - Free ecommerce tooling (Store, Invoices, Disha) for SMEs
+  - Send App (consumer remittance), Swap (FX), Afritickets (event ticketing), Market (online marketplace), Tuition
+    (school fees)
+  - Test card and test mobile money number library for sandbox validation
+  - Sandbox and production environments at `api.flutterwave.cloud/f4b/sandbox` and `.../production`
+  - Official SDKs for Node.js, PHP, Python, Ruby, Java, .NET plus frontend SDKs for React, Angular, Vue, Flutter,
+    React Native, Android, iOS, and a WordPress plugin
+  sources:
+  - https://developer.flutterwave.com
+  - https://developer.flutterwave.com/llms.txt
+  - https://flutterwave.com
+  - https://github.com/Flutterwave
+  updated: '2026-05-24'
+created: '2026-05-24'
+modified: '2026-05-24'
+position: Producing
+description: Flutterwave is a pan-African payment infrastructure company providing the rails for businesses to accept,
+  send, and manage money across Africa and globally. The Flutterwave for Business (F4B) v4 API exposes a unified surface
+  for collections (cards, mobile money, bank transfer, USSD, OPay, virtual NUBANs), payouts (bank, mobile money,
+  wallet-to-wallet across 30+ countries), real-time FX conversion, settlements, refunds, chargebacks, multi-currency
+  wallets, KYC, card issuing, and bill payments. Flutterwave is one of the most valuable African fintech companies
+  (unicorn status) and processes 20M+ API calls and 500k+ payments per day.
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
+specificationVersion: '0.16'

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2025-04/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/flutterwave/main/json-structure/flutterwave-charge-structure.json",
+  "title": "Flutterwave Charge — Structure",
+  "description": "Structural overview of a Flutterwave charge resource expressed in JSON Structure form.",
+  "type": "object",
+  "structure": {
+    "identity": ["id", "reference"],
+    "money": ["amount", "currency"],
+    "lifecycle": ["status", "created_datetime"],
+    "customer_link": ["customer.id", "customer.email"],
+    "payment_method": ["payment_method.type", "payment_method.card", "payment_method.mobile_money"],
+    "processor_outcome": ["processor_response.type", "processor_response.code"],
+    "redirect": ["redirect_url"],
+    "merchant_extension": ["meta"]
+  },
+  "relations": {
+    "customer": "flutterwave-customer-schema.json",
+    "refund": "https://developer.flutterwave.com/reference/refunds_post.md",
+    "settlement": "flutterwave-settlement-schema.json"
+  }
+}

@@ -1,0 +1,90 @@
+openapi: 3.1.0
+info:
+  title: Flutterwave Webhooks API
+  description: |
+    Flutterwave delivers webhook events for payments, transfers, refunds,
+    chargebacks, and virtual account funding. This document describes the
+    outbound HTTP callbacks Flutterwave will send to a merchant-configured
+    endpoint. The receiver must respond with 2XX within 5 seconds; Flutterwave
+    retries with exponential backoff.
+  version: '4.0.0'
+  contact:
+    name: Flutterwave
+    url: https://developer.flutterwave.com
+    email: developers@flutterwavego.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+servers:
+  - url: https://your-webhook-endpoint.example.com
+    description: Merchant-hosted webhook endpoint
+tags:
+  - name: Webhooks
+    description: Outbound webhook callbacks delivered by Flutterwave.
+paths:
+  /webhooks/flutterwave:
+    post:
+      summary: Receive Flutterwave Webhook
+      description: |
+        Endpoint hosted by the merchant. Flutterwave POSTs a JSON payload and
+        sets the `verif-hash` header to the secret hash configured in the
+        dashboard. Validate `verif-hash` before trusting the payload.
+      operationId: receiveWebhook
+      tags: [Webhooks]
+      parameters:
+        - in: header
+          name: verif-hash
+          required: true
+          description: Pre-shared secret hash configured by the merchant.
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEvent'
+      responses:
+        '200':
+          description: Acknowledgement
+components:
+  schemas:
+    WebhookEvent:
+      type: object
+      required: [type, data]
+      properties:
+        type:
+          type: string
+          enum:
+            - charge.completed
+            - charge.failed
+            - transfer.completed
+            - transfer.failed
+            - refund.completed
+            - refund.failed
+            - chargeback.created
+            - chargeback.updated
+            - virtual_account.funded
+        data:
+          type: object
+          properties:
+            id: { type: string }
+            amount: { type: number }
+            currency: { type: string }
+            status: { type: string }
+            reference: { type: string }
+            customer:
+              type: object
+              properties:
+                id: { type: string }
+                email: { type: string, format: email }
+            payment_method:
+              type: object
+              properties:
+                type: { type: string }
+            processor_response:
+              type: object
+              properties:
+                type: { type: string }
+                code: { type: string }
+            created_datetime: { type: string, format: date-time }
+            meta: { type: object }

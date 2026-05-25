@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/flutterwave/main/json-schema/flutterwave-wallet-schema.json",
+  "title": "Flutterwave Wallet Balance",
+  "description": "A Flutterwave currency wallet balance for a single ISO 4217 currency.",
+  "type": "object",
+  "required": ["currency", "available_balance"],
+  "properties": {
+    "currency": { "type": "string", "description": "ISO 4217 currency code." },
+    "available_balance": { "type": "number", "description": "Funds available for payouts and refunds." },
+    "ledger_balance": { "type": "number", "description": "Ledger balance including holds and reservations." },
+    "pending_balance": { "type": "number", "description": "Pending balance not yet cleared for use." }
+  }
+}

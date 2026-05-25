@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/flutterwave/main/json-schema/flutterwave-charge-schema.json",
+  "title": "Flutterwave Charge",
+  "description": "A Flutterwave v4 charge object representing money collected from a customer via card, mobile money, bank transfer, USSD, or OPay.",
+  "type": "object",
+  "required": ["id", "amount", "currency", "status"],
+  "properties": {
+    "id": { "type": "string", "description": "Unique charge identifier." },
+    "amount": { "type": "number", "description": "Charge amount in major units of the supplied currency." },
+    "currency": { "type": "string", "description": "ISO 4217 currency code.", "examples": ["NGN", "USD", "KES", "GHS"] },
+    "status": { "type": "string", "enum": ["pending", "succeeded", "failed"], "description": "Lifecycle status of the charge." },
+    "reference": { "type": "string", "description": "Merchant- or system-generated unique reference." },
+    "customer": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" }
+      }
+    },
+    "payment_method": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["card", "mobile_money", "bank_transfer", "ussd", "opay"] },
+        "card": { "type": "object" },
+        "mobile_money": { "type": "object" }
+      }
+    },
+    "processor_response": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "code": { "type": "string" }
+      }
+    },
+    "redirect_url": { "type": "string", "format": "uri" },
+    "meta": { "type": "object", "additionalProperties": true },
+    "created_datetime": { "type": "string", "format": "date-time" }
+  }
+}

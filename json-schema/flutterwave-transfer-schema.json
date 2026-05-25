@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/flutterwave/main/json-schema/flutterwave-transfer-schema.json",
+  "title": "Flutterwave Transfer",
+  "description": "A Flutterwave v4 transfer (payout) sent to a bank account, mobile wallet, or wallet recipient.",
+  "type": "object",
+  "required": ["id", "amount", "currency", "status"],
+  "properties": {
+    "id": { "type": "string" },
+    "amount": { "type": "number" },
+    "currency": { "type": "string" },
+    "status": { "type": "string", "enum": ["pending", "processing", "succeeded", "failed"] },
+    "reference": { "type": "string" },
+    "sender_id": { "type": "string", "description": "ID of a previously created Transfer Sender (required for cross-border)." },
+    "recipient_id": { "type": "string" },
+    "rate_id": { "type": "string", "description": "FX rate used for the transfer (cross-currency)." },
+    "narration": { "type": "string" },
+    "fee": { "type": "number" },
+    "meta": { "type": "object" },
+    "created_datetime": { "type": "string", "format": "date-time" }
+  }
+}

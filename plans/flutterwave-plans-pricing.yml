@@ -1,0 +1,167 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Flutterwave
+providerId: flutterwave
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: true
+tags:
+  - Payments
+  - Pricing
+  - Africa
+description: 'Reconciled per-rail and per-rate pricing for the Flutterwave for Business platform across Nigeria,
+  Ghana, Kenya, and the international corridors. Source: flutterwave.com/us/pricing plus regional pricing pages.
+  Operators should confirm against the current regional pricing page since Flutterwave varies fees by country and
+  occasionally runs promotional caps.'
+sources:
+  - https://flutterwave.com/us/pricing
+  - https://flutterwave.com/ng/pricing
+  - https://flutterwave.com/gh/pricing
+  - https://flutterwave.com/ke/pricing
+plans:
+  - id: flutterwave-cards-local-ngn
+    name: Local Cards (Nigeria)
+    type: usage-based
+    description: Local Nigerian Verve, Mastercard, and Visa cards charged in NGN.
+    entries:
+      - label: Local card transaction fee
+        name: local_card_fee_pct
+        type: metered
+        metric: percent
+        limit: -1
+        timeFrame: usage
+        geo: NG
+        unit: 100
+        price: '1.40'
+        userMultiplied: false
+      - label: Local card transaction fee cap
+        name: local_card_fee_cap
+        type: metered
+        metric: NGN
+        limit: -1
+        timeFrame: usage
+        geo: NG
+        unit: 1
+        price: '2000'
+        userMultiplied: false
+  - id: flutterwave-cards-intl-ngn
+    name: International Cards (Nigeria)
+    type: usage-based
+    description: International Visa, Mastercard, AMEX charged on Nigerian merchant accounts in NGN.
+    entries:
+      - label: International card transaction fee
+        name: intl_card_fee_pct
+        type: metered
+        metric: percent
+        limit: -1
+        timeFrame: usage
+        geo: NG
+        unit: 100
+        price: '3.80'
+        userMultiplied: false
+  - id: flutterwave-mobile-money-ke
+    name: Mobile Money (Kenya / M-Pesa)
+    type: usage-based
+    description: M-Pesa STK Push collection on Kenyan merchant accounts.
+    entries:
+      - label: M-Pesa transaction fee
+        name: mpesa_fee_pct
+        type: metered
+        metric: percent
+        limit: -1
+        timeFrame: usage
+        geo: KE
+        unit: 100
+        price: '1.40'
+        userMultiplied: false
+  - id: flutterwave-mobile-money-gh
+    name: Mobile Money (Ghana)
+    type: usage-based
+    description: MTN MoMo, Vodafone Cash, and AirtelTigo Money collection on Ghanaian accounts.
+    entries:
+      - label: Mobile money transaction fee
+        name: momo_fee_pct
+        type: metered
+        metric: percent
+        limit: -1
+        timeFrame: usage
+        geo: GH
+        unit: 100
+        price: '1.50'
+        userMultiplied: false
+  - id: flutterwave-bank-transfer-ng
+    name: Pay With Bank Transfer (Nigeria)
+    type: usage-based
+    description: NGN bank transfer collection via Virtual NUBANs.
+    entries:
+      - label: Bank transfer flat fee
+        name: bank_transfer_fee
+        type: metered
+        metric: NGN
+        limit: -1
+        timeFrame: usage
+        geo: NG
+        unit: 1
+        price: '50'
+        userMultiplied: false
+  - id: flutterwave-payouts-ng
+    name: Payouts to Bank Accounts (Nigeria)
+    type: usage-based
+    description: NGN payouts to local bank accounts.
+    entries:
+      - label: Payout fee
+        name: payout_fee
+        type: metered
+        metric: NGN
+        limit: -1
+        timeFrame: usage
+        geo: NG
+        unit: 1
+        price: '20'
+        userMultiplied: false
+  - id: flutterwave-payouts-intl
+    name: International Payouts
+    type: usage-based
+    description: Cross-border payouts in USD/EUR/GBP and to mobile wallets.
+    entries:
+      - label: Cross-border payout fee
+        name: intl_payout_fee_pct
+        type: metered
+        metric: percent
+        limit: -1
+        timeFrame: usage
+        geo: GLOBAL
+        unit: 100
+        price: '1.00'
+        userMultiplied: false
+  - id: flutterwave-refunds
+    name: Refunds
+    type: free
+    description: Refunds are free; processing fees on the original charge are not returned.
+    entries:
+      - label: Refund processing fee
+        name: refund_fee
+        type: metered
+        metric: USD
+        limit: -1
+        timeFrame: usage
+        geo: GLOBAL
+        unit: 1
+        price: '0'
+        userMultiplied: false
+  - id: flutterwave-chargebacks
+    name: Chargebacks
+    type: usage-based
+    description: Chargeback handling fee per dispute (waived if dispute is won with evidence).
+    entries:
+      - label: Chargeback fee
+        name: chargeback_fee
+        type: metered
+        metric: USD
+        limit: -1
+        timeFrame: usage
+        geo: GLOBAL
+        unit: 1
+        price: '20'
+        userMultiplied: false

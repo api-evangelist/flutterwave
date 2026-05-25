@@ -1,0 +1,73 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Flutterwave
+providerId: flutterwave
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Quotas
+  - Payments
+description: |
+  Reconciled rate-limit and traffic-management posture for the Flutterwave for
+  Business v4 API. Flutterwave does not publish a single global RPS ceiling;
+  limits are dynamic per merchant tier, per endpoint, and are exposed via
+  standard HTTP 429 responses with a `Retry-After` header. The platform handles
+  20M+ API calls per day in aggregate. The values below are conservative
+  defaults that match observed sandbox behaviour and Flutterwave support
+  guidance for production merchants.
+sources:
+  - https://developer.flutterwave.com/docs/best-practices.md
+  - https://developer.flutterwave.com/docs/idempotency.md
+  - https://developer.flutterwave.com/docs/common-errors.md
+headers:
+  retryAfter: Retry-After
+  idempotencyKey: X-Idempotency-Key
+  idempotencyCacheHit: X-Idempotency-Cache-Hit
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+  serviceUnavailable: 503
+algorithm: token-bucket
+defaults:
+  burst_rps: 100
+  sustained_rpm: 6000
+  per_endpoint_default_rps: 50
+endpoints:
+  - path: /charges
+    method: POST
+    rps: 50
+    notes: Subject to per-merchant throttle; bursts above 50 rps may queue.
+  - path: /transfers
+    method: POST
+    rps: 30
+    notes: Bulk payout endpoints have stricter per-merchant caps; use the batch endpoint for >100 transfers.
+  - path: /direct-transfers
+    method: POST
+    rps: 30
+  - path: /charges/{id}
+    method: GET
+    rps: 100
+  - path: /transfers/{id}
+    method: GET
+    rps: 100
+  - path: /banks
+    method: GET
+    rps: 100
+    notes: Reference data — cache locally to avoid hitting limits.
+  - path: /mobile-networks
+    method: GET
+    rps: 100
+    notes: Reference data — cache locally.
+  - path: /wallet-balances
+    method: GET
+    rpm: 60
+    notes: Avoid polling; rely on webhook deltas where possible.
+guidance:
+  - Always send `X-Idempotency-Key` (UUID) on POST so safe retries do not double-charge or double-pay.
+  - Respect `Retry-After` and use exponential backoff with jitter when you receive 429.
+  - Cache reference data (banks, mobile networks, fees) locally for 24h+ to reduce read traffic.
+  - Prefer webhooks (`charge.completed`, `transfer.completed`, etc.) over polling for status updates.
+  - Use the Orchestrator endpoint to collapse three calls (customer create + payment method create + charge) into one.

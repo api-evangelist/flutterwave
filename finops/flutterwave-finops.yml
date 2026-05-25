@@ -1,0 +1,101 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Flutterwave
+providerId: flutterwave
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: true
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+  - Payments
+  - Fintech
+description: |
+  FOCUS-aligned FinOps definition for the Flutterwave for Business platform. Flutterwave is metered on a
+  per-transaction basis, with separate rate cards per payment rail (cards local/international, mobile money,
+  bank transfer, USSD), per payout rail (bank account, mobile money, wallet-to-wallet), per refund, and per
+  chargeback. Fees are deducted at settlement; the merchant's net settlement = gross charges − fees − refunds −
+  chargebacks.
+sources:
+  - https://flutterwave.com/us/pricing
+  - https://developer.flutterwave.com/reference/fees_get.md
+  - https://developer.flutterwave.com/reference/settlement_list.md
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Flutterwave
+serviceCategory: Payments and Fintech Infrastructure
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Per-Transaction (deducted at settlement)
+  billingCurrency: Multi-Currency (NGN, USD, EUR, GBP, KES, GHS, ZAR, UGX, TZS, RWF, XAF, XOF, MWK, MUR)
+  chargeCategories:
+    - Usage
+    - Adjustment
+    - Credit
+    - Tax
+  primaryUnit: transaction
+  secondaryUnits:
+    - percent_of_amount
+    - flat_fee
+focusColumns:
+  ServiceName: Flutterwave for Business
+  ServiceCategory: Payments and Fintech Infrastructure
+  ProviderName: Flutterwave
+  PublisherName: Flutterwave
+  InvoiceIssuerName: Flutterwave
+  PricingCategory: Usage-Based
+  PricingUnit: transaction
+  BillingCurrency: Multi-Currency
+meters:
+  - name: charge_fee
+    unit: percent_of_amount
+    aggregation: sum
+    dimensions:
+      - payment_method
+      - currency
+      - country
+      - card_origin   # local vs international
+  - name: payout_fee
+    unit: flat_fee
+    aggregation: sum
+    dimensions:
+      - rail
+      - currency
+      - destination_country
+  - name: refund_fee
+    unit: flat_fee
+    aggregation: sum
+    dimensions: []
+  - name: chargeback_fee
+    unit: flat_fee
+    aggregation: sum
+    dimensions:
+      - currency
+      - outcome
+  - name: stamp_duty
+    unit: flat_fee
+    aggregation: sum
+    dimensions:
+      - country
+  - name: vat
+    unit: percent_of_fee
+    aggregation: sum
+    dimensions:
+      - country
+reportingEndpoints:
+  - https://developer.flutterwave.com/reference/settlement_list.md
+  - https://developer.flutterwave.com/reference/fees_get.md
+  - https://developer.flutterwave.com/reference/fetch_wallet_balances.md
+  - https://developer.flutterwave.com/reference/get_wallet_statement.md
+optimizations:
+  - Route low-value NGN card payments below the NGN 2,500 threshold to local card pricing rather than international.
+  - Use Pay With Bank Transfer (flat NGN 50) rather than card for >NGN 50,000 transactions to cap fees.
+  - Batch payouts via the Bulk Transfer endpoint to reduce per-transaction administrative overhead.
+  - Contest chargebacks with evidence to recover the flat chargeback fee.
+  - Reconcile daily via the Settlements API rather than per-transaction to keep API call cost down.

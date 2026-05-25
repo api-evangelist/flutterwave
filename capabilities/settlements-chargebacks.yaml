@@ -1,0 +1,92 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Flutterwave Settlements API — Chargebacks
+  description: Flutterwave Chargebacks lifecycle (disputes). 4 operations.
+  tags: [Flutterwave, Chargebacks, Disputes]
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys: { FLUTTERWAVE_ACCESS_TOKEN: FLUTTERWAVE_ACCESS_TOKEN }
+capability:
+  consumes:
+  - type: http
+    namespace: settlements-chargebacks
+    baseUri: https://api.flutterwave.cloud/f4b/production
+    description: Flutterwave Chargebacks business capability.
+    resources:
+    - name: chargebacks
+      path: /chargebacks
+      operations:
+      - { name: listchargebacks, method: GET, description: Flutterwave List Chargebacks, outputRawFormat: json,
+          outputParameters: [{ name: result, type: object, value: $. }] }
+      - name: createchargeback
+        method: POST
+        description: Flutterwave Create A Chargeback
+        outputRawFormat: json
+        outputParameters: [{ name: result, type: object, value: $. }]
+        inputParameters: [{ name: body, in: body, type: object, required: true }]
+    - name: chargebacks-id
+      path: /chargebacks/{id}
+      operations:
+      - { name: getchargeback, method: GET, description: Flutterwave Get Chargeback By Id, outputRawFormat: json,
+          outputParameters: [{ name: result, type: object, value: $. }] }
+      - name: updatechargeback
+        method: PUT
+        description: Flutterwave Update A Chargeback
+        outputRawFormat: json
+        outputParameters: [{ name: result, type: object, value: $. }]
+        inputParameters: [{ name: body, in: body, type: object, required: true }]
+    authentication: { type: bearer, value: '{{env.FLUTTERWAVE_ACCESS_TOKEN}}', placement: header }
+  exposes:
+  - type: rest
+    namespace: settlements-chargebacks-rest
+    port: 8080
+    description: REST adapter for Flutterwave Chargebacks.
+    resources:
+    - path: /v4/chargebacks
+      name: chargebacks
+      operations:
+      - { method: GET, name: listchargebacks, description: Flutterwave List Chargebacks,
+          call: settlements-chargebacks.listchargebacks, outputParameters: [{ type: object, mapping: $. }] }
+      - method: POST
+        name: createchargeback
+        description: Flutterwave Create A Chargeback
+        call: settlements-chargebacks.createchargeback
+        with: { body: rest.body }
+        outputParameters: [{ type: object, mapping: $. }]
+    - path: /v4/chargebacks/{id}
+      name: chargebacks-id
+      operations:
+      - { method: GET, name: getchargeback, description: Flutterwave Get Chargeback By Id,
+          call: settlements-chargebacks.getchargeback, outputParameters: [{ type: object, mapping: $. }] }
+      - method: PUT
+        name: updatechargeback
+        description: Flutterwave Update A Chargeback
+        call: settlements-chargebacks.updatechargeback
+        with: { body: rest.body }
+        outputParameters: [{ type: object, mapping: $. }]
+  - type: mcp
+    namespace: settlements-chargebacks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Flutterwave Chargebacks.
+    tools:
+    - { name: flutterwave-list-chargebacks, description: Flutterwave List Chargebacks,
+        hints: { readOnly: true, destructive: false, idempotent: true },
+        call: settlements-chargebacks.listchargebacks, outputParameters: [{ type: object, mapping: $. }] }
+    - name: flutterwave-create-chargeback
+      description: Flutterwave Create A Chargeback
+      hints: { readOnly: false, destructive: false, idempotent: false }
+      call: settlements-chargebacks.createchargeback
+      with: { body: tools.body }
+      outputParameters: [{ type: object, mapping: $. }]
+    - { name: flutterwave-get-chargeback, description: Flutterwave Get Chargeback By Id,
+        hints: { readOnly: true, destructive: false, idempotent: true },
+        call: settlements-chargebacks.getchargeback, outputParameters: [{ type: object, mapping: $. }] }
+    - name: flutterwave-update-chargeback
+      description: Flutterwave Update A Chargeback
+      hints: { readOnly: false, destructive: false, idempotent: true }
+      call: settlements-chargebacks.updatechargeback
+      with: { body: tools.body }
+      outputParameters: [{ type: object, mapping: $. }]

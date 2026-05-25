@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.flutterwave.cloud/f4b/production/transfers",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIs...",
+      "Content-Type": "application/json",
+      "X-Idempotency-Key": "a17c52ee-4e7e-4c1b-8f1f-9f6b3a3a2e10"
+    },
+    "body": {
+      "amount": 5000,
+      "currency": "KES",
+      "reference": "payout_2026_05_24_007",
+      "sender_id": "snd_2c19a4b1-cb09-44c2-9be6-1c2c1d2d3a01",
+      "recipient_id": "rcp_d8c1e2f3-7a09-4c1c-95e1-66db2a4b1c01",
+      "narration": "Vendor invoice INV-2026-05-002"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "status": "success",
+      "data": {
+        "id": "tfr_b2a3c1d4-9e0f-4a51-aa57-2e91d5f4d002",
+        "amount": 5000,
+        "currency": "KES",
+        "status": "processing",
+        "reference": "payout_2026_05_24_007",
+        "sender_id": "snd_2c19a4b1-cb09-44c2-9be6-1c2c1d2d3a01",
+        "recipient_id": "rcp_d8c1e2f3-7a09-4c1c-95e1-66db2a4b1c01",
+        "narration": "Vendor invoice INV-2026-05-002",
+        "fee": 25,
+        "created_datetime": "2026-05-24T15:34:55.108Z"
+      }
+    }
+  }
+}

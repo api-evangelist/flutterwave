@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.flutterwave.cloud/f4b/production/refunds",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIs...",
+      "Content-Type": "application/json",
+      "X-Idempotency-Key": "f1d2e3c4-b5a6-4a7b-8c9d-0e1f2a3b4c5d"
+    },
+    "body": {
+      "charge_id": "chg_e1f3a2b1-93f0-4a51-aa57-1d80c5e4c001",
+      "amount": 25000,
+      "reason": "Customer requested refund"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "status": "success",
+      "data": {
+        "id": "ref_91a8c2b1-77c0-4d51-aa57-3f01d5e4d003",
+        "charge_id": "chg_e1f3a2b1-93f0-4a51-aa57-1d80c5e4c001",
+        "amount": 25000,
+        "currency": "NGN",
+        "status": "processing",
+        "reason": "Customer requested refund",
+        "created_datetime": "2026-05-24T16:01:09.402Z"
+      }
+    }
+  }
+}

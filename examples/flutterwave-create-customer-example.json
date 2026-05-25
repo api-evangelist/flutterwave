@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.flutterwave.cloud/f4b/production/customers",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIs...",
+      "Content-Type": "application/json",
+      "X-Idempotency-Key": "0c0d3a7e-9b88-4c4d-9b3e-7b4c5e6a1d23"
+    },
+    "body": {
+      "email": "ada.lovelace@example.com",
+      "name": {
+        "first": "Ada",
+        "last": "Lovelace"
+      },
+      "phone": {
+        "country_code": "234",
+        "number": "8012345678"
+      },
+      "address": {
+        "city": "Lagos",
+        "country": "NG",
+        "line1": "12 Marina Road"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "status": "success",
+      "data": {
+        "id": "cus_4fa9c2b5-1a82-4b6e-9c5b-2c1f7d8e9a01",
+        "email": "ada.lovelace@example.com",
+        "name": { "first": "Ada", "last": "Lovelace" },
+        "phone": { "country_code": "234", "number": "8012345678" },
+        "address": { "city": "Lagos", "country": "NG", "line1": "12 Marina Road" },
+        "created_datetime": "2026-05-24T15:32:01.402Z"
+      }
+    }
+  }
+}

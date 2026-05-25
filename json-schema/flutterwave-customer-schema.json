@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/flutterwave/main/json-schema/flutterwave-customer-schema.json",
+  "title": "Flutterwave Customer",
+  "description": "A Flutterwave v4 customer record that can own charges, orders, and transfers.",
+  "type": "object",
+  "required": ["id", "email"],
+  "properties": {
+    "id": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "name": {
+      "type": "object",
+      "properties": {
+        "first": { "type": "string" },
+        "middle": { "type": "string" },
+        "last": { "type": "string" }
+      }
+    },
+    "phone": {
+      "type": "object",
+      "properties": {
+        "country_code": { "type": "string" },
+        "number": { "type": "string" }
+      }
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "city": { "type": "string" },
+        "country": { "type": "string" },
+        "line1": { "type": "string" },
+        "line2": { "type": "string" },
+        "postal_code": { "type": "string" },
+        "state": { "type": "string" }
+      }
+    },
+    "meta": { "type": "object" },
+    "created_datetime": { "type": "string", "format": "date-time" }
+  }
+}

@@ -1,0 +1,60 @@
+executed: '2026-05-24T22:00:00.000Z'
+provider: flutterwave
+specification: apis.json
+specificationVersion: '0.16'
+summary:
+  apis: 6
+  openapiFiles: 6
+  capabilityFiles: 18
+  jsonSchemaFiles: 5
+  jsonStructureFiles: 1
+  jsonLdFiles: 1
+  exampleFiles: 5
+  vocabularyFiles: 1
+  spectralRuleFiles: 1
+  plansFiles: 1
+  rateLimitsFiles: 1
+  finopsFiles: 1
+results:
+  - code: apis-json-specification-aid-info
+    message: There is an aid.
+    severity: 2
+  - code: apis-json-url-info
+    message: There is a URL.
+    severity: 2
+  - code: apis-json-apis-info
+    message: Has APIs (6 entries).
+    severity: 2
+  - code: apis-json-apis-baseURL-info
+    message: All APIs have a baseURL.
+    severity: 2
+  - code: apis-json-apis-tags-info
+    message: All APIs have tags.
+    severity: 2
+  - code: apis-json-apis-description-info
+    message: All APIs have a description.
+    severity: 2
+  - code: apis-json-apis-properties-openapi-info
+    message: All APIs link an OpenAPI artifact.
+    severity: 2
+  - code: apis-json-apis-properties-naftiko-info
+    message: All APIs link at least one NaftikoCapability artifact.
+    severity: 2
+  - code: apis-json-common-pricing-info
+    message: Plans pricing artifact present at plans/flutterwave-plans-pricing.yml.
+    severity: 2
+  - code: apis-json-common-rate-limits-info
+    message: Rate limits artifact present at rate-limits/flutterwave-rate-limits.yml.
+    severity: 2
+  - code: apis-json-common-finops-info
+    message: FinOps artifact present at finops/flutterwave-finops.yml.
+    severity: 2
+  - code: apis-json-common-spectral-info
+    message: Spectral ruleset present at rules/flutterwave-rules.yml.
+    severity: 2
+  - code: apis-json-common-vocabulary-info
+    message: Vocabulary present at vocabulary/flutterwave-vocabulary.yml.
+    severity: 2
+  - code: apis-json-maintainers-info
+    message: Has maintainers.
+    severity: 2

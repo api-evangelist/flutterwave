@@ -1,0 +1,633 @@
+openapi: 3.1.0
+info:
+  title: Flutterwave Payments API
+  description: |
+    Flutterwave v4 payment collection APIs covering customers, charges, payment
+    methods, the Orchestrator helper, orders, and virtual accounts. Use these
+    endpoints to accept card, mobile money, bank transfer, USSD and OPay
+    payments across 30+ African and global markets.
+  version: '4.0.0'
+  contact:
+    name: Flutterwave
+    url: https://developer.flutterwave.com
+    email: developers@flutterwavego.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+servers:
+  - url: https://api.flutterwave.cloud/f4b/production
+    description: Production
+  - url: https://api.flutterwave.cloud/f4b/sandbox
+    description: Sandbox
+security:
+  - OAuth2: []
+tags:
+  - name: Customers
+    description: Create and manage customers that own charges, orders, and transfers.
+  - name: Charges
+    description: Create and manage charges across supported payment methods.
+  - name: PaymentMethods
+    description: Tokenize, register, and look up payment methods (cards, mobile money, bank, USSD).
+  - name: Orchestration
+    description: Orchestrator helpers that combine customer, payment method, and charge in one call.
+  - name: Orders
+    description: Server-side cart and order objects backing checkout sessions.
+  - name: VirtualAccounts
+    description: Issue virtual NUBANs for pay-with-bank-transfer collections.
+paths:
+  /customers:
+    get:
+      summary: List Customers
+      description: Retrieve a paginated list of customers.
+      operationId: listCustomers
+      tags: [Customers]
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      summary: Create A Customer
+      description: Create a new customer record.
+      operationId: createCustomer
+      tags: [Customers]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        '201':
+          description: Customer Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '4XX':
+          $ref: '#/components/responses/ErrorResponse'
+  /customers/{id}:
+    parameters:
+      - $ref: '#/components/parameters/CustomerId'
+    get:
+      summary: Retrieve A Customer
+      operationId: getCustomer
+      tags: [Customers]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+    put:
+      summary: Update A Customer
+      operationId: updateCustomer
+      tags: [Customers]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        '200':
+          description: Customer Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+  /customers/search:
+    post:
+      summary: Search Customers
+      operationId: searchCustomers
+      tags: [Customers]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, format: email }
+                phone_number: { type: string }
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+  /charges:
+    get:
+      summary: List Charges
+      operationId: listCharges
+      tags: [Charges]
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Page'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeList'
+    post:
+      summary: Create A Charge
+      operationId: createCharge
+      tags: [Charges]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeRequest'
+      responses:
+        '201':
+          description: Charge Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Charge'
+  /charges/{id}:
+    parameters:
+      - $ref: '#/components/parameters/ChargeId'
+    get:
+      summary: Retrieve A Charge
+      operationId: getCharge
+      tags: [Charges]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Charge'
+    put:
+      summary: Update A Charge
+      operationId: updateCharge
+      tags: [Charges]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                authorization: { type: object }
+      responses:
+        '200':
+          description: Charge Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Charge'
+  /orchestration/direct-charges:
+    post:
+      summary: Initiate An Orchestrator Charge
+      description: Create a charge in one call using the Orchestrator helper, which packages customer, payment method, and charge creation.
+      operationId: initiateOrchestratorCharge
+      tags: [Orchestration]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeRequest'
+      responses:
+        '201':
+          description: Charge Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Charge'
+  /orchestration/direct-orders:
+    post:
+      summary: Initiate An Order With Orchestrator
+      description: Create an order in one call using the Orchestrator helper.
+      operationId: initiateOrchestratorOrder
+      tags: [Orchestration]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '201':
+          description: Order Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /payment-methods:
+    get:
+      summary: List Payment Methods
+      operationId: listPaymentMethods
+      tags: [PaymentMethods]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodList'
+    post:
+      summary: Create A Payment Method
+      operationId: createPaymentMethod
+      tags: [PaymentMethods]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentMethodRequest'
+      responses:
+        '201':
+          description: Payment Method Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethod'
+  /payment-methods/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve A Payment Method
+      operationId: getPaymentMethod
+      tags: [PaymentMethods]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethod'
+  /orders:
+    get:
+      summary: List Orders
+      operationId: listOrders
+      tags: [Orders]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderList'
+    post:
+      summary: Create An Order
+      operationId: createOrder
+      tags: [Orders]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '201':
+          description: Order Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /orders/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve An Order
+      operationId: getOrder
+      tags: [Orders]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+    put:
+      summary: Update An Order
+      operationId: updateOrder
+      tags: [Orders]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Order Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /virtual-accounts:
+    get:
+      summary: List All Virtual Accounts
+      operationId: listVirtualAccounts
+      tags: [VirtualAccounts]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccountList'
+    post:
+      summary: Create A Virtual Account
+      operationId: createVirtualAccount
+      tags: [VirtualAccounts]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VirtualAccountRequest'
+      responses:
+        '201':
+          description: Virtual Account Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccount'
+  /virtual-accounts/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve A Virtual Account
+      operationId: getVirtualAccount
+      tags: [VirtualAccounts]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccount'
+    put:
+      summary: Update A Virtual Account
+      operationId: updateVirtualAccount
+      tags: [VirtualAccounts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VirtualAccountRequest'
+      responses:
+        '200':
+          description: Virtual Account Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccount'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+          scopes: {}
+  parameters:
+    Limit:
+      in: query
+      name: limit
+      schema: { type: integer, minimum: 1, maximum: 100, default: 25 }
+    Page:
+      in: query
+      name: page
+      schema: { type: integer, minimum: 1, default: 1 }
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema: { type: string, format: uuid }
+    CustomerId:
+      in: path
+      name: id
+      required: true
+      schema: { type: string }
+    ChargeId:
+      in: path
+      name: id
+      required: true
+      schema: { type: string }
+  responses:
+    ErrorResponse:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        status: { type: string }
+        error:
+          type: object
+          properties:
+            type: { type: string }
+            code: { type: string }
+            message: { type: string }
+    Customer:
+      type: object
+      properties:
+        id: { type: string }
+        email: { type: string, format: email }
+        name:
+          type: object
+          properties:
+            first: { type: string }
+            middle: { type: string }
+            last: { type: string }
+        phone:
+          type: object
+          properties:
+            country_code: { type: string }
+            number: { type: string }
+        address:
+          type: object
+        meta: { type: object }
+        created_datetime: { type: string, format: date-time }
+    CustomerRequest:
+      type: object
+      required: [email]
+      properties:
+        email: { type: string, format: email }
+        name: { type: object }
+        phone: { type: object }
+        address: { type: object }
+        meta: { type: object }
+    CustomerList:
+      type: object
+      properties:
+        status: { type: string }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Customer' }
+        meta: { type: object }
+    PaymentMethod:
+      type: object
+      properties:
+        id: { type: string }
+        type:
+          type: string
+          enum: [card, mobile_money, bank_transfer, ussd, opay]
+        card: { type: object }
+        mobile_money: { type: object }
+        bank_transfer: { type: object }
+        client: { type: object }
+        device_fingerprint: { type: string }
+        created_datetime: { type: string, format: date-time }
+    PaymentMethodRequest:
+      type: object
+      required: [type]
+      properties:
+        type: { type: string }
+        card: { type: object, description: 'Encrypted card fields with `nonce`.' }
+        mobile_money: { type: object }
+        bank_transfer: { type: object }
+        ussd: { type: object }
+        opay: { type: object }
+    PaymentMethodList:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/PaymentMethod' }
+    Charge:
+      type: object
+      properties:
+        id: { type: string }
+        amount: { type: number }
+        currency: { type: string, example: NGN }
+        status:
+          type: string
+          enum: [pending, succeeded, failed]
+        reference: { type: string }
+        customer: { $ref: '#/components/schemas/Customer' }
+        payment_method: { $ref: '#/components/schemas/PaymentMethod' }
+        processor_response:
+          type: object
+          properties:
+            type: { type: string }
+            code: { type: string }
+        redirect_url: { type: string }
+        meta: { type: object }
+        created_datetime: { type: string, format: date-time }
+    ChargeRequest:
+      type: object
+      required: [amount, currency, customer]
+      properties:
+        amount: { type: number }
+        currency: { type: string }
+        reference: { type: string }
+        redirect_url: { type: string }
+        customer: { type: object }
+        payment_method: { type: object }
+        meta: { type: object }
+    ChargeList:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Charge' }
+    Order:
+      type: object
+      properties:
+        id: { type: string }
+        amount: { type: number }
+        currency: { type: string }
+        status: { type: string }
+        reference: { type: string }
+        customer_id: { type: string }
+        items:
+          type: array
+          items: { type: object }
+        meta: { type: object }
+    OrderRequest:
+      type: object
+      required: [amount, currency]
+      properties:
+        amount: { type: number }
+        currency: { type: string }
+        reference: { type: string }
+        customer_id: { type: string }
+        items:
+          type: array
+          items: { type: object }
+        meta: { type: object }
+    OrderList:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Order' }
+    VirtualAccount:
+      type: object
+      properties:
+        id: { type: string }
+        account_number: { type: string }
+        bank_name: { type: string }
+        account_reference: { type: string }
+        currency: { type: string, example: NGN }
+        customer_id: { type: string }
+        status: { type: string }
+        amount: { type: number }
+        expiry_datetime: { type: string, format: date-time }
+        created_datetime: { type: string, format: date-time }
+    VirtualAccountRequest:
+      type: object
+      required: [currency]
+      properties:
+        currency: { type: string }
+        amount: { type: number }
+        customer_id: { type: string }
+        reference: { type: string }
+        narration: { type: string }
+        bvn: { type: string }
+        is_permanent: { type: boolean }
+        expiry: { type: integer, description: 'Expiry in minutes.' }
+    VirtualAccountList:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/VirtualAccount' }

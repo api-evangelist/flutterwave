@@ -1,0 +1,426 @@
+openapi: 3.1.0
+info:
+  title: Flutterwave Transfers API
+  description: |
+    Flutterwave v4 payout APIs for cross-border and domestic transfers including
+    bank account transfers, mobile money transfers, wallet-to-wallet movements,
+    transfer recipients, transfer senders, and real-time FX rate conversion.
+  version: '4.0.0'
+  contact:
+    name: Flutterwave
+    url: https://developer.flutterwave.com
+    email: developers@flutterwavego.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+servers:
+  - url: https://api.flutterwave.cloud/f4b/production
+    description: Production
+  - url: https://api.flutterwave.cloud/f4b/sandbox
+    description: Sandbox
+security:
+  - OAuth2: []
+tags:
+  - name: Transfers
+    description: Create, list, retrieve, update, retry, and duplicate payouts.
+  - name: Orchestration
+    description: Orchestrator helpers that initiate a transfer with sender, recipient, and movement details in one call.
+  - name: Recipients
+    description: Manage transfer recipients (the destination of a payout).
+  - name: Senders
+    description: Manage transfer senders (the originator of a cross-border payout).
+  - name: Rates
+    description: Real-time FX conversion rates for international transfers.
+paths:
+  /direct-transfers:
+    post:
+      summary: Initiate An Orchestrator Transfer
+      description: Create a transfer with the Orchestrator helper, combining sender, recipient, and movement in one call.
+      operationId: initiateOrchestratorTransfer
+      tags: [Orchestration]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+      responses:
+        '201':
+          description: Transfer Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+  /transfers:
+    get:
+      summary: List Transfers
+      operationId: listTransfers
+      tags: [Transfers]
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Page'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferList'
+    post:
+      summary: Create A Transfer
+      description: Create a direct transfer using only recipient and sender IDs.
+      operationId: createTransfer
+      tags: [Transfers]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+      responses:
+        '201':
+          description: Transfer Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+  /transfers/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve A Transfer
+      operationId: getTransfer
+      tags: [Transfers]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+    put:
+      summary: Update A Transfer
+      description: Update instructions about a deferred payout.
+      operationId: updateTransfer
+      tags: [Transfers]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                instruction: { type: string }
+      responses:
+        '200':
+          description: Transfer Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+  /transfers/{id}/retry:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    post:
+      summary: Retry Or Duplicate A Transfer
+      operationId: retryTransfer
+      tags: [Transfers]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '200':
+          description: Transfer Retry Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+  /transfers/recipients:
+    get:
+      summary: List Transfer Recipients
+      operationId: listTransferRecipients
+      tags: [Recipients]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipientList'
+    post:
+      summary: Create A Transfer Recipient
+      operationId: createTransferRecipient
+      tags: [Recipients]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipientRequest'
+      responses:
+        '201':
+          description: Recipient Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipient'
+  /transfers/recipients/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve A Transfer Recipient
+      operationId: getTransferRecipient
+      tags: [Recipients]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipient'
+    delete:
+      summary: Delete A Transfer Recipient
+      operationId: deleteTransferRecipient
+      tags: [Recipients]
+      responses:
+        '204':
+          description: Recipient Deleted
+  /transfers/senders:
+    get:
+      summary: List Transfer Senders
+      operationId: listTransferSenders
+      tags: [Senders]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderList'
+    post:
+      summary: Create A Transfer Sender
+      operationId: createTransferSender
+      tags: [Senders]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SenderRequest'
+      responses:
+        '201':
+          description: Sender Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sender'
+  /transfers/senders/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve A Transfer Sender
+      operationId: getTransferSender
+      tags: [Senders]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sender'
+    delete:
+      summary: Delete A Transfer Sender
+      operationId: deleteTransferSender
+      tags: [Senders]
+      responses:
+        '204':
+          description: Sender Deleted
+  /transfers/rates:
+    post:
+      summary: Rate Conversion
+      description: Retrieve transfer rate for international transfers.
+      operationId: createTransferRate
+      tags: [Rates]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RateRequest'
+      responses:
+        '200':
+          description: Rate Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rate'
+  /transfers/rates/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    get:
+      summary: Fetch Converted Rate
+      operationId: getTransferRate
+      tags: [Rates]
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rate'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+          scopes: {}
+  parameters:
+    Limit:
+      in: query
+      name: limit
+      schema: { type: integer, minimum: 1, maximum: 100, default: 25 }
+    Page:
+      in: query
+      name: page
+      schema: { type: integer, minimum: 1, default: 1 }
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      schema: { type: string, format: uuid }
+  schemas:
+    Transfer:
+      type: object
+      properties:
+        id: { type: string }
+        amount: { type: number }
+        currency: { type: string }
+        status:
+          type: string
+          enum: [pending, processing, succeeded, failed]
+        reference: { type: string }
+        sender_id: { type: string }
+        recipient_id: { type: string }
+        narration: { type: string }
+        fee: { type: number }
+        rate_id: { type: string }
+        created_datetime: { type: string, format: date-time }
+    TransferRequest:
+      type: object
+      required: [amount, currency]
+      properties:
+        amount: { type: number }
+        currency: { type: string }
+        reference: { type: string }
+        sender_id: { type: string }
+        recipient_id: { type: string }
+        rate_id: { type: string }
+        narration: { type: string }
+        meta: { type: object }
+    TransferList:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Transfer' }
+    Recipient:
+      type: object
+      properties:
+        id: { type: string }
+        type:
+          type: string
+          enum: [bank_account, mobile_money, wallet]
+        bank_account: { type: object }
+        mobile_money: { type: object }
+        wallet: { type: object }
+        name:
+          type: object
+          properties:
+            first: { type: string }
+            last: { type: string }
+        country: { type: string }
+        currency: { type: string }
+        created_datetime: { type: string, format: date-time }
+    RecipientRequest:
+      type: object
+      required: [type]
+      properties:
+        type: { type: string }
+        bank_account: { type: object }
+        mobile_money: { type: object }
+        wallet: { type: object }
+        name: { type: object }
+        country: { type: string }
+        currency: { type: string }
+    RecipientList:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Recipient' }
+    Sender:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: object }
+        address: { type: object }
+        country: { type: string }
+        identification: { type: object }
+        date_of_birth: { type: string, format: date }
+        created_datetime: { type: string, format: date-time }
+    SenderRequest:
+      type: object
+      required: [name, country]
+      properties:
+        name: { type: object }
+        address: { type: object }
+        country: { type: string }
+        identification: { type: object }
+        date_of_birth: { type: string, format: date }
+    SenderList:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Sender' }
+    Rate:
+      type: object
+      properties:
+        id: { type: string }
+        rate: { type: number }
+        source_currency: { type: string }
+        destination_currency: { type: string }
+        source_amount: { type: number }
+        destination_amount: { type: number }
+        expiry_datetime: { type: string, format: date-time }
+    RateRequest:
+      type: object
+      required: [source_currency, destination_currency, source_amount]
+      properties:
+        source_currency: { type: string }
+        destination_currency: { type: string }
+        source_amount: { type: number }
