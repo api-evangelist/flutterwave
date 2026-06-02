@@ -180,6 +180,8 @@ apis:
     type: Documentation
   - url: openapi/flutterwave-webhooks-api-openapi.yml
     type: OpenAPI
+  - url: asyncapi.yml
+    type: AsyncAPI
   - url: examples/flutterwave-charge-completed-webhook-example.json
     type: Example
   description: Outbound webhook callbacks delivered by Flutterwave for charges, transfers, refunds, chargebacks, and
@@ -361,7 +363,7 @@ common:
   - https://github.com/Flutterwave
   updated: '2026-05-24'
 created: '2026-05-24'
-modified: '2026-05-24'
+modified: '2026-05-30'
 position: Producing
 description: Flutterwave is a pan-African payment infrastructure company providing the rails for businesses to accept,
   send, and manage money across Africa and globally. The Flutterwave for Business (F4B) v4 API exposes a unified surface

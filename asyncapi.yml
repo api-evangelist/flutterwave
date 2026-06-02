@@ -1,0 +1,671 @@
+asyncapi: 2.6.0
+info:
+  title: Flutterwave Webhooks AsyncAPI
+  version: 1.0.0
+  description: >-
+    AsyncAPI 2.6 description of the Flutterwave for Business (F4B) v4 webhook
+    surface. Flutterwave delivers asynchronous, outbound HTTP POST callbacks to
+    a merchant-configured endpoint when payments, transfers, refunds,
+    chargebacks, and virtual account funding events occur.
+
+
+    Delivery semantics (documented at
+    https://developer.flutterwave.com/docs/webhooks):
+
+      * Transport: HTTP POST to the merchant-configured webhook URL set in
+        Dashboard -> Settings -> Webhooks.
+      * Content type: `application/json`.
+      * Authenticity: each request carries a `verif-hash` header whose value is
+        the pre-shared secret hash configured by the merchant in the
+        Flutterwave dashboard. Receivers MUST compare this value against the
+        configured secret before trusting the payload.
+      * Acknowledgement: the receiver MUST respond with HTTP 200 within the
+        delivery timeout. Non-2XX responses or timeouts cause Flutterwave to
+        retry delivery.
+
+    This document models the nine webhook event `type` values currently
+    enumerated in the Flutterwave Webhooks OpenAPI document
+    (`openapi/flutterwave-webhooks-api-openapi.yml`) and grounded in the
+    sample payload at
+    `examples/flutterwave-charge-completed-webhook-example.json`. No event
+    types beyond those documented by Flutterwave have been added.
+  contact:
+    name: API Evangelist
+    url: https://apievangelist.com
+    email: kin@apievangelist.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+  x-source-documentation:
+    - https://developer.flutterwave.com/docs/webhooks
+    - https://developer.flutterwave.com/docs/webhooks.md
+
+defaultContentType: application/json
+
+servers:
+  subscriber:
+    url: '{webhook_url}'
+    protocol: https
+    description: >-
+      Merchant-hosted HTTPS endpoint registered in the Flutterwave dashboard
+      under Settings -> Webhooks. Flutterwave POSTs the event payload here as
+      `application/json` and sets the `verif-hash` header to the configured
+      secret hash.
+    variables:
+      webhook_url:
+        default: https://merchant.example.com/webhooks/flutterwave
+        description: The subscriber's webhook receiver URL.
+
+channels:
+  charge.completed:
+    description: >-
+      A charge has reached a terminal `succeeded` state. Emitted for every
+      payment method that Flutterwave Payments supports (cards, mobile money,
+      bank transfer, USSD, OPay, virtual NUBANs, etc.).
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: onChargeCompleted
+      summary: A charge succeeded.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      message:
+        $ref: '#/components/messages/ChargeCompletedEvent'
+
+  charge.failed:
+    description: >-
+      A charge has reached a terminal failed state. The `data.status` and
+      `data.processor_response` fields describe the failure reason.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: onChargeFailed
+      summary: A charge failed.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      message:
+        $ref: '#/components/messages/ChargeFailedEvent'
+
+  transfer.completed:
+    description: >-
+      A transfer (payout) to a bank account, mobile money wallet, or another
+      Flutterwave wallet has settled successfully. This is the payout-completed
+      notification for the Flutterwave Transfers API.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: onTransferCompleted
+      summary: A transfer (payout) completed successfully.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      message:
+        $ref: '#/components/messages/TransferCompletedEvent'
+
+  transfer.failed:
+    description: >-
+      A transfer (payout) failed to settle. The receiver should reconcile the
+      payout with the originating transfer reference.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: onTransferFailed
+      summary: A transfer (payout) failed.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      message:
+        $ref: '#/components/messages/TransferFailedEvent'
+
+  refund.completed:
+    description: >-
+      A refund initiated against a previously successful charge has completed
+      and the funds have been returned to the customer.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: onRefundCompleted
+      summary: A refund completed successfully.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      message:
+        $ref: '#/components/messages/RefundCompletedEvent'
+
+  refund.failed:
+    description: >-
+      A refund attempt failed. The merchant should inspect the original charge
+      and the refund reference to determine the appropriate next action.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: onRefundFailed
+      summary: A refund failed.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      message:
+        $ref: '#/components/messages/RefundFailedEvent'
+
+  chargeback.created:
+    description: >-
+      A new chargeback (dispute) has been raised against a previously
+      successful charge. The merchant should respond via the Settlements API
+      chargebacks endpoints.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: onChargebackCreated
+      summary: A chargeback was raised against a charge.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      message:
+        $ref: '#/components/messages/ChargebackCreatedEvent'
+
+  chargeback.updated:
+    description: >-
+      The status of an existing chargeback has changed (for example, a dispute
+      has been accepted, declined, or escalated by the issuing bank).
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: onChargebackUpdated
+      summary: A chargeback status was updated.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      message:
+        $ref: '#/components/messages/ChargebackUpdatedEvent'
+
+  virtual_account.funded:
+    description: >-
+      A virtual NUBAN (or other virtual account) issued to a customer has been
+      funded via bank transfer. Used to reconcile pay-with-bank-transfer
+      collections back to a customer or order.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: onVirtualAccountFunded
+      summary: A virtual account received funds.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      message:
+        $ref: '#/components/messages/VirtualAccountFundedEvent'
+
+components:
+  messageTraits:
+    FlutterwaveWebhookHeaders:
+      headers:
+        type: object
+        required:
+          - verif-hash
+          - Content-Type
+        properties:
+          verif-hash:
+            type: string
+            description: >-
+              Pre-shared secret hash configured by the merchant in the
+              Flutterwave dashboard. Receivers MUST compare this value
+              against the configured secret before trusting the payload.
+          Content-Type:
+            type: string
+            const: application/json
+            description: Always `application/json`.
+
+  messages:
+    ChargeCompletedEvent:
+      name: ChargeCompletedEvent
+      title: charge.completed
+      summary: A charge succeeded.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/FlutterwaveWebhookHeaders'
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/ChargeEventPayload'
+      examples:
+        - name: chargeCompletedMobileMoney
+          summary: >-
+            Successful mobile money charge example taken from
+            `examples/flutterwave-charge-completed-webhook-example.json`.
+          payload:
+            type: charge.completed
+            data:
+              id: chg_e1f3a2b1-93f0-4a51-aa57-1d80c5e4c001
+              amount: 25000
+              currency: NGN
+              status: succeeded
+              reference: order_2026_05_24_001
+              customer:
+                id: cus_4fa9c2b5-1a82-4b6e-9c5b-2c1f7d8e9a01
+                email: ada.lovelace@example.com
+              payment_method:
+                type: mobile_money
+                mobile_money:
+                  network: MTN
+                  country_code: '234'
+              processor_response:
+                type: approved
+                code: '00'
+              redirect_url: https://merchant.example.com/return
+              created_datetime: '2026-05-24T15:34:09.001Z'
+              meta:
+                order_id: order_2026_05_24_001
+
+    ChargeFailedEvent:
+      name: ChargeFailedEvent
+      title: charge.failed
+      summary: A charge failed.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/FlutterwaveWebhookHeaders'
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/ChargeEventPayload'
+
+    TransferCompletedEvent:
+      name: TransferCompletedEvent
+      title: transfer.completed
+      summary: A transfer (payout) completed successfully.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/FlutterwaveWebhookHeaders'
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/TransferEventPayload'
+
+    TransferFailedEvent:
+      name: TransferFailedEvent
+      title: transfer.failed
+      summary: A transfer (payout) failed.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/FlutterwaveWebhookHeaders'
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/TransferEventPayload'
+
+    RefundCompletedEvent:
+      name: RefundCompletedEvent
+      title: refund.completed
+      summary: A refund completed successfully.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/FlutterwaveWebhookHeaders'
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/RefundEventPayload'
+
+    RefundFailedEvent:
+      name: RefundFailedEvent
+      title: refund.failed
+      summary: A refund failed.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/FlutterwaveWebhookHeaders'
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/RefundEventPayload'
+
+    ChargebackCreatedEvent:
+      name: ChargebackCreatedEvent
+      title: chargeback.created
+      summary: A chargeback was raised.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/FlutterwaveWebhookHeaders'
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/ChargebackEventPayload'
+
+    ChargebackUpdatedEvent:
+      name: ChargebackUpdatedEvent
+      title: chargeback.updated
+      summary: A chargeback status changed.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/FlutterwaveWebhookHeaders'
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/ChargebackEventPayload'
+
+    VirtualAccountFundedEvent:
+      name: VirtualAccountFundedEvent
+      title: virtual_account.funded
+      summary: A virtual account received funds.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/FlutterwaveWebhookHeaders'
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/VirtualAccountEventPayload'
+
+  schemas:
+    WebhookEnvelope:
+      type: object
+      description: >-
+        Common envelope shared by every Flutterwave webhook callback. The
+        `type` discriminator identifies the event and the `data` object carries
+        the event-specific payload.
+      required:
+        - type
+        - data
+      properties:
+        type:
+          type: string
+          description: The webhook event type.
+          enum:
+            - charge.completed
+            - charge.failed
+            - transfer.completed
+            - transfer.failed
+            - refund.completed
+            - refund.failed
+            - chargeback.created
+            - chargeback.updated
+            - virtual_account.funded
+        data:
+          type: object
+          description: Event-specific payload object. See per-event schemas.
+
+    ChargeData:
+      type: object
+      description: >-
+        Charge-specific fields delivered in the `data` object of a
+        `charge.completed` or `charge.failed` event. Field set is grounded in
+        `openapi/flutterwave-webhooks-api-openapi.yml` and the sample at
+        `examples/flutterwave-charge-completed-webhook-example.json`.
+      properties:
+        id:
+          type: string
+          description: Flutterwave charge identifier (e.g. `chg_...`).
+        amount:
+          type: number
+          description: Charge amount, expressed in the minor unit of `currency`.
+        currency:
+          type: string
+          description: ISO-4217 currency code (e.g. `NGN`, `USD`, `KES`, `GHS`).
+        status:
+          type: string
+          description: Terminal status reported by Flutterwave (e.g. `succeeded`).
+        reference:
+          type: string
+          description: Merchant-supplied transaction reference.
+        customer:
+          type: object
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+              format: email
+        payment_method:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Payment method type (e.g. `card`, `mobile_money`, `bank_transfer`).
+        processor_response:
+          type: object
+          properties:
+            type:
+              type: string
+            code:
+              type: string
+        redirect_url:
+          type: string
+          description: Redirect URL configured for the originating charge, if any.
+        created_datetime:
+          type: string
+          format: date-time
+        meta:
+          type: object
+          description: Merchant-supplied metadata echoed back from the originating request.
+
+    TransferData:
+      type: object
+      description: >-
+        Transfer-specific fields delivered in the `data` object of a
+        `transfer.completed` or `transfer.failed` event. Field set is grounded
+        in `openapi/flutterwave-webhooks-api-openapi.yml`.
+      properties:
+        id:
+          type: string
+          description: Flutterwave transfer identifier.
+        amount:
+          type: number
+        currency:
+          type: string
+        status:
+          type: string
+        reference:
+          type: string
+          description: Merchant-supplied transfer reference.
+        customer:
+          type: object
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+              format: email
+        payment_method:
+          type: object
+          properties:
+            type:
+              type: string
+              description: >-
+                Payout rail used (e.g. `bank_transfer`, `mobile_money`,
+                `wallet`).
+        processor_response:
+          type: object
+          properties:
+            type:
+              type: string
+            code:
+              type: string
+        created_datetime:
+          type: string
+          format: date-time
+        meta:
+          type: object
+
+    RefundData:
+      type: object
+      description: >-
+        Refund-specific fields delivered in the `data` object of a
+        `refund.completed` or `refund.failed` event. Field set is grounded in
+        the Webhooks OpenAPI envelope.
+      properties:
+        id:
+          type: string
+          description: Flutterwave refund identifier.
+        amount:
+          type: number
+        currency:
+          type: string
+        status:
+          type: string
+        reference:
+          type: string
+        processor_response:
+          type: object
+          properties:
+            type:
+              type: string
+            code:
+              type: string
+        created_datetime:
+          type: string
+          format: date-time
+        meta:
+          type: object
+
+    ChargebackData:
+      type: object
+      description: >-
+        Chargeback-specific fields delivered in the `data` object of a
+        `chargeback.created` or `chargeback.updated` event.
+      properties:
+        id:
+          type: string
+          description: Flutterwave chargeback identifier.
+        amount:
+          type: number
+        currency:
+          type: string
+        status:
+          type: string
+        reference:
+          type: string
+        customer:
+          type: object
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+              format: email
+        created_datetime:
+          type: string
+          format: date-time
+        meta:
+          type: object
+
+    VirtualAccountData:
+      type: object
+      description: >-
+        Virtual-account funding fields delivered in the `data` object of a
+        `virtual_account.funded` event.
+      properties:
+        id:
+          type: string
+          description: Flutterwave virtual account identifier.
+        amount:
+          type: number
+        currency:
+          type: string
+        status:
+          type: string
+        reference:
+          type: string
+        customer:
+          type: object
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+              format: email
+        created_datetime:
+          type: string
+          format: date-time
+        meta:
+          type: object
+
+    ChargeEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEnvelope'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ChargeData'
+
+    TransferEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEnvelope'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/TransferData'
+
+    RefundEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEnvelope'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/RefundData'
+
+    ChargebackEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEnvelope'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ChargebackData'
+
+    VirtualAccountEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEnvelope'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/VirtualAccountData'
