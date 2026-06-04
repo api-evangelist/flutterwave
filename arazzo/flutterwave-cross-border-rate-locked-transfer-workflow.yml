@@ -1,0 +1,170 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Cross-Border Rate-Locked Transfer
+  summary: Lock an FX rate, create a sender and recipient, then send a transfer at the locked rate and verify it.
+  description: >-
+    The international payout pattern for Flutterwave. The workflow requests a
+    real-time FX conversion rate, creates the cross-border sender (the
+    originator) and the recipient (the destination), initiates a transfer that
+    references the locked rate id, and retrieves the transfer to confirm its
+    final status. Branching on the transfer status lets the caller mark the
+    cross-border payout complete or surface a failure. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: transfersApi
+  url: ../openapi/flutterwave-transfers-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: cross-border-rate-locked-transfer
+  summary: Lock an FX rate, set up sender and recipient, and send a rate-locked transfer.
+  description: >-
+    Creates an FX conversion rate, creates the sender and recipient, initiates a
+    transfer referencing the rate id, then branches on the transfer status.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - sourceCurrency
+    - destinationCurrency
+    - sourceAmount
+    - sender
+    - recipientType
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      sourceCurrency:
+        type: string
+        description: Currency being sent from.
+      destinationCurrency:
+        type: string
+        description: Currency being sent to.
+      sourceAmount:
+        type: number
+        description: Amount in the source currency to convert and send.
+      sender:
+        type: object
+        description: Sender name object for the cross-border originator.
+      senderCountry:
+        type: string
+        description: Country code of the sender.
+      recipientType:
+        type: string
+        description: Recipient type (bank_account, mobile_money, or wallet).
+      bankAccount:
+        type: object
+        description: Bank account details when recipientType is bank_account.
+      recipientCountry:
+        type: string
+        description: Country code of the recipient.
+      narration:
+        type: string
+        description: Optional narration shown on the payout.
+  steps:
+  - stepId: lockRate
+    description: Request a real-time FX conversion rate to lock pricing for the transfer.
+    operationId: createTransferRate
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        source_currency: $inputs.sourceCurrency
+        destination_currency: $inputs.destinationCurrency
+        source_amount: $inputs.sourceAmount
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rateId: $response.body#/id
+      destinationAmount: $response.body#/destination_amount
+  - stepId: createSender
+    description: Create the cross-border sender (originator) of the payout.
+    operationId: createTransferSender
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.sender
+        country: $inputs.senderCountry
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      senderId: $response.body#/id
+  - stepId: createRecipient
+    description: Create the recipient (destination) of the payout.
+    operationId: createTransferRecipient
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        type: $inputs.recipientType
+        bank_account: $inputs.bankAccount
+        country: $inputs.recipientCountry
+        currency: $inputs.destinationCurrency
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      recipientId: $response.body#/id
+  - stepId: sendTransfer
+    description: Initiate the transfer referencing the locked rate, sender, and recipient.
+    operationId: createTransfer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.sourceAmount
+        currency: $inputs.sourceCurrency
+        sender_id: $steps.createSender.outputs.senderId
+        recipient_id: $steps.createRecipient.outputs.recipientId
+        rate_id: $steps.lockRate.outputs.rateId
+        narration: $inputs.narration
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      transferId: $response.body#/id
+  - stepId: verifyTransfer
+    description: Retrieve the transfer to confirm its final status.
+    operationId: getTransfer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.sendTransfer.outputs.transferId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transferStatus: $response.body#/status
+    onSuccess:
+    - name: transferSucceeded
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "succeeded"
+        type: jsonpath
+    - name: transferFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "failed"
+        type: jsonpath
+  outputs:
+    rateId: $steps.lockRate.outputs.rateId
+    senderId: $steps.createSender.outputs.senderId
+    recipientId: $steps.createRecipient.outputs.recipientId
+    transferId: $steps.sendTransfer.outputs.transferId
+    transferStatus: $steps.verifyTransfer.outputs.transferStatus

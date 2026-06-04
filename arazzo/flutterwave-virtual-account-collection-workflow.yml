@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Virtual Account Collection
+  summary: Create a customer, issue a dedicated virtual account for them, then verify the account is active.
+  description: >-
+    The pay-with-bank-transfer collection pattern. The workflow creates a
+    customer, issues a virtual NUBAN tied to that customer for receiving bank
+    transfers, and retrieves the virtual account to confirm it was provisioned
+    with an account number and an active status. Branching on the account status
+    lets the caller surface the account number to the payer or handle a
+    provisioning delay. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/flutterwave-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: virtual-account-collection
+  summary: Create a customer, issue a virtual account, and verify it is active.
+  description: >-
+    Creates the customer, issues a virtual NUBAN bound to that customer, then
+    retrieves the virtual account and branches on whether it is active.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - email
+    - currency
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      email:
+        type: string
+        description: Email address of the customer the virtual account is issued for.
+      currency:
+        type: string
+        description: Currency for the virtual account (e.g. NGN).
+      amount:
+        type: number
+        description: Optional expected amount for a one-time collection.
+      reference:
+        type: string
+        description: Optional merchant reference for the virtual account.
+      isPermanent:
+        type: boolean
+        description: Whether the virtual account is permanent or single-use.
+  steps:
+  - stepId: createCustomer
+    description: Create the customer the virtual account will be issued for.
+    operationId: createCustomer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerId: $response.body#/id
+  - stepId: createVirtualAccount
+    description: Issue a virtual NUBAN bound to the created customer.
+    operationId: createVirtualAccount
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        currency: $inputs.currency
+        amount: $inputs.amount
+        customer_id: $steps.createCustomer.outputs.customerId
+        reference: $inputs.reference
+        is_permanent: $inputs.isPermanent
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      virtualAccountId: $response.body#/id
+      accountNumber: $response.body#/account_number
+  - stepId: verifyVirtualAccount
+    description: Retrieve the virtual account to confirm it is active.
+    operationId: getVirtualAccount
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.createVirtualAccount.outputs.virtualAccountId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accountStatus: $response.body#/status
+      accountNumber: $response.body#/account_number
+      bankName: $response.body#/bank_name
+    onSuccess:
+    - name: accountActive
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "active"
+        type: jsonpath
+  outputs:
+    virtualAccountId: $steps.createVirtualAccount.outputs.virtualAccountId
+    accountNumber: $steps.verifyVirtualAccount.outputs.accountNumber
+    accountStatus: $steps.verifyVirtualAccount.outputs.accountStatus

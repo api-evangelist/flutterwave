@@ -1,0 +1,146 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Mobile Money Payout
+  summary: Resolve a mobile money wallet, create a mobile money recipient, then send and verify the payout.
+  description: >-
+    The mobile money disbursement pattern common across East and West African
+    markets. The workflow resolves a customer's mobile money wallet account to
+    confirm the destination name, creates a mobile_money transfer recipient,
+    initiates a transfer to that recipient, and retrieves the transfer to
+    confirm its final status. Branching on the transfer status lets the caller
+    mark the disbursement complete or surface a failure. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: walletsApi
+  url: ../openapi/flutterwave-wallets-api-openapi.yml
+  type: openapi
+- name: transfersApi
+  url: ../openapi/flutterwave-transfers-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: mobile-money-payout
+  summary: Resolve a mobile money wallet, create a recipient, and send a verified payout.
+  description: >-
+    Resolves the mobile money wallet account, creates a mobile_money recipient,
+    initiates a transfer to it, then branches on the transfer status.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - accountNumber
+    - mobileNetwork
+    - amount
+    - currency
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      accountNumber:
+        type: string
+        description: Mobile money account number to resolve and pay out to.
+      mobileNetwork:
+        type: string
+        description: Mobile network operator code for the wallet.
+      country:
+        type: string
+        description: Country code for the mobile money account.
+      amount:
+        type: number
+        description: Amount to disburse in the major currency unit.
+      currency:
+        type: string
+        description: ISO currency code for the transfer.
+      narration:
+        type: string
+        description: Optional narration shown on the payout.
+  steps:
+  - stepId: resolveWallet
+    description: Resolve the mobile money wallet account name before disbursing.
+    operationId: resolveWalletAccount
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        account_number: $inputs.accountNumber
+        mobile_network: $inputs.mobileNetwork
+        country: $inputs.country
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accountName: $response.body#/account_name
+  - stepId: createRecipient
+    description: Create a mobile_money recipient using the resolved wallet details.
+    operationId: createTransferRecipient
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        type: mobile_money
+        country: $inputs.country
+        currency: $inputs.currency
+        mobile_money:
+          account_number: $inputs.accountNumber
+          network: $inputs.mobileNetwork
+          account_name: $steps.resolveWallet.outputs.accountName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      recipientId: $response.body#/id
+  - stepId: createTransfer
+    description: Initiate the mobile money transfer to the recipient.
+    operationId: createTransfer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency: $inputs.currency
+        recipient_id: $steps.createRecipient.outputs.recipientId
+        narration: $inputs.narration
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      transferId: $response.body#/id
+  - stepId: verifyTransfer
+    description: Retrieve the transfer to confirm its final status.
+    operationId: getTransfer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.createTransfer.outputs.transferId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transferStatus: $response.body#/status
+    onSuccess:
+    - name: transferSucceeded
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "succeeded"
+        type: jsonpath
+    - name: transferFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "failed"
+        type: jsonpath
+  outputs:
+    accountName: $steps.resolveWallet.outputs.accountName
+    recipientId: $steps.createRecipient.outputs.recipientId
+    transferId: $steps.createTransfer.outputs.transferId
+    transferStatus: $steps.verifyTransfer.outputs.transferStatus

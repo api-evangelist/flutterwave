@@ -1,0 +1,134 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Bank Directory Then Payout
+  summary: Look up supported banks for a country, resolve the destination account, then create a recipient and send a payout.
+  description: >-
+    A directory-driven payout flow that starts from reference data. The workflow
+    lists the banks supported in a country, resolves the destination account
+    name against the chosen bank, creates a bank_account transfer recipient with
+    the verified details, and initiates a transfer to it. This is how a payout
+    UI populates a bank dropdown and validates the account before disbursing.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: banksApi
+  url: ../openapi/flutterwave-banks-api-openapi.yml
+  type: openapi
+- name: transfersApi
+  url: ../openapi/flutterwave-transfers-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bank-directory-then-payout
+  summary: List banks, resolve an account, create a recipient, and send a payout.
+  description: >-
+    Retrieves supported banks for the country, resolves the destination account,
+    creates a bank_account recipient, then initiates a transfer to it.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - country
+    - bankId
+    - accountNumber
+    - amount
+    - currency
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      country:
+        type: string
+        description: Country code to list supported banks for (e.g. NG).
+      bankId:
+        type: string
+        description: Identifier of the chosen destination bank.
+      accountNumber:
+        type: string
+        description: Destination account number to resolve and pay out to.
+      amount:
+        type: number
+        description: Amount to transfer in the major currency unit.
+      currency:
+        type: string
+        description: ISO currency code for the transfer.
+      narration:
+        type: string
+        description: Optional narration shown on the payout.
+  steps:
+  - stepId: listBanks
+    description: Retrieve supported banks for the country to validate the chosen bank.
+    operationId: listBanks
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: country
+      in: query
+      value: $inputs.country
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      banks: $response.body#/data
+  - stepId: resolveAccount
+    description: Resolve the destination account name against the chosen bank.
+    operationId: resolveBankAccount
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        account_number: $inputs.accountNumber
+        bank_id: $inputs.bankId
+        country: $inputs.country
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accountName: $response.body#/account_name
+  - stepId: createRecipient
+    description: Create a bank_account recipient using the resolved account details.
+    operationId: createTransferRecipient
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        type: bank_account
+        country: $inputs.country
+        currency: $inputs.currency
+        bank_account:
+          account_number: $inputs.accountNumber
+          bank_id: $inputs.bankId
+          account_name: $steps.resolveAccount.outputs.accountName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      recipientId: $response.body#/id
+  - stepId: createTransfer
+    description: Initiate the transfer to the verified recipient.
+    operationId: createTransfer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency: $inputs.currency
+        recipient_id: $steps.createRecipient.outputs.recipientId
+        narration: $inputs.narration
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      transferId: $response.body#/id
+      transferStatus: $response.body#/status
+  outputs:
+    accountName: $steps.resolveAccount.outputs.accountName
+    recipientId: $steps.createRecipient.outputs.recipientId
+    transferId: $steps.createTransfer.outputs.transferId
+    transferStatus: $steps.createTransfer.outputs.transferStatus

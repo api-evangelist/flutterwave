@@ -1,0 +1,148 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Resolve Account Then Payout
+  summary: Resolve a destination bank account name, create a recipient for it, then send and verify a transfer.
+  description: >-
+    A safety-first payout flow that validates the destination before moving
+    money. It resolves the bank account name for an account number and bank,
+    creates a transfer recipient using the resolved account details, initiates a
+    transfer to that recipient, and retrieves the transfer to confirm the final
+    status. The verify step branches on the transfer status so a caller can mark
+    the payout complete or surface a failure. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: banksApi
+  url: ../openapi/flutterwave-banks-api-openapi.yml
+  type: openapi
+- name: transfersApi
+  url: ../openapi/flutterwave-transfers-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: resolve-account-then-payout
+  summary: Resolve a bank account name, create a recipient, and send a verified transfer.
+  description: >-
+    Resolves the destination account name, creates a bank_account recipient with
+    the verified details, initiates a transfer to it, then branches on the
+    transfer status.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - accountNumber
+    - bankId
+    - amount
+    - currency
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      accountNumber:
+        type: string
+        description: Destination bank account number to resolve and pay out to.
+      bankId:
+        type: string
+        description: Identifier of the destination bank.
+      country:
+        type: string
+        description: Country code for the destination account.
+      amount:
+        type: number
+        description: Amount to transfer in the major currency unit.
+      currency:
+        type: string
+        description: ISO currency code for the transfer.
+      narration:
+        type: string
+        description: Optional narration shown on the payout.
+  steps:
+  - stepId: resolveAccount
+    description: Resolve the destination bank account name before paying out.
+    operationId: resolveBankAccount
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        account_number: $inputs.accountNumber
+        bank_id: $inputs.bankId
+        country: $inputs.country
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accountName: $response.body#/account_name
+      bankName: $response.body#/bank_name
+  - stepId: createRecipient
+    description: Create a bank-account recipient using the resolved account details.
+    operationId: createTransferRecipient
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        type: bank_account
+        country: $inputs.country
+        currency: $inputs.currency
+        bank_account:
+          account_number: $inputs.accountNumber
+          bank_id: $inputs.bankId
+          account_name: $steps.resolveAccount.outputs.accountName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      recipientId: $response.body#/id
+  - stepId: createTransfer
+    description: Initiate a transfer to the verified recipient.
+    operationId: createTransfer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency: $inputs.currency
+        recipient_id: $steps.createRecipient.outputs.recipientId
+        narration: $inputs.narration
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      transferId: $response.body#/id
+  - stepId: verifyTransfer
+    description: Retrieve the transfer to confirm its final status.
+    operationId: getTransfer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.createTransfer.outputs.transferId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transferStatus: $response.body#/status
+    onSuccess:
+    - name: transferSucceeded
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "succeeded"
+        type: jsonpath
+    - name: transferFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "failed"
+        type: jsonpath
+  outputs:
+    accountName: $steps.resolveAccount.outputs.accountName
+    recipientId: $steps.createRecipient.outputs.recipientId
+    transferId: $steps.createTransfer.outputs.transferId
+    transferStatus: $steps.verifyTransfer.outputs.transferStatus

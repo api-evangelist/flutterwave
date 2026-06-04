@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Orchestrator Charge And Verify
+  summary: Initiate a one-call Orchestrator charge then verify the resulting charge status.
+  description: >-
+    Uses the Orchestrator helper to create a customer, payment method, and
+    charge in a single request, then retrieves the returned charge to confirm
+    whether it settled, failed, or still needs customer authentication. The
+    verify step branches on the final status so the caller can fulfil the order
+    or surface a redirect URL. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/flutterwave-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: orchestrator-charge-and-verify
+  summary: Initiate an Orchestrator charge in one call and verify it reached a final status.
+  description: >-
+    Packages customer, payment method, and charge creation into a single
+    Orchestrator call, then retrieves the charge and branches on whether it
+    succeeded, failed, or is pending authentication.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - amount
+    - currency
+    - customer
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      amount:
+        type: number
+        description: Amount to charge in the major currency unit.
+      currency:
+        type: string
+        description: ISO currency code for the charge.
+      customer:
+        type: object
+        description: Inline customer object (email and optional name/phone) to charge.
+      paymentMethod:
+        type: object
+        description: Inline payment method object (card, mobile money, bank transfer, USSD).
+      reference:
+        type: string
+        description: Optional merchant reference to correlate the charge.
+      redirectUrl:
+        type: string
+        description: Optional URL to return the customer to after authentication.
+  steps:
+  - stepId: initiateCharge
+    description: Create customer, payment method, and charge in a single Orchestrator call.
+    operationId: initiateOrchestratorCharge
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency: $inputs.currency
+        customer: $inputs.customer
+        payment_method: $inputs.paymentMethod
+        reference: $inputs.reference
+        redirect_url: $inputs.redirectUrl
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      chargeId: $response.body#/id
+      initialStatus: $response.body#/status
+  - stepId: verifyCharge
+    description: Retrieve the charge to confirm its final processing status.
+    operationId: getCharge
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.initiateCharge.outputs.chargeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      chargeStatus: $response.body#/status
+      redirectUrl: $response.body#/redirect_url
+    onSuccess:
+    - name: chargeSucceeded
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "succeeded"
+        type: jsonpath
+    - name: chargeFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "failed"
+        type: jsonpath
+  outputs:
+    chargeId: $steps.initiateCharge.outputs.chargeId
+    chargeStatus: $steps.verifyCharge.outputs.chargeStatus
+    redirectUrl: $steps.verifyCharge.outputs.redirectUrl

@@ -1,0 +1,130 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Create Recipient Transfer And Verify
+  summary: Create a transfer recipient, send a payout to it, then verify the transfer reached a final status.
+  description: >-
+    The canonical Flutterwave payout pattern. The workflow creates a transfer
+    recipient (the destination of the payout), initiates a transfer to that
+    recipient, then retrieves the transfer to confirm whether it succeeded, is
+    still processing, or failed. Branching on the transfer status lets the
+    caller decide whether to mark the payout complete, keep polling, or trigger
+    a retry. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: transfersApi
+  url: ../openapi/flutterwave-transfers-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-recipient-transfer-verify
+  summary: Create a recipient, send a transfer to it, and verify the payout status.
+  description: >-
+    Creates the recipient that will receive the payout, initiates a transfer to
+    that recipient id, then retrieves the transfer and branches on whether it
+    succeeded, failed, or is still processing.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - recipientType
+    - amount
+    - currency
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      recipientType:
+        type: string
+        description: Recipient type (bank_account, mobile_money, or wallet).
+      bankAccount:
+        type: object
+        description: Bank account details when recipientType is bank_account.
+      mobileMoney:
+        type: object
+        description: Mobile money details when recipientType is mobile_money.
+      name:
+        type: object
+        description: Recipient name object (first and last).
+      country:
+        type: string
+        description: Recipient country code.
+      currency:
+        type: string
+        description: ISO currency code for the transfer.
+      amount:
+        type: number
+        description: Amount to transfer in the major currency unit.
+      narration:
+        type: string
+        description: Optional narration shown on the payout.
+  steps:
+  - stepId: createRecipient
+    description: Create the transfer recipient that will receive the payout.
+    operationId: createTransferRecipient
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        type: $inputs.recipientType
+        bank_account: $inputs.bankAccount
+        mobile_money: $inputs.mobileMoney
+        name: $inputs.name
+        country: $inputs.country
+        currency: $inputs.currency
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      recipientId: $response.body#/id
+  - stepId: createTransfer
+    description: Initiate a transfer to the created recipient.
+    operationId: createTransfer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency: $inputs.currency
+        recipient_id: $steps.createRecipient.outputs.recipientId
+        narration: $inputs.narration
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      transferId: $response.body#/id
+      initialStatus: $response.body#/status
+  - stepId: verifyTransfer
+    description: Retrieve the transfer to confirm its final status.
+    operationId: getTransfer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.createTransfer.outputs.transferId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transferStatus: $response.body#/status
+    onSuccess:
+    - name: transferSucceeded
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "succeeded"
+        type: jsonpath
+    - name: transferFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "failed"
+        type: jsonpath
+  outputs:
+    recipientId: $steps.createRecipient.outputs.recipientId
+    transferId: $steps.createTransfer.outputs.transferId
+    transferStatus: $steps.verifyTransfer.outputs.transferStatus

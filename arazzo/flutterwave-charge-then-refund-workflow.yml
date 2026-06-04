@@ -1,0 +1,113 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Charge Then Refund
+  summary: Verify a charge succeeded, then create a refund against it and confirm the refund status.
+  description: >-
+    A reconciliation-friendly flow that retrieves an existing charge, confirms
+    it reached the succeeded state, then issues a refund against it and
+    retrieves the refund to verify its status. The flow branches on the charge
+    status so a refund is only attempted against a settled charge, and on the
+    refund status so the caller can tell whether the money movement completed.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/flutterwave-payments-api-openapi.yml
+  type: openapi
+- name: settlementsApi
+  url: ../openapi/flutterwave-settlements-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: charge-then-refund
+  summary: Confirm a charge succeeded, refund it, and verify the refund status.
+  description: >-
+    Retrieves the charge to confirm it succeeded, creates a refund against the
+    charge id, then retrieves the refund and branches on whether the refund
+    succeeded or failed.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - chargeId
+    - amount
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      chargeId:
+        type: string
+        description: Identifier of the charge to refund.
+      amount:
+        type: number
+        description: Amount to refund in the major currency unit.
+      reason:
+        type: string
+        description: Optional human-readable reason for the refund.
+  steps:
+  - stepId: verifyCharge
+    description: Retrieve the charge to confirm it succeeded before refunding.
+    operationId: getCharge
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $inputs.chargeId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status == "succeeded"
+      type: jsonpath
+    outputs:
+      chargeStatus: $response.body#/status
+      currency: $response.body#/currency
+  - stepId: createRefund
+    description: Issue a refund against the verified charge.
+    operationId: createRefund
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        charge_id: $inputs.chargeId
+        amount: $inputs.amount
+        reason: $inputs.reason
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      refundId: $response.body#/id
+      initialStatus: $response.body#/status
+  - stepId: verifyRefund
+    description: Retrieve the refund to confirm its final status.
+    operationId: getRefund
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.createRefund.outputs.refundId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      refundStatus: $response.body#/status
+    onSuccess:
+    - name: refundSucceeded
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "succeeded"
+        type: jsonpath
+    - name: refundFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "failed"
+        type: jsonpath
+  outputs:
+    refundId: $steps.createRefund.outputs.refundId
+    refundStatus: $steps.verifyRefund.outputs.refundStatus

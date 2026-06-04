@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Order Checkout And Verify
+  summary: Create a customer, place a server-side order for them, then retrieve the order to confirm its status.
+  description: >-
+    A server-side checkout pattern. The workflow creates the customer, creates
+    an order that captures the cart amount and line items, and retrieves the
+    order to confirm it was recorded and inspect its status. This backs a hosted
+    checkout session where the order object is the source of truth for what the
+    customer is paying for. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/flutterwave-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: order-checkout-and-verify
+  summary: Create a customer, place an order, and verify the order was recorded.
+  description: >-
+    Creates the customer, creates an order referencing that customer with cart
+    items, then retrieves the order to confirm its status.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - email
+    - amount
+    - currency
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      email:
+        type: string
+        description: Email address of the customer placing the order.
+      amount:
+        type: number
+        description: Total order amount in the major currency unit.
+      currency:
+        type: string
+        description: ISO currency code for the order.
+      items:
+        type: array
+        description: Line items for the order.
+        items:
+          type: object
+      reference:
+        type: string
+        description: Optional merchant reference for the order.
+  steps:
+  - stepId: createCustomer
+    description: Create the customer that the order belongs to.
+    operationId: createCustomer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerId: $response.body#/id
+  - stepId: createOrder
+    description: Create the order capturing the cart amount and line items.
+    operationId: createOrder
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency: $inputs.currency
+        customer_id: $steps.createCustomer.outputs.customerId
+        items: $inputs.items
+        reference: $inputs.reference
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      orderId: $response.body#/id
+  - stepId: verifyOrder
+    description: Retrieve the order to confirm it was recorded and inspect its status.
+    operationId: getOrder
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.createOrder.outputs.orderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderStatus: $response.body#/status
+  outputs:
+    customerId: $steps.createCustomer.outputs.customerId
+    orderId: $steps.createOrder.outputs.orderId
+    orderStatus: $steps.verifyOrder.outputs.orderStatus

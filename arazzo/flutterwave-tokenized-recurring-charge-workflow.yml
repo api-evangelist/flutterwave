@@ -1,0 +1,144 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Tokenized Recurring Charge
+  summary: Tokenize a payment method, charge it for a customer, then verify the recurring charge status.
+  description: >-
+    A subscription-style recurring billing pattern adapted to the available
+    endpoints. Flutterwave v4 exposes no dedicated payment-plan or subscription
+    object, so this flow models the recurring building block directly: it
+    creates a customer, registers (tokenizes) a reusable payment method,
+    initiates a charge that reuses the saved payment method, and retrieves the
+    charge to confirm it settled. Branching on the charge status lets a billing
+    engine record a successful renewal or flag a failed one. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/flutterwave-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: tokenized-recurring-charge
+  summary: Tokenize a payment method and run a recurring charge against it with verification.
+  description: >-
+    Creates a customer, registers a reusable payment method, charges the saved
+    method, then branches on whether the recurring charge succeeded or failed.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - email
+    - paymentMethodType
+    - amount
+    - currency
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      email:
+        type: string
+        description: Email address of the customer being billed.
+      paymentMethodType:
+        type: string
+        description: Payment method type to tokenize (e.g. card, mobile_money).
+      card:
+        type: object
+        description: Encrypted card fields when tokenizing a card.
+      mobileMoney:
+        type: object
+        description: Mobile money details when tokenizing a mobile money method.
+      amount:
+        type: number
+        description: Recurring amount to charge in the major currency unit.
+      currency:
+        type: string
+        description: ISO currency code for the charge.
+      reference:
+        type: string
+        description: Optional reference identifying the billing cycle.
+  steps:
+  - stepId: createCustomer
+    description: Create the customer that the saved payment method belongs to.
+    operationId: createCustomer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerId: $response.body#/id
+  - stepId: tokenizePaymentMethod
+    description: Register a reusable payment method that can be charged on each cycle.
+    operationId: createPaymentMethod
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        type: $inputs.paymentMethodType
+        card: $inputs.card
+        mobile_money: $inputs.mobileMoney
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      paymentMethodId: $response.body#/id
+  - stepId: chargeSavedMethod
+    description: Charge the saved payment method for the recurring amount.
+    operationId: createCharge
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency: $inputs.currency
+        reference: $inputs.reference
+        customer:
+          id: $steps.createCustomer.outputs.customerId
+        payment_method:
+          id: $steps.tokenizePaymentMethod.outputs.paymentMethodId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      chargeId: $response.body#/id
+  - stepId: verifyCharge
+    description: Retrieve the recurring charge to confirm its final status.
+    operationId: getCharge
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.chargeSavedMethod.outputs.chargeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      chargeStatus: $response.body#/status
+    onSuccess:
+    - name: renewalSucceeded
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "succeeded"
+        type: jsonpath
+    - name: renewalFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "failed"
+        type: jsonpath
+  outputs:
+    customerId: $steps.createCustomer.outputs.customerId
+    paymentMethodId: $steps.tokenizePaymentMethod.outputs.paymentMethodId
+    chargeId: $steps.chargeSavedMethod.outputs.chargeId
+    chargeStatus: $steps.verifyCharge.outputs.chargeStatus

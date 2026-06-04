@@ -1,0 +1,120 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Charge And Verify Status
+  summary: Initiate a charge then poll the charge object to confirm its final settled status.
+  description: >-
+    The most common Flutterwave collection pattern. The workflow creates a
+    customer, initiates a charge against that customer with an amount and
+    currency, and then retrieves the charge to verify whether it has reached a
+    succeeded, failed, or still-pending state. Branching on the charge status
+    lets a caller decide whether to fulfil an order, surface a redirect URL for
+    customer authentication, or treat the charge as failed. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/flutterwave-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: charge-and-verify-status
+  summary: Create a customer, charge them, and verify the charge reached a final status.
+  description: >-
+    Creates the customer that will own the charge, initiates the charge, then
+    retrieves the charge object and branches on whether it succeeded, failed, or
+    is still pending customer authentication.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - email
+    - amount
+    - currency
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      email:
+        type: string
+        description: Email address of the customer being charged.
+      amount:
+        type: number
+        description: Amount to charge in the major currency unit.
+      currency:
+        type: string
+        description: ISO currency code for the charge (e.g. NGN, GHS, KES).
+      reference:
+        type: string
+        description: Optional merchant reference to correlate the charge.
+      redirectUrl:
+        type: string
+        description: Optional URL to return the customer to after authentication.
+  steps:
+  - stepId: createCustomer
+    description: Create the customer record that will own the charge.
+    operationId: createCustomer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerId: $response.body#/id
+  - stepId: createCharge
+    description: Initiate a charge against the created customer.
+    operationId: createCharge
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency: $inputs.currency
+        reference: $inputs.reference
+        redirect_url: $inputs.redirectUrl
+        customer:
+          id: $steps.createCustomer.outputs.customerId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      chargeId: $response.body#/id
+      initialStatus: $response.body#/status
+  - stepId: verifyCharge
+    description: Retrieve the charge to confirm its final processing status.
+    operationId: getCharge
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.createCharge.outputs.chargeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      chargeStatus: $response.body#/status
+      redirectUrl: $response.body#/redirect_url
+    onSuccess:
+    - name: chargeSucceeded
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "succeeded"
+        type: jsonpath
+    - name: chargeFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "failed"
+        type: jsonpath
+  outputs:
+    chargeId: $steps.createCharge.outputs.chargeId
+    chargeStatus: $steps.verifyCharge.outputs.chargeStatus
+    redirectUrl: $steps.verifyCharge.outputs.redirectUrl

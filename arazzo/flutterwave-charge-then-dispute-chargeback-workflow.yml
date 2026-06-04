@@ -1,0 +1,124 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Charge Then Dispute Chargeback
+  summary: Confirm a charge succeeded, raise a chargeback against it, and submit evidence to contest it.
+  description: >-
+    A dispute-management flow that retrieves a charge, confirms it succeeded,
+    creates a chargeback record against that charge, and then updates the
+    chargeback with evidence and a resolution. The flow branches on the
+    chargeback status returned by the update so the caller can tell whether the
+    dispute is still pending, contested, won, or lost. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/flutterwave-payments-api-openapi.yml
+  type: openapi
+- name: settlementsApi
+  url: ../openapi/flutterwave-settlements-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: charge-then-dispute-chargeback
+  summary: Verify a charge, open a chargeback, and contest it with evidence.
+  description: >-
+    Retrieves the charge to confirm it succeeded, creates a chargeback against
+    it, then updates the chargeback with evidence and branches on the resulting
+    dispute status.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - chargeId
+    - amount
+    - reason
+    - evidence
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      chargeId:
+        type: string
+        description: Identifier of the charge the chargeback is raised against.
+      amount:
+        type: number
+        description: Disputed amount in the major currency unit.
+      reason:
+        type: string
+        description: Reason the chargeback was raised.
+      evidence:
+        type: object
+        description: Evidence object supporting the merchant's response to the dispute.
+      resolution:
+        type: string
+        description: Optional resolution status to set when contesting the chargeback.
+  steps:
+  - stepId: verifyCharge
+    description: Retrieve the charge to confirm it succeeded before opening a dispute.
+    operationId: getCharge
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $inputs.chargeId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status == "succeeded"
+      type: jsonpath
+    outputs:
+      chargeStatus: $response.body#/status
+  - stepId: createChargeback
+    description: Create a chargeback record against the verified charge.
+    operationId: createChargeback
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        charge_id: $inputs.chargeId
+        amount: $inputs.amount
+        reason: $inputs.reason
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      chargebackId: $response.body#/id
+  - stepId: contestChargeback
+    description: Submit evidence and a resolution to contest the chargeback.
+    operationId: updateChargeback
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.createChargeback.outputs.chargebackId
+    requestBody:
+      contentType: application/json
+      payload:
+        evidence: $inputs.evidence
+        resolution: $inputs.resolution
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      chargebackStatus: $response.body#/status
+    onSuccess:
+    - name: disputeWon
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "won"
+        type: jsonpath
+    - name: disputeLost
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "lost"
+        type: jsonpath
+  outputs:
+    chargebackId: $steps.createChargeback.outputs.chargebackId
+    chargebackStatus: $steps.contestChargeback.outputs.chargebackStatus

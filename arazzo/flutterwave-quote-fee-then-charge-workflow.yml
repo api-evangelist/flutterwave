@@ -1,0 +1,139 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Quote Fee Then Charge
+  summary: Retrieve the processing fee for an amount, create the customer, then charge and verify it.
+  description: >-
+    A transparency-first collection flow. The workflow retrieves Flutterwave's
+    fee calculation for an amount, currency, and payment method so the merchant
+    can show the true cost, creates the customer that will own the charge,
+    initiates the charge, and retrieves the charge to confirm its final status.
+    The verify step branches on whether the charge succeeded or failed. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: settlementsApi
+  url: ../openapi/flutterwave-settlements-api-openapi.yml
+  type: openapi
+- name: paymentsApi
+  url: ../openapi/flutterwave-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: quote-fee-then-charge
+  summary: Quote the fee for an amount, create a customer, and charge them with verification.
+  description: >-
+    Retrieves the fee for the amount and method, creates the customer, initiates
+    the charge, then branches on the verified charge status.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - amount
+    - currency
+    - email
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      amount:
+        type: number
+        description: Amount to charge in the major currency unit.
+      currency:
+        type: string
+        description: ISO currency code for the charge and fee quote.
+      paymentMethod:
+        type: string
+        description: Optional payment method used to refine the fee quote.
+      email:
+        type: string
+        description: Email address of the customer being charged.
+      reference:
+        type: string
+        description: Optional merchant reference to correlate the charge.
+  steps:
+  - stepId: quoteFee
+    description: Retrieve the processing fee for the amount, currency, and method.
+    operationId: getFees
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: amount
+      in: query
+      value: $inputs.amount
+    - name: currency
+      in: query
+      value: $inputs.currency
+    - name: payment_method
+      in: query
+      value: $inputs.paymentMethod
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      fee: $response.body#/fee
+      merchantFee: $response.body#/merchant_fee
+  - stepId: createCustomer
+    description: Create the customer that will own the charge.
+    operationId: createCustomer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerId: $response.body#/id
+  - stepId: createCharge
+    description: Initiate the charge against the created customer.
+    operationId: createCharge
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency: $inputs.currency
+        reference: $inputs.reference
+        customer:
+          id: $steps.createCustomer.outputs.customerId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      chargeId: $response.body#/id
+  - stepId: verifyCharge
+    description: Retrieve the charge to confirm its final status.
+    operationId: getCharge
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.createCharge.outputs.chargeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      chargeStatus: $response.body#/status
+    onSuccess:
+    - name: chargeSucceeded
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "succeeded"
+        type: jsonpath
+    - name: chargeFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "failed"
+        type: jsonpath
+  outputs:
+    fee: $steps.quoteFee.outputs.fee
+    chargeId: $steps.createCharge.outputs.chargeId
+    chargeStatus: $steps.verifyCharge.outputs.chargeStatus

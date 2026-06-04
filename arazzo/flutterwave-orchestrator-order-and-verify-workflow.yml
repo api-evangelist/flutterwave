@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Flutterwave Orchestrator Order And Verify
+  summary: Initiate an order in one call with the Orchestrator helper, then retrieve it to confirm its status.
+  description: >-
+    A one-call checkout pattern. The workflow uses the Orchestrator order helper
+    to create an order in a single request, then retrieves the resulting order
+    to confirm it was recorded and inspect its status. This backs a hosted
+    checkout that hands off cart construction to Flutterwave. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: paymentsApi
+  url: ../openapi/flutterwave-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: orchestrator-order-and-verify
+  summary: Initiate an Orchestrator order in one call and verify it was recorded.
+  description: >-
+    Creates an order with the Orchestrator helper, then retrieves the order to
+    confirm its status.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - amount
+    - currency
+    properties:
+      accessToken:
+        type: string
+        description: OAuth2 client-credentials bearer token for the Authorization header.
+      amount:
+        type: number
+        description: Total order amount in the major currency unit.
+      currency:
+        type: string
+        description: ISO currency code for the order.
+      customerId:
+        type: string
+        description: Optional existing customer id to attach to the order.
+      items:
+        type: array
+        description: Line items for the order.
+        items:
+          type: object
+      reference:
+        type: string
+        description: Optional merchant reference for the order.
+  steps:
+  - stepId: initiateOrder
+    description: Create the order in a single Orchestrator call.
+    operationId: initiateOrchestratorOrder
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.amount
+        currency: $inputs.currency
+        customer_id: $inputs.customerId
+        items: $inputs.items
+        reference: $inputs.reference
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      orderId: $response.body#/id
+      initialStatus: $response.body#/status
+  - stepId: verifyOrder
+    description: Retrieve the order to confirm it was recorded and inspect its status.
+    operationId: getOrder
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    - name: id
+      in: path
+      value: $steps.initiateOrder.outputs.orderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderStatus: $response.body#/status
+  outputs:
+    orderId: $steps.initiateOrder.outputs.orderId
+    orderStatus: $steps.verifyOrder.outputs.orderStatus
