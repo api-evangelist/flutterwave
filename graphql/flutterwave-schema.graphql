@@ -1,0 +1,1229 @@
+# Flutterwave GraphQL Schema
+# Conceptual mapping of the Flutterwave Payments REST API to GraphQL types.
+# Flutterwave's native interface is REST; this schema supports tooling and documentation.
+# Source: https://developer.flutterwave.com
+
+scalar DateTime
+scalar JSON
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum TransactionStatus {
+  SUCCESSFUL
+  PENDING
+  FAILED
+  CANCELLED
+}
+
+enum ChargeType {
+  CARD
+  BANK_TRANSFER
+  MOBILE_MONEY
+  USSD
+  QR
+  RECURRING
+}
+
+enum Currency {
+  NGN
+  GHS
+  KES
+  ZAR
+  UGX
+  TZS
+  RWF
+  XAF
+  XOF
+  USD
+  GBP
+  EUR
+  ZMW
+  XRP
+  ETB
+  MWK
+  SLL
+  BIF
+  BWP
+  GMD
+  CDF
+  TND
+  MAD
+  EGP
+}
+
+enum TransferStatus {
+  NEW
+  PENDING
+  SUCCESSFUL
+  FAILED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+}
+
+enum PlanInterval {
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  YEARLY
+}
+
+enum CardBrand {
+  VISA
+  MASTERCARD
+  VERVE
+  AMEX
+  DISCOVER
+}
+
+enum CardType {
+  CREDIT
+  DEBIT
+}
+
+enum MobileMoneyNetwork {
+  MPESA
+  MTN
+  AIRTEL
+  TIGO
+  VODAFONE
+  OPAY
+}
+
+enum VirtualCardStatus {
+  ACTIVE
+  FROZEN
+  TERMINATED
+}
+
+enum VirtualAccountStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum WebhookEventType {
+  CHARGE_COMPLETED
+  TRANSFER_COMPLETED
+  REFUND_COMPLETED
+  CHARGEBACK_CREATED
+  VIRTUAL_ACCOUNT_CREDIT
+  SUBSCRIPTION_CANCELLED
+}
+
+enum RefundStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum BillType {
+  CABLE
+  INTERNET
+  BETTING
+  TOLL
+}
+
+enum SettlementStatus {
+  PENDING
+  PROCESSED
+}
+
+enum SplitType {
+  PERCENTAGE
+  FLAT
+}
+
+enum AuditAction {
+  LOGIN
+  TRANSFER_INITIATED
+  CHARGE_INITIATED
+  SETTINGS_CHANGED
+  API_KEY_ROTATED
+  WEBHOOK_CONFIGURED
+}
+
+# ─────────────────────────────────────────────
+# Core Input Types
+# ─────────────────────────────────────────────
+
+input PaginationInput {
+  page: Int
+  perPage: Int
+}
+
+input DateRangeInput {
+  from: DateTime
+  to: DateTime
+}
+
+# ─────────────────────────────────────────────
+# Customer
+# ─────────────────────────────────────────────
+
+type Customer {
+  id: ID!
+  email: String!
+  name: String
+  phoneNumber: String
+  createdAt: DateTime!
+  transactions: [Transaction!]
+  subscriptions: [Subscription!]
+  virtualAccounts: [VirtualAccount!]
+  beneficiaries: [Beneficiary!]
+  metadata: JSON
+}
+
+input CreateCustomerInput {
+  email: String!
+  name: String
+  phoneNumber: String
+  metadata: JSON
+}
+
+# ─────────────────────────────────────────────
+# Transaction
+# ─────────────────────────────────────────────
+
+type Transaction {
+  id: ID!
+  txRef: String!
+  flwRef: String
+  amount: Float!
+  chargedAmount: Float
+  appFee: Float
+  merchantFee: Float
+  currency: Currency!
+  status: TransactionStatus!
+  paymentType: ChargeType!
+  customer: Customer
+  card: CardNumber
+  createdAt: DateTime!
+  meta: JSON
+  narration: String
+  ipAddress: String
+  deviceFingerprint: String
+  fraudStatus: String
+}
+
+# ─────────────────────────────────────────────
+# Charge (Generic)
+# ─────────────────────────────────────────────
+
+type Charge {
+  id: ID!
+  txRef: String!
+  flwRef: String
+  amount: Float!
+  currency: Currency!
+  status: TransactionStatus!
+  chargeType: ChargeType!
+  customer: Customer
+  createdAt: DateTime!
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# CardCharge
+# ─────────────────────────────────────────────
+
+type CardCharge {
+  id: ID!
+  txRef: String!
+  flwRef: String
+  amount: Float!
+  currency: Currency!
+  status: TransactionStatus!
+  authModel: String
+  card: CardNumber
+  customer: Customer
+  redirectUrl: String
+  createdAt: DateTime!
+  meta: JSON
+}
+
+input CardChargeInput {
+  cardNumber: String!
+  cvv: String!
+  expiryMonth: String!
+  expiryYear: String!
+  currency: Currency!
+  amount: Float!
+  txRef: String!
+  fullName: String!
+  email: String!
+  phoneNumber: String
+  redirectUrl: String
+  encryptedPayload: String
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# BankTransfer
+# ─────────────────────────────────────────────
+
+type BankTransfer {
+  id: ID!
+  txRef: String!
+  flwRef: String
+  amount: Float!
+  currency: Currency!
+  status: TransactionStatus!
+  bankCode: String
+  bankName: String
+  accountNumber: String
+  accountName: String
+  customer: Customer
+  expiresAt: DateTime
+  createdAt: DateTime!
+  meta: JSON
+}
+
+input BankTransferChargeInput {
+  amount: Float!
+  currency: Currency!
+  txRef: String!
+  email: String!
+  phoneNumber: String
+  fullName: String
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# MobileMoneyCharge
+# ─────────────────────────────────────────────
+
+type MobileMoneyCharge {
+  id: ID!
+  txRef: String!
+  flwRef: String
+  amount: Float!
+  currency: Currency!
+  status: TransactionStatus!
+  network: MobileMoneyNetwork!
+  phoneNumber: String!
+  customer: Customer
+  createdAt: DateTime!
+  meta: JSON
+}
+
+input MobileMoneyChargeInput {
+  amount: Float!
+  currency: Currency!
+  txRef: String!
+  email: String!
+  phoneNumber: String!
+  network: MobileMoneyNetwork!
+  fullName: String
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# USSD
+# ─────────────────────────────────────────────
+
+type USSD {
+  id: ID!
+  txRef: String!
+  flwRef: String
+  amount: Float!
+  currency: Currency!
+  status: TransactionStatus!
+  phoneNumber: String!
+  bankCode: String!
+  ussdCode: String
+  customer: Customer
+  createdAt: DateTime!
+  meta: JSON
+}
+
+input USSDChargeInput {
+  amount: Float!
+  currency: Currency!
+  txRef: String!
+  email: String!
+  phoneNumber: String!
+  bankCode: String!
+  fullName: String
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# QRCode
+# ─────────────────────────────────────────────
+
+type QRCode {
+  id: ID!
+  txRef: String!
+  flwRef: String
+  amount: Float!
+  currency: Currency!
+  status: TransactionStatus!
+  qrImageUrl: String
+  customer: Customer
+  createdAt: DateTime!
+  expiresAt: DateTime
+  meta: JSON
+}
+
+input QRCodeChargeInput {
+  amount: Float!
+  currency: Currency!
+  txRef: String!
+  email: String!
+  fullName: String
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# RecurringPayment
+# ─────────────────────────────────────────────
+
+type RecurringPayment {
+  id: ID!
+  txRef: String!
+  flwRef: String
+  amount: Float!
+  currency: Currency!
+  status: TransactionStatus!
+  token: String!
+  customer: Customer
+  plan: Plan
+  createdAt: DateTime!
+  meta: JSON
+}
+
+input RecurringPaymentInput {
+  token: String!
+  amount: Float!
+  currency: Currency!
+  txRef: String!
+  email: String!
+  fullName: String
+  planId: ID
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# Plan
+# ─────────────────────────────────────────────
+
+type Plan {
+  id: ID!
+  name: String!
+  amount: Float!
+  currency: Currency!
+  interval: PlanInterval!
+  duration: Int
+  status: String
+  createdAt: DateTime!
+  subscriptions: [Subscription!]
+}
+
+input CreatePlanInput {
+  name: String!
+  amount: Float!
+  currency: Currency!
+  interval: PlanInterval!
+  duration: Int
+}
+
+# ─────────────────────────────────────────────
+# Subscription
+# ─────────────────────────────────────────────
+
+type Subscription {
+  id: ID!
+  plan: Plan!
+  customer: Customer!
+  status: SubscriptionStatus!
+  token: String
+  quantity: Int
+  createdAt: DateTime!
+  nextBillingDate: DateTime
+}
+
+# ─────────────────────────────────────────────
+# Webhook
+# ─────────────────────────────────────────────
+
+type Webhook {
+  id: ID!
+  url: String!
+  eventType: WebhookEventType!
+  secretHash: String
+  isActive: Boolean!
+  createdAt: DateTime!
+  lastDeliveredAt: DateTime
+  deliveryStatus: String
+  payload: JSON
+}
+
+input ConfigureWebhookInput {
+  url: String!
+  secretHash: String
+}
+
+# ─────────────────────────────────────────────
+# Refund
+# ─────────────────────────────────────────────
+
+type Refund {
+  id: ID!
+  transaction: Transaction!
+  amount: Float!
+  currency: Currency!
+  status: RefundStatus!
+  comment: String
+  customer: Customer
+  createdAt: DateTime!
+  processedAt: DateTime
+  meta: JSON
+}
+
+input CreateRefundInput {
+  transactionId: ID!
+  amount: Float
+  comment: String
+}
+
+# ─────────────────────────────────────────────
+# Transfer
+# ─────────────────────────────────────────────
+
+type Transfer {
+  id: ID!
+  txRef: String!
+  flwRef: String
+  amount: Float!
+  currency: Currency!
+  status: TransferStatus!
+  bankCode: String
+  bankName: String
+  accountNumber: String
+  accountName: String
+  narration: String
+  fee: Float
+  fxRate: Float
+  destinationCurrency: Currency
+  beneficiary: Beneficiary
+  createdAt: DateTime!
+  completedAt: DateTime
+  meta: JSON
+}
+
+input CreateTransferInput {
+  accountBank: String!
+  accountNumber: String!
+  amount: Float!
+  currency: Currency!
+  narration: String
+  reference: String
+  debitCurrency: Currency
+  beneficiaryName: String
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# BulkTransfer
+# ─────────────────────────────────────────────
+
+type BulkTransfer {
+  id: ID!
+  title: String
+  totalAmount: Float!
+  currency: Currency!
+  status: String!
+  transfers: [Transfer!]
+  createdAt: DateTime!
+  completedAt: DateTime
+  meta: JSON
+}
+
+input BulkTransferInput {
+  title: String
+  bulkData: [CreateTransferInput!]!
+}
+
+# ─────────────────────────────────────────────
+# Bank
+# ─────────────────────────────────────────────
+
+type Bank {
+  id: ID!
+  code: String!
+  name: String!
+  country: String!
+  isMobileNetwork: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# AccountVerification
+# ─────────────────────────────────────────────
+
+type AccountVerification {
+  accountName: String!
+  accountNumber: String!
+  bankCode: String!
+  bankName: String
+  verifiedAt: DateTime!
+}
+
+input AccountVerificationInput {
+  accountNumber: String!
+  accountBank: String!
+}
+
+# ─────────────────────────────────────────────
+# BVNVerification
+# ─────────────────────────────────────────────
+
+type BVNVerification {
+  bvn: String!
+  firstName: String
+  lastName: String
+  middleName: String
+  dateOfBirth: String
+  phoneNumber: String
+  enrollmentBank: String
+  enrollmentBranch: String
+  verifiedAt: DateTime!
+}
+
+input BVNVerificationInput {
+  bvn: String!
+}
+
+# ─────────────────────────────────────────────
+# CardNumber (tokenized card reference)
+# ─────────────────────────────────────────────
+
+type CardNumber {
+  token: String!
+  last4: String!
+  brand: CardBrand!
+  cardType: CardType
+  expiryMonth: String!
+  expiryYear: String!
+  country: String
+  issuer: String
+  frequency: Int
+  createdAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Beneficiary
+# ─────────────────────────────────────────────
+
+type Beneficiary {
+  id: ID!
+  accountNumber: String!
+  bankCode: String
+  bankName: String
+  accountName: String!
+  currency: Currency!
+  mobileNumber: String
+  mobileNetwork: MobileMoneyNetwork
+  customer: Customer
+  createdAt: DateTime!
+}
+
+input CreateBeneficiaryInput {
+  accountNumber: String!
+  bankCode: String
+  mobileNumber: String
+  mobileNetwork: MobileMoneyNetwork
+  currency: Currency!
+  beneficiaryName: String!
+  customerId: ID
+}
+
+# ─────────────────────────────────────────────
+# VirtualCard
+# ─────────────────────────────────────────────
+
+type VirtualCard {
+  id: ID!
+  customer: Customer
+  cardPan: String!
+  maskedPan: String!
+  city: String
+  state: String
+  address: String
+  zipCode: String
+  cvv: String
+  expirationDate: String!
+  currency: Currency!
+  amount: Float!
+  status: VirtualCardStatus!
+  callback: String
+  createdAt: DateTime!
+}
+
+input CreateVirtualCardInput {
+  currency: Currency!
+  amount: Float!
+  billingName: String!
+  billingCustomerId: ID
+  debitCurrency: Currency
+  callbackUrl: String
+}
+
+# ─────────────────────────────────────────────
+# VirtualAccount
+# ─────────────────────────────────────────────
+
+type VirtualAccount {
+  id: ID!
+  accountNumber: String!
+  accountName: String!
+  bankName: String
+  orderRef: String
+  status: VirtualAccountStatus!
+  currency: Currency!
+  customer: Customer
+  expiresAt: DateTime
+  isPermanent: Boolean!
+  createdAt: DateTime!
+}
+
+input CreateVirtualAccountInput {
+  email: String!
+  isPermanent: Boolean
+  txRef: String
+  amount: Float
+  currency: Currency
+  phoneNumber: String
+  firstName: String
+  lastName: String
+}
+
+# ─────────────────────────────────────────────
+# Settlement
+# ─────────────────────────────────────────────
+
+type Settlement {
+  id: ID!
+  merchantId: String
+  merchantName: String
+  settlementAccount: String
+  bankCode: String
+  transactionCount: Int!
+  grossAmount: Float!
+  appFee: Float!
+  merchantFee: Float!
+  stampDuty: Float!
+  netAmount: Float!
+  currency: Currency!
+  status: SettlementStatus!
+  payoutDate: DateTime
+  createdAt: DateTime!
+  transactions: [Transaction!]
+}
+
+# ─────────────────────────────────────────────
+# SubAccount
+# ─────────────────────────────────────────────
+
+type SubAccount {
+  id: ID!
+  accountBank: String!
+  accountNumber: String!
+  accountName: String
+  businessName: String!
+  businessEmail: String!
+  businessContact: String
+  splitValue: Float!
+  splitType: SplitType!
+  country: String!
+  currency: Currency
+  subAccountId: String
+  bankName: String
+  createdAt: DateTime!
+}
+
+input CreateSubAccountInput {
+  accountBank: String!
+  accountNumber: String!
+  businessName: String!
+  businessEmail: String!
+  businessContact: String
+  country: String!
+  splitValue: Float!
+  splitType: SplitType!
+  splitCurrency: Currency
+}
+
+# ─────────────────────────────────────────────
+# PayoutConfiguration
+# ─────────────────────────────────────────────
+
+type PayoutConfiguration {
+  id: ID!
+  merchantId: String!
+  defaultCurrency: Currency!
+  autoSettlement: Boolean!
+  settlementFrequency: String
+  bankCode: String
+  accountNumber: String
+  accountName: String
+  updatedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Disbursement
+# ─────────────────────────────────────────────
+
+type Disbursement {
+  id: ID!
+  title: String
+  totalAmount: Float!
+  currency: Currency!
+  status: String!
+  bulkTransfer: BulkTransfer
+  transfers: [Transfer!]
+  createdAt: DateTime!
+  completedAt: DateTime
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# Bill
+# ─────────────────────────────────────────────
+
+type Bill {
+  id: ID!
+  customer: String!
+  type: BillType!
+  biller: String!
+  billerCode: String
+  amount: Float!
+  currency: Currency!
+  status: String!
+  txRef: String!
+  flwRef: String
+  token: String
+  createdAt: DateTime!
+  meta: JSON
+}
+
+input CreateBillInput {
+  type: BillType!
+  country: String!
+  customer: String!
+  amount: Float!
+  currency: Currency!
+  txRef: String!
+  billerCode: String
+}
+
+# ─────────────────────────────────────────────
+# Airtime
+# ─────────────────────────────────────────────
+
+type Airtime {
+  id: ID!
+  phoneNumber: String!
+  network: String!
+  country: String!
+  amount: Float!
+  currency: Currency!
+  status: String!
+  txRef: String!
+  flwRef: String
+  createdAt: DateTime!
+  meta: JSON
+}
+
+input AirtimeInput {
+  country: String!
+  customer: String!
+  amount: Float!
+  txRef: String!
+  network: String!
+}
+
+# ─────────────────────────────────────────────
+# DataBundle
+# ─────────────────────────────────────────────
+
+type DataBundle {
+  id: ID!
+  phoneNumber: String!
+  network: String!
+  country: String!
+  bundleCode: String!
+  amount: Float!
+  currency: Currency!
+  status: String!
+  txRef: String!
+  flwRef: String
+  createdAt: DateTime!
+  meta: JSON
+}
+
+input DataBundleInput {
+  country: String!
+  customer: String!
+  network: String!
+  bundleCode: String!
+  amount: Float!
+  txRef: String!
+}
+
+# ─────────────────────────────────────────────
+# Electricity
+# ─────────────────────────────────────────────
+
+type Electricity {
+  id: ID!
+  meterNumber: String!
+  meterType: String!
+  biller: String!
+  amount: Float!
+  currency: Currency!
+  token: String
+  units: Float
+  status: String!
+  txRef: String!
+  flwRef: String
+  createdAt: DateTime!
+  meta: JSON
+}
+
+input ElectricityInput {
+  country: String!
+  customer: String!
+  amount: Float!
+  txRef: String!
+  billerCode: String!
+  meterType: String!
+}
+
+# ─────────────────────────────────────────────
+# Invoice
+# ─────────────────────────────────────────────
+
+type InvoiceLineItem {
+  description: String!
+  quantity: Int!
+  unitPrice: Float!
+  total: Float!
+}
+
+type Invoice {
+  id: ID!
+  invoiceNumber: String!
+  customer: Customer!
+  items: [InvoiceLineItem!]!
+  subTotal: Float!
+  tax: Float
+  total: Float!
+  currency: Currency!
+  dueDate: DateTime
+  status: String!
+  paymentLink: String
+  createdAt: DateTime!
+  meta: JSON
+}
+
+input InvoiceLineItemInput {
+  description: String!
+  quantity: Int!
+  unitPrice: Float!
+}
+
+input CreateInvoiceInput {
+  customerId: ID!
+  items: [InvoiceLineItemInput!]!
+  currency: Currency!
+  dueDate: DateTime
+  tax: Float
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# PaymentLink
+# ─────────────────────────────────────────────
+
+type PaymentLink {
+  id: ID!
+  name: String!
+  amount: Float
+  currency: Currency!
+  fixedAmount: Boolean!
+  redirectUrl: String
+  expiryDate: DateTime
+  isPermanent: Boolean!
+  status: String!
+  link: String!
+  meta: JSON
+  createdAt: DateTime!
+}
+
+input CreatePaymentLinkInput {
+  name: String!
+  amount: Float
+  currency: Currency!
+  fixedAmount: Boolean
+  redirectUrl: String
+  expiryDate: DateTime
+  isPermanent: Boolean
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# SplitPayment
+# ─────────────────────────────────────────────
+
+type SplitPaymentShare {
+  subAccount: SubAccount!
+  splitType: SplitType!
+  splitValue: Float!
+}
+
+type SplitPayment {
+  id: ID!
+  name: String!
+  splitType: SplitType!
+  currency: Currency!
+  subAccounts: [SplitPaymentShare!]!
+  createdAt: DateTime!
+}
+
+input SplitPaymentShareInput {
+  id: String!
+  transactionSplitRatio: Float!
+  transactionChargeType: SplitType!
+  transactionCharge: Float!
+}
+
+input CreateSplitPaymentInput {
+  name: String!
+  type: SplitType!
+  currency: Currency!
+  subAccounts: [SplitPaymentShareInput!]!
+}
+
+# ─────────────────────────────────────────────
+# Audit
+# ─────────────────────────────────────────────
+
+type Audit {
+  id: ID!
+  action: AuditAction!
+  actorEmail: String
+  actorIp: String
+  description: String
+  resourceType: String
+  resourceId: String
+  createdAt: DateTime!
+  meta: JSON
+}
+
+# ─────────────────────────────────────────────
+# Paginated Response Wrappers
+# ─────────────────────────────────────────────
+
+type PageInfo {
+  page: Int!
+  perPage: Int!
+  total: Int!
+  totalPages: Int!
+}
+
+type TransactionConnection {
+  data: [Transaction!]!
+  pageInfo: PageInfo!
+}
+
+type TransferConnection {
+  data: [Transfer!]!
+  pageInfo: PageInfo!
+}
+
+type SettlementConnection {
+  data: [Settlement!]!
+  pageInfo: PageInfo!
+}
+
+type RefundConnection {
+  data: [Refund!]!
+  pageInfo: PageInfo!
+}
+
+type AuditConnection {
+  data: [Audit!]!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# Query
+# ─────────────────────────────────────────────
+
+type Query {
+  # Transactions
+  transaction(id: ID!): Transaction
+  transactions(pagination: PaginationInput, dateRange: DateRangeInput, status: TransactionStatus, currency: Currency): TransactionConnection!
+
+  # Charges
+  charge(id: ID!): Charge
+  cardCharge(id: ID!): CardCharge
+  bankTransfer(id: ID!): BankTransfer
+  mobileMoneyCharge(id: ID!): MobileMoneyCharge
+  ussdCharge(id: ID!): USSD
+  qrCode(id: ID!): QRCode
+
+  # Plans & Subscriptions
+  plan(id: ID!): Plan
+  plans(pagination: PaginationInput): [Plan!]!
+  subscription(id: ID!): Subscription
+  subscriptions(planId: ID, pagination: PaginationInput): [Subscription!]!
+
+  # Transfers
+  transfer(id: ID!): Transfer
+  transfers(pagination: PaginationInput, status: TransferStatus, dateRange: DateRangeInput): TransferConnection!
+  bulkTransfer(id: ID!): BulkTransfer
+  disbursement(id: ID!): Disbursement
+
+  # Customers
+  customer(id: ID!): Customer
+  customers(pagination: PaginationInput): [Customer!]!
+
+  # Beneficiaries
+  beneficiary(id: ID!): Beneficiary
+  beneficiaries(pagination: PaginationInput): [Beneficiary!]!
+
+  # Banks & Reference
+  banks(country: String!): [Bank!]!
+  mobileNetworks(country: String!): [Bank!]!
+  verifyAccount(input: AccountVerificationInput!): AccountVerification!
+  verifyBVN(input: BVNVerificationInput!): BVNVerification!
+
+  # Virtual Cards
+  virtualCard(id: ID!): VirtualCard
+  virtualCards(pagination: PaginationInput): [VirtualCard!]!
+
+  # Virtual Accounts
+  virtualAccount(orderRef: String!): VirtualAccount
+  virtualAccounts(pagination: PaginationInput): [VirtualAccount!]!
+
+  # Settlements
+  settlement(id: ID!): Settlement
+  settlements(pagination: PaginationInput, dateRange: DateRangeInput, status: SettlementStatus): SettlementConnection!
+
+  # Sub-Accounts
+  subAccount(id: ID!): SubAccount
+  subAccounts(pagination: PaginationInput): [SubAccount!]!
+
+  # Refunds
+  refund(id: ID!): Refund
+  refunds(transactionId: ID, pagination: PaginationInput): RefundConnection!
+
+  # Payment Links
+  paymentLink(id: ID!): PaymentLink
+  paymentLinks(pagination: PaginationInput): [PaymentLink!]!
+
+  # Invoices
+  invoice(id: ID!): Invoice
+  invoices(pagination: PaginationInput): [Invoice!]!
+
+  # Split Payments
+  splitPayment(id: ID!): SplitPayment
+  splitPayments(pagination: PaginationInput): [SplitPayment!]!
+
+  # Bills
+  bill(id: ID!): Bill
+  airtime(id: ID!): Airtime
+  dataBundle(id: ID!): DataBundle
+  electricity(id: ID!): Electricity
+
+  # Payout Configuration
+  payoutConfiguration: PayoutConfiguration
+
+  # Webhooks
+  webhooks: [Webhook!]!
+
+  # Audit
+  auditLogs(pagination: PaginationInput, dateRange: DateRangeInput): AuditConnection!
+}
+
+# ─────────────────────────────────────────────
+# Mutation
+# ─────────────────────────────────────────────
+
+type Mutation {
+  # Charges
+  initiateCardCharge(input: CardChargeInput!): CardCharge!
+  initiateBankTransferCharge(input: BankTransferChargeInput!): BankTransfer!
+  initiateMobileMoneyCharge(input: MobileMoneyChargeInput!): MobileMoneyCharge!
+  initiateUSSDCharge(input: USSDChargeInput!): USSD!
+  initiateQRCode(input: QRCodeChargeInput!): QRCode!
+  chargeRecurring(input: RecurringPaymentInput!): RecurringPayment!
+
+  # Plans & Subscriptions
+  createPlan(input: CreatePlanInput!): Plan!
+  updatePlan(id: ID!, input: CreatePlanInput!): Plan!
+  deletePlan(id: ID!): Boolean!
+  cancelSubscription(id: ID!): Subscription!
+
+  # Transfers
+  createTransfer(input: CreateTransferInput!): Transfer!
+  createBulkTransfer(input: BulkTransferInput!): BulkTransfer!
+  retryTransfer(id: ID!): Transfer!
+
+  # Refunds
+  createRefund(input: CreateRefundInput!): Refund!
+
+  # Customers
+  createCustomer(input: CreateCustomerInput!): Customer!
+  updateCustomer(id: ID!, input: CreateCustomerInput!): Customer!
+
+  # Beneficiaries
+  createBeneficiary(input: CreateBeneficiaryInput!): Beneficiary!
+  deleteBeneficiary(id: ID!): Boolean!
+
+  # Virtual Cards
+  createVirtualCard(input: CreateVirtualCardInput!): VirtualCard!
+  fundVirtualCard(id: ID!, amount: Float!): VirtualCard!
+  freezeVirtualCard(id: ID!): VirtualCard!
+  unfreezeVirtualCard(id: ID!): VirtualCard!
+  terminateVirtualCard(id: ID!): VirtualCard!
+
+  # Virtual Accounts
+  createVirtualAccount(input: CreateVirtualAccountInput!): VirtualAccount!
+
+  # Sub-Accounts
+  createSubAccount(input: CreateSubAccountInput!): SubAccount!
+  updateSubAccount(id: ID!, input: CreateSubAccountInput!): SubAccount!
+  deleteSubAccount(id: ID!): Boolean!
+
+  # Payment Links
+  createPaymentLink(input: CreatePaymentLinkInput!): PaymentLink!
+  updatePaymentLink(id: ID!, input: CreatePaymentLinkInput!): PaymentLink!
+  deletePaymentLink(id: ID!): Boolean!
+
+  # Invoices
+  createInvoice(input: CreateInvoiceInput!): Invoice!
+
+  # Split Payments
+  createSplitPayment(input: CreateSplitPaymentInput!): SplitPayment!
+  updateSplitPayment(id: ID!, input: CreateSplitPaymentInput!): SplitPayment!
+  deleteSplitPayment(id: ID!): Boolean!
+
+  # Bills & Utilities
+  payBill(input: CreateBillInput!): Bill!
+  buyAirtime(input: AirtimeInput!): Airtime!
+  buyDataBundle(input: DataBundleInput!): DataBundle!
+  payElectricity(input: ElectricityInput!): Electricity!
+
+  # Webhooks
+  configureWebhook(input: ConfigureWebhookInput!): Webhook!
+
+  # Payout Config
+  updatePayoutConfiguration(defaultCurrency: Currency, autoSettlement: Boolean, settlementFrequency: String): PayoutConfiguration!
+}
