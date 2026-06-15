@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flutterwave Webhooks API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Receive Flutterwave Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://your-webhook-endpoint.example.com/webhooks/flutterwave",
+            "headers": [
+              {
+                "name": "verif-hash",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint hosted by the merchant. Flutterwave POSTs a JSON payload and\nsets the `verif-hash` header to the secret hash configured in the\ndashboard. Validate `verif-hash` before trusting the payload.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

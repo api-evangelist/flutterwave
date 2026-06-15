@@ -1,0 +1,244 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flutterwave Settlements API",
+    "version": "4.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Settlements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Settlements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/settlements",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Settlements"
+        },
+        {
+          "info": {
+            "name": "Retrieve A Settlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/settlements/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve A Settlement"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Refunds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Refunds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/refunds"
+          },
+          "docs": "List Refunds"
+        },
+        {
+          "info": {
+            "name": "Create A Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.flutterwave.cloud/f4b/production/refunds",
+            "headers": [
+              {
+                "name": "X-Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create A Refund"
+        },
+        {
+          "info": {
+            "name": "Retrieve A Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/refunds/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve A Refund"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Chargebacks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Chargebacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/chargebacks"
+          },
+          "docs": "List Chargebacks"
+        },
+        {
+          "info": {
+            "name": "Create A Chargeback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.flutterwave.cloud/f4b/production/chargebacks",
+            "headers": [
+              {
+                "name": "X-Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create A Chargeback"
+        },
+        {
+          "info": {
+            "name": "Get Chargeback By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/chargebacks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Chargeback By Id"
+        },
+        {
+          "info": {
+            "name": "Update A Chargeback",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.flutterwave.cloud/f4b/production/chargebacks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update A Chargeback"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Fees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/fees",
+            "params": [
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "payment_method",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve transaction fees for a payment amount, currency, and method combination."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

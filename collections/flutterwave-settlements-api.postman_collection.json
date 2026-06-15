@@ -1,0 +1,1041 @@
+{
+  "item": [
+    {
+      "id": "851aa856-9beb-4556-b2d3-86f196dabce4",
+      "name": "Settlements",
+      "description": {
+        "content": "List and retrieve merchant settlements.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a85e28cb-d09f-4beb-9a05-87f62c3f069f",
+          "name": "List Settlements",
+          "request": {
+            "name": "List Settlements",
+            "description": {},
+            "url": {
+              "path": [
+                "settlements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "869393a2-e054-4653-9c86-6455dd88ffc1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settlements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"gross_amount\": 1257.7170584827568,\n      \"fee\": 3076.4691173542933,\n      \"net_amount\": 8068.9220172136975,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"reference\": \"string\",\n      \"period_start\": \"2008-08-11T09:53:01.149Z\",\n      \"period_end\": \"2007-07-05T02:18:47.744Z\",\n      \"created_datetime\": \"2021-06-25T18:09:24.677Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"gross_amount\": 8677.725203148491,\n      \"fee\": 6207.762547808605,\n      \"net_amount\": 9344.703857341061,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"reference\": \"string\",\n      \"period_start\": \"1986-10-31T07:23:09.585Z\",\n      \"period_end\": \"2011-02-27T06:13:04.077Z\",\n      \"created_datetime\": \"1947-05-13T03:16:52.174Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0fde0e3-a53d-4225-a66a-2e4d761faa7e",
+          "name": "Retrieve A Settlement",
+          "request": {
+            "name": "Retrieve A Settlement",
+            "description": {},
+            "url": {
+              "path": [
+                "settlements",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "38a853ea-bc26-4243-ad5e-2c10f5201555",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settlements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"gross_amount\": 9941.612047364713,\n  \"fee\": 5735.420269092835,\n  \"net_amount\": 4367.264035947815,\n  \"currency\": \"string\",\n  \"status\": \"string\",\n  \"reference\": \"string\",\n  \"period_start\": \"1980-11-06T04:32:21.877Z\",\n  \"period_end\": \"1952-03-09T12:10:05.703Z\",\n  \"created_datetime\": \"1956-08-19T19:54:19.948Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3c79d3d3-e754-42be-b956-9a1a8806ea72",
+      "name": "Refunds",
+      "description": {
+        "content": "Initiate and inspect refunds against successful charges.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fcea4bcd-094c-49b6-87ca-eb783fd45856",
+          "name": "List Refunds",
+          "request": {
+            "name": "List Refunds",
+            "description": {},
+            "url": {
+              "path": [
+                "refunds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fd11e3d9-250b-4d56-99ac-a6e993d21a30",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "refunds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"charge_id\": \"string\",\n      \"amount\": 9610.951440512323,\n      \"currency\": \"string\",\n      \"status\": \"processing\",\n      \"reason\": \"string\",\n      \"created_datetime\": \"1974-11-28T11:48:15.328Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"charge_id\": \"string\",\n      \"amount\": 174.6394482333957,\n      \"currency\": \"string\",\n      \"status\": \"succeeded\",\n      \"reason\": \"string\",\n      \"created_datetime\": \"1951-07-29T09:51:39.783Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1696fd9d-aa9f-4a34-9f47-04c05cd85948",
+          "name": "Create A Refund",
+          "request": {
+            "name": "Create A Refund",
+            "description": {},
+            "url": {
+              "path": [
+                "refunds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"charge_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e626694d-3864-46df-8539-f7b52d7009d1",
+              "name": "Refund Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "refunds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"charge_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"charge_id\": \"string\",\n  \"amount\": 1130.0278997987634,\n  \"currency\": \"string\",\n  \"status\": \"failed\",\n  \"reason\": \"string\",\n  \"created_datetime\": \"1959-03-06T11:01:12.048Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8aed8891-0d71-4dd6-8963-4335d9159f61",
+          "name": "Retrieve A Refund",
+          "request": {
+            "name": "Retrieve A Refund",
+            "description": {},
+            "url": {
+              "path": [
+                "refunds",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d2421ab-5b72-4c37-bbec-44d9596aa26a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "refunds",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"charge_id\": \"string\",\n  \"amount\": 1130.0278997987634,\n  \"currency\": \"string\",\n  \"status\": \"failed\",\n  \"reason\": \"string\",\n  \"created_datetime\": \"1959-03-06T11:01:12.048Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "49228544-6fee-4297-afc5-c745bb2360b0",
+      "name": "Chargebacks",
+      "description": {
+        "content": "Manage and respond to chargebacks raised by customers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "12f34acc-3355-4173-abaa-72f549d2f84f",
+          "name": "List Chargebacks",
+          "request": {
+            "name": "List Chargebacks",
+            "description": {},
+            "url": {
+              "path": [
+                "chargebacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac4402fa-09e4-4eca-8d5a-b0db875f9ffd",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chargebacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"charge_id\": \"string\",\n      \"amount\": 938.2174274184651,\n      \"currency\": \"string\",\n      \"reason\": \"string\",\n      \"status\": \"accepted\",\n      \"evidence\": {},\n      \"created_datetime\": \"2015-09-12T17:56:55.107Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"charge_id\": \"string\",\n      \"amount\": 7275.829650547167,\n      \"currency\": \"string\",\n      \"reason\": \"string\",\n      \"status\": \"won\",\n      \"evidence\": {},\n      \"created_datetime\": \"2020-04-07T17:13:57.711Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac970a54-64a6-4723-8523-0b4c60d4960a",
+          "name": "Create A Chargeback",
+          "request": {
+            "name": "Create A Chargeback",
+            "description": {},
+            "url": {
+              "path": [
+                "chargebacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"charge_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"reason\": \"<string>\",\n  \"evidence\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "32485474-9dd9-47ce-b6a4-2ef8a4e55d9c",
+              "name": "Chargeback Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chargebacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"charge_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"reason\": \"<string>\",\n  \"evidence\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"charge_id\": \"string\",\n  \"amount\": 3862.830354809761,\n  \"currency\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"accepted\",\n  \"evidence\": {},\n  \"created_datetime\": \"2004-03-26T00:04:19.214Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f03b4eb-3727-4bf9-a5f3-a07ae431132e",
+          "name": "Get Chargeback By Id",
+          "request": {
+            "name": "Get Chargeback By Id",
+            "description": {},
+            "url": {
+              "path": [
+                "chargebacks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06dcb998-124c-4b7d-8d6f-9f8b3d7421a6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chargebacks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"charge_id\": \"string\",\n  \"amount\": 3862.830354809761,\n  \"currency\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"accepted\",\n  \"evidence\": {},\n  \"created_datetime\": \"2004-03-26T00:04:19.214Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9178dc8-dcdc-4b4f-97a4-e94c1c412ba5",
+          "name": "Update A Chargeback",
+          "request": {
+            "name": "Update A Chargeback",
+            "description": {},
+            "url": {
+              "path": [
+                "chargebacks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"evidence\": \"<object>\",\n  \"resolution\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "45627a18-6bda-4266-b105-f10534e87255",
+              "name": "Chargeback Updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chargebacks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"evidence\": \"<object>\",\n  \"resolution\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"charge_id\": \"string\",\n  \"amount\": 3862.830354809761,\n  \"currency\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"accepted\",\n  \"evidence\": {},\n  \"created_datetime\": \"2004-03-26T00:04:19.214Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "487653e8-31c5-4747-9b33-5b539a19c915",
+      "name": "Fees",
+      "description": {
+        "content": "Retrieve Flutterwave's fee calculation for a transaction.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "88668e8d-491b-41c3-b5bf-f3ca0f9a79f5",
+          "name": "Retrieve Fees",
+          "request": {
+            "name": "Retrieve Fees",
+            "description": {
+              "content": "Retrieve transaction fees for a payment amount, currency, and method combination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<number>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "payment_method",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cfa03dc5-f979-4cec-bedf-29a9ae77b382",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_method",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 5042.860294812015,\n  \"currency\": \"string\",\n  \"fee\": 7515.541168880547,\n  \"merchant_fee\": 6772.650193433486,\n  \"flutterwave_fee\": 3042.9788467352446,\n  \"stamp_duty_fee\": 5458.906847383712\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.flutterwave.cloud/f4b/production",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "22a481fb-4224-43e6-a912-4efccce7d777",
+    "name": "Flutterwave Settlements API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Flutterwave v4 settlement, refund, chargeback, and fee endpoints used by\nfinance and operations teams to reconcile transaction volume with\nmerchant payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
+      "type": "text/plain"
+    }
+  }
+}

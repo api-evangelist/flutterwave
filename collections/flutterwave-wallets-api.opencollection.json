@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flutterwave Wallets API",
+    "version": "4.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AccountResolution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Wallet Account Look Up",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.flutterwave.cloud/f4b/production/wallet-account/resolve",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify wallet account information for a customer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Wallets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch Wallet Balance For Multiple Currencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/wallet-balances"
+          },
+          "docs": "Fetch Wallet Balance For Multiple Currencies"
+        },
+        {
+          "info": {
+            "name": "Fetch A Currency Wallet Balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/wallet-balances/:currency",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fetch A Currency Wallet Balance"
+        },
+        {
+          "info": {
+            "name": "Retrieve Wallet Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/wallets/statement",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve Wallet Statement"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

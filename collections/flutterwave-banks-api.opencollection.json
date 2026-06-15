@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flutterwave Banks API",
+    "version": "4.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Banks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Banks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/banks",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve supported banks by country."
+        },
+        {
+          "info": {
+            "name": "Retrieve Bank Branches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/banks/:id/branches",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve Bank Branches"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AccountResolution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bank Account Look Up",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.flutterwave.cloud/f4b/production/bank-account/resolve",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resolve a customer's bank account information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "MobileNetworks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Mobile Networks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.flutterwave.cloud/f4b/production/mobile-networks",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve supported mobile networks by country."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

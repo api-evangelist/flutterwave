@@ -1,0 +1,1623 @@
+{
+  "info": {
+    "_postman_id": "768cab3a-604f-4bb3-b1bc-48c2d92578bf",
+    "name": "Flutterwave Transfers API",
+    "description": "Flutterwave v4 payout APIs for cross-border and domestic transfers including\nbank account transfers, mobile money transfers, wallet-to-wallet movements,\ntransfer recipients, transfer senders, and real-time FX rate conversion.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:50.000Z",
+    "updatedAt": "2026-06-05T15:08:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-768cab3a-604f-4bb3-b1bc-48c2d92578bf"
+  },
+  "item": [
+    {
+      "name": "direct-transfers",
+      "item": [
+        {
+          "name": "Initiate An Orchestrator Transfer",
+          "id": "ce020ba5-3720-4322-b1e3-f39f3ef056cc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/direct-transfers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "direct-transfers"
+              ]
+            },
+            "description": "Create a transfer with the Orchestrator helper, combining sender, recipient, and movement in one call."
+          },
+          "response": [
+            {
+              "id": "0e88a810-ad0d-40a4-828e-dafe27af6955",
+              "name": "Transfer Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/direct-transfers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "direct-transfers"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"succeeded\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"fee\": \"<number>\",\n  \"rate_id\": \"<string>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-0e88a810-ad0d-40a4-828e-dafe27af6955"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:50.000Z",
+          "updatedAt": "2026-06-05T15:08:50.000Z",
+          "uid": "35240-ce020ba5-3720-4322-b1e3-f39f3ef056cc"
+        }
+      ],
+      "id": "242ca9a7-8cbc-4f35-8b3b-b6e30808cd36",
+      "createdAt": "2026-06-05T15:08:50.000Z",
+      "updatedAt": "2026-06-05T15:08:50.000Z",
+      "uid": "35240-242ca9a7-8cbc-4f35-8b3b-b6e30808cd36"
+    },
+    {
+      "name": "transfers",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "retry",
+              "item": [
+                {
+                  "name": "Retry Or Duplicate A Transfer",
+                  "id": "2b961ae4-7519-4345-afa7-b6cba3c5ce87",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "X-Idempotency-Key",
+                        "value": "<uuid>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/:id/retry",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        ":id",
+                        "retry"
+                      ],
+                      "variable": [
+                        {
+                          "id": "60f72a3b-8f29-4fc6-a726-0de143b17637",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "3ab0a2f0-fe3d-4254-a002-2a679133d955",
+                      "name": "Transfer Retry Created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "X-Idempotency-Key",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transfers/:id/retry",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transfers",
+                            ":id",
+                            "retry"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"succeeded\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"fee\": \"<number>\",\n  \"rate_id\": \"<string>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:08:50.000Z",
+                      "updatedAt": "2026-06-05T15:08:50.000Z",
+                      "uid": "35240-3ab0a2f0-fe3d-4254-a002-2a679133d955"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-2b961ae4-7519-4345-afa7-b6cba3c5ce87"
+                }
+              ],
+              "id": "8e9d08ec-8818-4634-b827-ff5759fc4b60",
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-8e9d08ec-8818-4634-b827-ff5759fc4b60"
+            },
+            {
+              "name": "Retrieve A Transfer",
+              "id": "fa577368-80b2-46d6-bf60-ccbb54f6c7c0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transfers/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfers",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "447e2bb8-d8a4-437c-b5e6-848f79cddcc5",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "a386e5e4-a056-40b3-ac62-ec8581aa2c2e",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"succeeded\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"fee\": \"<number>\",\n  \"rate_id\": \"<string>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-a386e5e4-a056-40b3-ac62-ec8581aa2c2e"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-fa577368-80b2-46d6-bf60-ccbb54f6c7c0"
+            },
+            {
+              "name": "Update A Transfer",
+              "id": "ae68eeec-03c9-4f4c-b86d-0adaed0627e6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfers/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfers",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9d9ac5a3-2acd-4868-b4c3-32e79e8d4efc",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Update instructions about a deferred payout."
+              },
+              "response": [
+                {
+                  "id": "b5d1283b-f203-45a4-ac20-c3092cdf770c",
+                  "name": "Transfer Updated",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"instruction\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"succeeded\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"fee\": \"<number>\",\n  \"rate_id\": \"<string>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-b5d1283b-f203-45a4-ac20-c3092cdf770c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-ae68eeec-03c9-4f4c-b86d-0adaed0627e6"
+            }
+          ],
+          "id": "a07da03f-2011-4039-b26c-0e64b428105a",
+          "createdAt": "2026-06-05T15:08:50.000Z",
+          "updatedAt": "2026-06-05T15:08:50.000Z",
+          "uid": "35240-a07da03f-2011-4039-b26c-0e64b428105a"
+        },
+        {
+          "name": "recipients",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Retrieve A Transfer Recipient",
+                  "id": "bb199f99-22e8-4475-a680-e0297c5c155d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/recipients/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        "recipients",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "0c1537cb-b9f6-4e74-9544-8dc3a4eb0b75",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "5911351b-6670-4739-adfb-729261512900",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transfers/recipients/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transfers",
+                            "recipients",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"type\": \"wallet\",\n  \"bank_account\": {},\n  \"mobile_money\": {},\n  \"wallet\": {},\n  \"name\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\"\n  },\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:08:50.000Z",
+                      "updatedAt": "2026-06-05T15:08:50.000Z",
+                      "uid": "35240-5911351b-6670-4739-adfb-729261512900"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-bb199f99-22e8-4475-a680-e0297c5c155d"
+                },
+                {
+                  "name": "Delete A Transfer Recipient",
+                  "id": "eff7fe9c-6558-4b3d-bce0-e60aee920571",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/recipients/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        "recipients",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "3e99410c-8068-43dc-a6ec-124cdd8600da",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "9fe5a881-8200-45d5-9274-0b9357b50aa0",
+                      "name": "Recipient Deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transfers/recipients/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transfers",
+                            "recipients",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:50.000Z",
+                      "updatedAt": "2026-06-05T15:08:50.000Z",
+                      "uid": "35240-9fe5a881-8200-45d5-9274-0b9357b50aa0"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-eff7fe9c-6558-4b3d-bce0-e60aee920571"
+                }
+              ],
+              "id": "6692c506-05f8-4b58-9d6b-2ca699b71ba6",
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-6692c506-05f8-4b58-9d6b-2ca699b71ba6"
+            },
+            {
+              "name": "List Transfer Recipients",
+              "id": "f0022a72-de31-4b78-87fb-3e7e2c2e9e3d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transfers/recipients",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfers",
+                    "recipients"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "3c2454ec-d357-4adf-8e7a-f621dae3aea1",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/recipients",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        "recipients"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"mobile_money\",\n      \"bank_account\": {},\n      \"mobile_money\": {},\n      \"wallet\": {},\n      \"name\": {\n        \"first\": \"<string>\",\n        \"last\": \"<string>\"\n      },\n      \"country\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"created_datetime\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"bank_account\",\n      \"bank_account\": {},\n      \"mobile_money\": {},\n      \"wallet\": {},\n      \"name\": {\n        \"first\": \"<string>\",\n        \"last\": \"<string>\"\n      },\n      \"country\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"created_datetime\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-3c2454ec-d357-4adf-8e7a-f621dae3aea1"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-f0022a72-de31-4b78-87fb-3e7e2c2e9e3d"
+            },
+            {
+              "name": "Create A Transfer Recipient",
+              "id": "da8d38f1-13d1-4d33-8902-819ba3bc1c42",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"bank_account\": {},\n  \"mobile_money\": {},\n  \"wallet\": {},\n  \"name\": {},\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfers/recipients",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfers",
+                    "recipients"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "0940ffae-8f20-4de3-a494-b40e3c342345",
+                  "name": "Recipient Created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "X-Idempotency-Key",
+                        "value": "<uuid>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"<string>\",\n  \"bank_account\": {},\n  \"mobile_money\": {},\n  \"wallet\": {},\n  \"name\": {},\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/recipients",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        "recipients"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"type\": \"wallet\",\n  \"bank_account\": {},\n  \"mobile_money\": {},\n  \"wallet\": {},\n  \"name\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\"\n  },\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-0940ffae-8f20-4de3-a494-b40e3c342345"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-da8d38f1-13d1-4d33-8902-819ba3bc1c42"
+            }
+          ],
+          "id": "4d9e0245-88c6-4543-8eaa-19d5b62c4b70",
+          "createdAt": "2026-06-05T15:08:50.000Z",
+          "updatedAt": "2026-06-05T15:08:50.000Z",
+          "uid": "35240-4d9e0245-88c6-4543-8eaa-19d5b62c4b70"
+        },
+        {
+          "name": "senders",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Retrieve A Transfer Sender",
+                  "id": "0aa35a17-e585-4334-ac00-0e27e946274a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/senders/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        "senders",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fea21167-e4b3-4a7b-af3d-de57dae9cdd6",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "a429790c-128c-414d-bb92-2d8dbbbf35a4",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transfers/senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transfers",
+                            "senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": {},\n  \"address\": {},\n  \"country\": \"<string>\",\n  \"identification\": {},\n  \"date_of_birth\": \"<date>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:08:50.000Z",
+                      "updatedAt": "2026-06-05T15:08:50.000Z",
+                      "uid": "35240-a429790c-128c-414d-bb92-2d8dbbbf35a4"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-0aa35a17-e585-4334-ac00-0e27e946274a"
+                },
+                {
+                  "name": "Delete A Transfer Sender",
+                  "id": "13980105-4bac-42a4-8fc7-1a90be487956",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/senders/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        "senders",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "3e2a9f57-fc4d-4d1c-9df6-5de744ea4286",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "09281671-ff01-4198-9a72-45b1d7ebac96",
+                      "name": "Sender Deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transfers/senders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transfers",
+                            "senders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:08:50.000Z",
+                      "updatedAt": "2026-06-05T15:08:50.000Z",
+                      "uid": "35240-09281671-ff01-4198-9a72-45b1d7ebac96"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-13980105-4bac-42a4-8fc7-1a90be487956"
+                }
+              ],
+              "id": "0a10096a-e281-46a0-90f1-572ca1d32868",
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-0a10096a-e281-46a0-90f1-572ca1d32868"
+            },
+            {
+              "name": "List Transfer Senders",
+              "id": "9c68fd73-e205-41ce-a269-1d46528f5787",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transfers/senders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfers",
+                    "senders"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "73325f67-fcc9-41c7-96f9-11680fcde48d",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/senders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        "senders"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": {},\n      \"address\": {},\n      \"country\": \"<string>\",\n      \"identification\": {},\n      \"date_of_birth\": \"<date>\",\n      \"created_datetime\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": {},\n      \"address\": {},\n      \"country\": \"<string>\",\n      \"identification\": {},\n      \"date_of_birth\": \"<date>\",\n      \"created_datetime\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-73325f67-fcc9-41c7-96f9-11680fcde48d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-9c68fd73-e205-41ce-a269-1d46528f5787"
+            },
+            {
+              "name": "Create A Transfer Sender",
+              "id": "a2e1dbe7-12ff-40ff-9299-fbc28df34696",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": {},\n  \"country\": \"<string>\",\n  \"address\": {},\n  \"identification\": {},\n  \"date_of_birth\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfers/senders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfers",
+                    "senders"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "76928bde-5d4c-4200-bc3b-9fe0c0330da7",
+                  "name": "Sender Created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "X-Idempotency-Key",
+                        "value": "<uuid>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": {},\n  \"country\": \"<string>\",\n  \"address\": {},\n  \"identification\": {},\n  \"date_of_birth\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/senders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        "senders"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": {},\n  \"address\": {},\n  \"country\": \"<string>\",\n  \"identification\": {},\n  \"date_of_birth\": \"<date>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-76928bde-5d4c-4200-bc3b-9fe0c0330da7"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-a2e1dbe7-12ff-40ff-9299-fbc28df34696"
+            }
+          ],
+          "id": "33554c07-4fc7-4995-9030-5ffe16bafdee",
+          "createdAt": "2026-06-05T15:08:50.000Z",
+          "updatedAt": "2026-06-05T15:08:50.000Z",
+          "uid": "35240-33554c07-4fc7-4995-9030-5ffe16bafdee"
+        },
+        {
+          "name": "rates",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Fetch Converted Rate",
+                  "id": "6b266716-905c-4fda-8aa6-ed9bfa570ab6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/rates/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        "rates",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a5d2aef4-f37c-41aa-a241-115465e6f3d2",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "dfb13ff1-2415-421e-8056-2213837d9bf9",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transfers/rates/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transfers",
+                            "rates",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"source_currency\": \"<string>\",\n  \"destination_currency\": \"<string>\",\n  \"source_amount\": \"<number>\",\n  \"destination_amount\": \"<number>\",\n  \"expiry_datetime\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-06-05T15:08:50.000Z",
+                      "updatedAt": "2026-06-05T15:08:50.000Z",
+                      "uid": "35240-dfb13ff1-2415-421e-8056-2213837d9bf9"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-6b266716-905c-4fda-8aa6-ed9bfa570ab6"
+                }
+              ],
+              "id": "af8a2835-1434-4e47-9598-35768ea52d6e",
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-af8a2835-1434-4e47-9598-35768ea52d6e"
+            },
+            {
+              "name": "Rate Conversion",
+              "id": "371a4efb-e183-4353-9357-bf9b55e36dd9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_currency\": \"<string>\",\n  \"destination_currency\": \"<string>\",\n  \"source_amount\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfers/rates",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfers",
+                    "rates"
+                  ]
+                },
+                "description": "Retrieve transfer rate for international transfers."
+              },
+              "response": [
+                {
+                  "id": "3d3997a8-10b2-4663-8b56-d622481de7c1",
+                  "name": "Rate Created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"source_currency\": \"<string>\",\n  \"destination_currency\": \"<string>\",\n  \"source_amount\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/transfers/rates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transfers",
+                        "rates"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"source_currency\": \"<string>\",\n  \"destination_currency\": \"<string>\",\n  \"source_amount\": \"<number>\",\n  \"destination_amount\": \"<number>\",\n  \"expiry_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:50.000Z",
+                  "updatedAt": "2026-06-05T15:08:50.000Z",
+                  "uid": "35240-3d3997a8-10b2-4663-8b56-d622481de7c1"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-371a4efb-e183-4353-9357-bf9b55e36dd9"
+            }
+          ],
+          "id": "8579d6fb-33a0-4259-9c97-c3635b7607ac",
+          "createdAt": "2026-06-05T15:08:50.000Z",
+          "updatedAt": "2026-06-05T15:08:50.000Z",
+          "uid": "35240-8579d6fb-33a0-4259-9c97-c3635b7607ac"
+        },
+        {
+          "name": "List Transfers",
+          "id": "feeedebf-f3ff-47b8-bc5b-e66b79209f91",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/transfers?limit=25&page=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transfers"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cde23302-777b-4b70-a685-9731f3fad18a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transfers?limit=25&page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfers"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"status\": \"succeeded\",\n      \"reference\": \"<string>\",\n      \"sender_id\": \"<string>\",\n      \"recipient_id\": \"<string>\",\n      \"narration\": \"<string>\",\n      \"fee\": \"<number>\",\n      \"rate_id\": \"<string>\",\n      \"created_datetime\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"status\": \"succeeded\",\n      \"reference\": \"<string>\",\n      \"sender_id\": \"<string>\",\n      \"recipient_id\": \"<string>\",\n      \"narration\": \"<string>\",\n      \"fee\": \"<number>\",\n      \"rate_id\": \"<string>\",\n      \"created_datetime\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-cde23302-777b-4b70-a685-9731f3fad18a"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:50.000Z",
+          "updatedAt": "2026-06-05T15:08:50.000Z",
+          "uid": "35240-feeedebf-f3ff-47b8-bc5b-e66b79209f91"
+        },
+        {
+          "name": "Create A Transfer",
+          "id": "d3f89a73-d306-4169-81fd-45dd1bdc1387",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/transfers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transfers"
+              ]
+            },
+            "description": "Create a direct transfer using only recipient and sender IDs."
+          },
+          "response": [
+            {
+              "id": "1508a07e-8447-4057-8c17-588500e0116f",
+              "name": "Transfer Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transfers"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"succeeded\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"fee\": \"<number>\",\n  \"rate_id\": \"<string>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:50.000Z",
+              "updatedAt": "2026-06-05T15:08:50.000Z",
+              "uid": "35240-1508a07e-8447-4057-8c17-588500e0116f"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:50.000Z",
+          "updatedAt": "2026-06-05T15:08:50.000Z",
+          "uid": "35240-d3f89a73-d306-4169-81fd-45dd1bdc1387"
+        }
+      ],
+      "id": "6cd055a9-1fce-4fa2-935f-2be16b26c0b4",
+      "createdAt": "2026-06-05T15:08:50.000Z",
+      "updatedAt": "2026-06-05T15:08:50.000Z",
+      "uid": "35240-6cd055a9-1fce-4fa2-935f-2be16b26c0b4"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.flutterwave.cloud/f4b/production"
+    }
+  ]
+}

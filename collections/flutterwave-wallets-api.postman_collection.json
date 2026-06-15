@@ -1,0 +1,432 @@
+{
+  "item": [
+    {
+      "id": "38eec39e-7dbf-4f5c-8542-09de48b1e391",
+      "name": "Wallets",
+      "description": {
+        "content": "Inspect currency wallet balances and statements.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bdf119bd-eca2-4add-86a8-739b0532cbe2",
+          "name": "Fetch Wallet Balance For Multiple Currencies",
+          "request": {
+            "name": "Fetch Wallet Balance For Multiple Currencies",
+            "description": {},
+            "url": {
+              "path": [
+                "wallet-balances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32621e7e-f783-4ff1-a2f3-62796c678f8e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet-balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"currency\": \"string\",\n      \"available_balance\": 6860.719053464699,\n      \"ledger_balance\": 9472.315140790231,\n      \"pending_balance\": 4861.673521870088\n    },\n    {\n      \"currency\": \"string\",\n      \"available_balance\": 4585.318263639898,\n      \"ledger_balance\": 1516.2970510116847,\n      \"pending_balance\": 291.46743905164254\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d20b9015-0307-441f-87d1-be24bbc534e1",
+          "name": "Fetch A Currency Wallet Balance",
+          "request": {
+            "name": "Fetch A Currency Wallet Balance",
+            "description": {},
+            "url": {
+              "path": [
+                "wallet-balances",
+                ":currency"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "currency",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33e2edc0-49c3-4ddc-a5e0-64dd01908bf1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet-balances",
+                    ":currency"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "currency",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"currency\": \"string\",\n  \"available_balance\": 749.837750231176,\n  \"ledger_balance\": 7671.419829293644,\n  \"pending_balance\": 1178.7569373790707\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "714c987a-18eb-4f21-96d0-b04aae9493a4",
+          "name": "Retrieve Wallet Statement",
+          "request": {
+            "name": "Retrieve Wallet Statement",
+            "description": {},
+            "url": {
+              "path": [
+                "wallets",
+                "statement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<date>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f44a7e7-49fe-4c79-83ce-5b79d2a4c219",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    "statement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"currency\": \"string\",\n  \"opening_balance\": 9841.169689043109,\n  \"closing_balance\": 586.2566837659067,\n  \"entries\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 5676.744956879404,\n      \"type\": \"credit\",\n      \"narration\": \"string\",\n      \"balance_after\": 7117.744630055987,\n      \"created_datetime\": \"1954-10-06T01:26:06.218Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 4196.810063030407,\n      \"type\": \"credit\",\n      \"narration\": \"string\",\n      \"balance_after\": 2469.163839973926,\n      \"created_datetime\": \"1991-09-05T05:27:26.036Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "590ab87b-6d6e-4da6-823e-4195f81cdda4",
+      "name": "AccountResolution",
+      "description": {
+        "content": "Resolve customer wallet account details.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5fdb080b-de78-4fe3-8f03-40ca2fdde03d",
+          "name": "Wallet Account Look Up",
+          "request": {
+            "name": "Wallet Account Look Up",
+            "description": {
+              "content": "Verify wallet account information for a customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallet-account",
+                "resolve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_number\": \"<string>\",\n  \"mobile_network\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4cb13593-1059-4d92-aaf1-b31e4d536c02",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet-account",
+                    "resolve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_number\": \"<string>\",\n  \"mobile_network\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_number\": \"string\",\n  \"account_name\": \"string\",\n  \"mobile_network\": \"string\",\n  \"country\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.flutterwave.cloud/f4b/production",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b2ae049d-7a22-4444-ae80-db8dc926b8ea",
+    "name": "Flutterwave Wallets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Flutterwave v4 wallet APIs for checking currency wallet balances, retrieving\nwallet statements, and resolving wallet account details for customers.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
+      "type": "text/plain"
+    }
+  }
+}

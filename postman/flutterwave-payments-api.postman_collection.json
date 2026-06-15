@@ -1,0 +1,2464 @@
+{
+  "info": {
+    "_postman_id": "f8b1ad8f-81ab-493c-bb1e-80f940e0b256",
+    "name": "Flutterwave Payments API",
+    "description": "Flutterwave v4 payment collection APIs covering customers, charges, payment\nmethods, the Orchestrator helper, orders, and virtual accounts. Use these\nendpoints to accept card, mobile money, bank transfer, USSD and OPay\npayments across 30+ African and global markets.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:48.000Z",
+    "updatedAt": "2026-06-05T15:08:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f8b1ad8f-81ab-493c-bb1e-80f940e0b256"
+  },
+  "item": [
+    {
+      "name": "customers",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Retrieve A Customer",
+              "id": "b16af6f0-eca2-44d1-8819-7db0826b6898",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9e63b52e-1083-4576-83c9-8500327f787a",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "5899a7b0-65c9-4a12-83ea-e26b0a1c4cc3",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"name\": {\n    \"first\": \"<string>\",\n    \"middle\": \"<string>\",\n    \"last\": \"<string>\"\n  },\n  \"phone\": {\n    \"country_code\": \"<string>\",\n    \"number\": \"<string>\"\n  },\n  \"address\": {},\n  \"meta\": {},\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-5899a7b0-65c9-4a12-83ea-e26b0a1c4cc3"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-b16af6f0-eca2-44d1-8819-7db0826b6898"
+            },
+            {
+              "name": "Update A Customer",
+              "id": "e1497c31-1ed6-4989-a0bc-cd2dae10a195",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": {},\n  \"phone\": {},\n  \"address\": {},\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "6ae4b993-11b6-49f1-bb2a-778fa967c265",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "e3f6824f-0cdc-4250-9f4c-89757066ee2c",
+                  "name": "Customer Updated",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"name\": {},\n  \"phone\": {},\n  \"address\": {},\n  \"meta\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"name\": {\n    \"first\": \"<string>\",\n    \"middle\": \"<string>\",\n    \"last\": \"<string>\"\n  },\n  \"phone\": {\n    \"country_code\": \"<string>\",\n    \"number\": \"<string>\"\n  },\n  \"address\": {},\n  \"meta\": {},\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-e3f6824f-0cdc-4250-9f4c-89757066ee2c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-e1497c31-1ed6-4989-a0bc-cd2dae10a195"
+            }
+          ],
+          "id": "aff019e6-c95f-4b05-b01f-8e85d3a877d6",
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-aff019e6-c95f-4b05-b01f-8e85d3a877d6"
+        },
+        {
+          "name": "search",
+          "item": [
+            {
+              "name": "Search Customers",
+              "id": "405e7a29-0aef-489e-beba-40a676b622a8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"phone_number\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers/search",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers",
+                    "search"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "04626bd5-df54-43e4-b018-76f15ebad4c9",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"phone_number\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/customers/search",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "customers",
+                        "search"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"email\": \"<email>\",\n      \"name\": {\n        \"first\": \"<string>\",\n        \"middle\": \"<string>\",\n        \"last\": \"<string>\"\n      },\n      \"phone\": {\n        \"country_code\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      \"address\": {},\n      \"meta\": {},\n      \"created_datetime\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"email\": \"<email>\",\n      \"name\": {\n        \"first\": \"<string>\",\n        \"middle\": \"<string>\",\n        \"last\": \"<string>\"\n      },\n      \"phone\": {\n        \"country_code\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      \"address\": {},\n      \"meta\": {},\n      \"created_datetime\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {}\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-04626bd5-df54-43e4-b018-76f15ebad4c9"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-405e7a29-0aef-489e-beba-40a676b622a8"
+            }
+          ],
+          "id": "69368f9e-8670-4599-808b-ac8afa09be1d",
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-69368f9e-8670-4599-808b-ac8afa09be1d"
+        },
+        {
+          "name": "List Customers",
+          "id": "a22ab01a-54e2-438e-9ff8-bc3abb9baf66",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "UUID-style key used to safely retry POST requests.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers?limit=25&page=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of customers."
+          },
+          "response": [
+            {
+              "id": "21522266-154d-4a5c-b035-88b0fd69bd7b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers?limit=25&page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<string>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"email\": \"<email>\",\n      \"name\": {\n        \"first\": \"<string>\",\n        \"middle\": \"<string>\",\n        \"last\": \"<string>\"\n      },\n      \"phone\": {\n        \"country_code\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      \"address\": {},\n      \"meta\": {},\n      \"created_datetime\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"email\": \"<email>\",\n      \"name\": {\n        \"first\": \"<string>\",\n        \"middle\": \"<string>\",\n        \"last\": \"<string>\"\n      },\n      \"phone\": {\n        \"country_code\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      \"address\": {},\n      \"meta\": {},\n      \"created_datetime\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {}\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-21522266-154d-4a5c-b035-88b0fd69bd7b"
+            },
+            {
+              "id": "3b25320c-e34d-4c03-8edb-f3646343a125",
+              "name": "Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/customers?limit=25&page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<string>\",\n  \"error\": {\n    \"type\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-3b25320c-e34d-4c03-8edb-f3646343a125"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-a22ab01a-54e2-438e-9ff8-bc3abb9baf66"
+        },
+        {
+          "name": "Create A Customer",
+          "id": "c58158cc-414d-4379-b9c5-dfd742998fb5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "UUID-style key used to safely retry POST requests.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"name\": {},\n  \"phone\": {},\n  \"address\": {},\n  \"meta\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            },
+            "description": "Create a new customer record."
+          },
+          "response": [
+            {
+              "id": "78b8286e-dd81-49ba-a4ed-bee980f362c2",
+              "name": "Customer Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": {},\n  \"phone\": {},\n  \"address\": {},\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"name\": {\n    \"first\": \"<string>\",\n    \"middle\": \"<string>\",\n    \"last\": \"<string>\"\n  },\n  \"phone\": {\n    \"country_code\": \"<string>\",\n    \"number\": \"<string>\"\n  },\n  \"address\": {},\n  \"meta\": {},\n  \"created_datetime\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-78b8286e-dd81-49ba-a4ed-bee980f362c2"
+            },
+            {
+              "id": "c4e77354-5143-430f-be80-7c3c1e65de99",
+              "name": "Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": {},\n  \"phone\": {},\n  \"address\": {},\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/customers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "customers"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<string>\",\n  \"error\": {\n    \"type\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-c4e77354-5143-430f-be80-7c3c1e65de99"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-c58158cc-414d-4379-b9c5-dfd742998fb5"
+        }
+      ],
+      "id": "dc471c75-de04-447a-b03c-a7026f1989bd",
+      "createdAt": "2026-06-05T15:08:49.000Z",
+      "updatedAt": "2026-06-05T15:08:49.000Z",
+      "uid": "35240-dc471c75-de04-447a-b03c-a7026f1989bd"
+    },
+    {
+      "name": "charges",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Retrieve A Charge",
+              "id": "b8782fa6-f8c1-4b48-af72-2bf5c9003d4c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/charges/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "charges",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "96628c8f-310c-47a3-9bef-6e4e6b257856",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "55b69fa2-11cb-43c5-ae3e-444527befa3d",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/charges/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "charges",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"failed\",\n  \"reference\": \"<string>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": {\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\"\n    },\n    \"phone\": {\n      \"country_code\": \"<string>\",\n      \"number\": \"<string>\"\n    },\n    \"address\": {},\n    \"meta\": {},\n    \"created_datetime\": \"<dateTime>\"\n  },\n  \"payment_method\": {\n    \"id\": \"<string>\",\n    \"type\": \"opay\",\n    \"card\": {},\n    \"mobile_money\": {},\n    \"bank_transfer\": {},\n    \"client\": {},\n    \"device_fingerprint\": \"<string>\",\n    \"created_datetime\": \"<dateTime>\"\n  },\n  \"processor_response\": {\n    \"type\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"redirect_url\": \"<string>\",\n  \"meta\": {},\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-55b69fa2-11cb-43c5-ae3e-444527befa3d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-b8782fa6-f8c1-4b48-af72-2bf5c9003d4c"
+            },
+            {
+              "name": "Update A Charge",
+              "id": "fa342ba1-db09-4bbe-80cf-f5860d6f396e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authorization\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/charges/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "charges",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2cad857f-b6b7-4c10-a8f5-6bbd4a6d36e4",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "a6708359-44b8-49f3-a44e-dd2e9ac3b793",
+                  "name": "Charge Updated",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"authorization\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/charges/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "charges",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"failed\",\n  \"reference\": \"<string>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": {\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\"\n    },\n    \"phone\": {\n      \"country_code\": \"<string>\",\n      \"number\": \"<string>\"\n    },\n    \"address\": {},\n    \"meta\": {},\n    \"created_datetime\": \"<dateTime>\"\n  },\n  \"payment_method\": {\n    \"id\": \"<string>\",\n    \"type\": \"opay\",\n    \"card\": {},\n    \"mobile_money\": {},\n    \"bank_transfer\": {},\n    \"client\": {},\n    \"device_fingerprint\": \"<string>\",\n    \"created_datetime\": \"<dateTime>\"\n  },\n  \"processor_response\": {\n    \"type\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"redirect_url\": \"<string>\",\n  \"meta\": {},\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-a6708359-44b8-49f3-a44e-dd2e9ac3b793"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-fa342ba1-db09-4bbe-80cf-f5860d6f396e"
+            }
+          ],
+          "id": "892c3ab4-c1f4-45bd-a464-e19b29819c8d",
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-892c3ab4-c1f4-45bd-a464-e19b29819c8d"
+        },
+        {
+          "name": "List Charges",
+          "id": "e5a80928-51ff-49de-8117-f25a0ebe1fd1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/charges?limit=25&page=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "charges"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb8711fb-d919-48d9-a7f6-8070b6ba179c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/charges?limit=25&page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "charges"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"status\": \"succeeded\",\n      \"reference\": \"<string>\",\n      \"customer\": {\n        \"id\": \"<string>\",\n        \"email\": \"<email>\",\n        \"name\": {\n          \"first\": \"<string>\",\n          \"middle\": \"<string>\",\n          \"last\": \"<string>\"\n        },\n        \"phone\": {\n          \"country_code\": \"<string>\",\n          \"number\": \"<string>\"\n        },\n        \"address\": {},\n        \"meta\": {},\n        \"created_datetime\": \"<dateTime>\"\n      },\n      \"payment_method\": {\n        \"id\": \"<string>\",\n        \"type\": \"bank_transfer\",\n        \"card\": {},\n        \"mobile_money\": {},\n        \"bank_transfer\": {},\n        \"client\": {},\n        \"device_fingerprint\": \"<string>\",\n        \"created_datetime\": \"<dateTime>\"\n      },\n      \"processor_response\": {\n        \"type\": \"<string>\",\n        \"code\": \"<string>\"\n      },\n      \"redirect_url\": \"<string>\",\n      \"meta\": {},\n      \"created_datetime\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"status\": \"failed\",\n      \"reference\": \"<string>\",\n      \"customer\": {\n        \"id\": \"<string>\",\n        \"email\": \"<email>\",\n        \"name\": {\n          \"first\": \"<string>\",\n          \"middle\": \"<string>\",\n          \"last\": \"<string>\"\n        },\n        \"phone\": {\n          \"country_code\": \"<string>\",\n          \"number\": \"<string>\"\n        },\n        \"address\": {},\n        \"meta\": {},\n        \"created_datetime\": \"<dateTime>\"\n      },\n      \"payment_method\": {\n        \"id\": \"<string>\",\n        \"type\": \"mobile_money\",\n        \"card\": {},\n        \"mobile_money\": {},\n        \"bank_transfer\": {},\n        \"client\": {},\n        \"device_fingerprint\": \"<string>\",\n        \"created_datetime\": \"<dateTime>\"\n      },\n      \"processor_response\": {\n        \"type\": \"<string>\",\n        \"code\": \"<string>\"\n      },\n      \"redirect_url\": \"<string>\",\n      \"meta\": {},\n      \"created_datetime\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-cb8711fb-d919-48d9-a7f6-8070b6ba179c"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-e5a80928-51ff-49de-8117-f25a0ebe1fd1"
+        },
+        {
+          "name": "Create A Charge",
+          "id": "f1c2a470-984a-4ff7-96b3-f4833857e92b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "UUID-style key used to safely retry POST requests.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"customer\": {},\n  \"reference\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"payment_method\": {},\n  \"meta\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/charges",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "charges"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0fef6cae-03e4-4011-aa34-b649df18fc72",
+              "name": "Charge Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"customer\": {},\n  \"reference\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"payment_method\": {},\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/charges",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "charges"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"failed\",\n  \"reference\": \"<string>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": {\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\"\n    },\n    \"phone\": {\n      \"country_code\": \"<string>\",\n      \"number\": \"<string>\"\n    },\n    \"address\": {},\n    \"meta\": {},\n    \"created_datetime\": \"<dateTime>\"\n  },\n  \"payment_method\": {\n    \"id\": \"<string>\",\n    \"type\": \"opay\",\n    \"card\": {},\n    \"mobile_money\": {},\n    \"bank_transfer\": {},\n    \"client\": {},\n    \"device_fingerprint\": \"<string>\",\n    \"created_datetime\": \"<dateTime>\"\n  },\n  \"processor_response\": {\n    \"type\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"redirect_url\": \"<string>\",\n  \"meta\": {},\n  \"created_datetime\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-0fef6cae-03e4-4011-aa34-b649df18fc72"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-f1c2a470-984a-4ff7-96b3-f4833857e92b"
+        }
+      ],
+      "id": "77fec354-d227-4f83-a2a0-2e64bff34b0b",
+      "createdAt": "2026-06-05T15:08:49.000Z",
+      "updatedAt": "2026-06-05T15:08:49.000Z",
+      "uid": "35240-77fec354-d227-4f83-a2a0-2e64bff34b0b"
+    },
+    {
+      "name": "orchestration",
+      "item": [
+        {
+          "name": "direct-charges",
+          "item": [
+            {
+              "name": "Initiate An Orchestrator Charge",
+              "id": "b77b89f6-f8e9-4015-871d-29357ca0eb3f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"customer\": {},\n  \"reference\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"payment_method\": {},\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orchestration/direct-charges",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orchestration",
+                    "direct-charges"
+                  ]
+                },
+                "description": "Create a charge in one call using the Orchestrator helper, which packages customer, payment method, and charge creation."
+              },
+              "response": [
+                {
+                  "id": "2e7dda88-0d46-4bc4-a08c-50d26a014f4a",
+                  "name": "Charge Created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "UUID-style key used to safely retry POST requests.",
+                        "key": "X-Idempotency-Key",
+                        "value": "<uuid>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"customer\": {},\n  \"reference\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"payment_method\": {},\n  \"meta\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orchestration/direct-charges",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orchestration",
+                        "direct-charges"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"failed\",\n  \"reference\": \"<string>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": {\n      \"first\": \"<string>\",\n      \"middle\": \"<string>\",\n      \"last\": \"<string>\"\n    },\n    \"phone\": {\n      \"country_code\": \"<string>\",\n      \"number\": \"<string>\"\n    },\n    \"address\": {},\n    \"meta\": {},\n    \"created_datetime\": \"<dateTime>\"\n  },\n  \"payment_method\": {\n    \"id\": \"<string>\",\n    \"type\": \"opay\",\n    \"card\": {},\n    \"mobile_money\": {},\n    \"bank_transfer\": {},\n    \"client\": {},\n    \"device_fingerprint\": \"<string>\",\n    \"created_datetime\": \"<dateTime>\"\n  },\n  \"processor_response\": {\n    \"type\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"redirect_url\": \"<string>\",\n  \"meta\": {},\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-2e7dda88-0d46-4bc4-a08c-50d26a014f4a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-b77b89f6-f8e9-4015-871d-29357ca0eb3f"
+            }
+          ],
+          "id": "82370e86-b5df-4c4c-a88e-88178074244e",
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-82370e86-b5df-4c4c-a88e-88178074244e"
+        },
+        {
+          "name": "direct-orders",
+          "item": [
+            {
+              "name": "Initiate An Order With Orchestrator",
+              "id": "6c66e274-f808-4935-87ec-e2aded5d8e30",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orchestration/direct-orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orchestration",
+                    "direct-orders"
+                  ]
+                },
+                "description": "Create an order in one call using the Orchestrator helper."
+              },
+              "response": [
+                {
+                  "id": "876502e2-bf29-46cc-8b45-a7797d4a54ef",
+                  "name": "Order Created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "UUID-style key used to safely retry POST requests.",
+                        "key": "X-Idempotency-Key",
+                        "value": "<uuid>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"meta\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orchestration/direct-orders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orchestration",
+                        "direct-orders"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"meta\": {}\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-876502e2-bf29-46cc-8b45-a7797d4a54ef"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-6c66e274-f808-4935-87ec-e2aded5d8e30"
+            }
+          ],
+          "id": "544a9164-5616-46dc-8cd9-36fea2ad91e1",
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-544a9164-5616-46dc-8cd9-36fea2ad91e1"
+        }
+      ],
+      "id": "e1cc59a3-8798-4288-aef2-99efc49cb863",
+      "createdAt": "2026-06-05T15:08:49.000Z",
+      "updatedAt": "2026-06-05T15:08:49.000Z",
+      "uid": "35240-e1cc59a3-8798-4288-aef2-99efc49cb863"
+    },
+    {
+      "name": "payment-methods",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Retrieve A Payment Method",
+              "id": "de8c7fb1-053b-4c22-a7e4-ec445c559855",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payment-methods/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payment-methods",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "348c0d27-513b-4093-8324-de5a38f5fd17",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "afca56cd-37b8-46d3-87ba-970a4d4babd0",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payment-methods/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payment-methods",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"type\": \"ussd\",\n  \"card\": {},\n  \"mobile_money\": {},\n  \"bank_transfer\": {},\n  \"client\": {},\n  \"device_fingerprint\": \"<string>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-afca56cd-37b8-46d3-87ba-970a4d4babd0"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-de8c7fb1-053b-4c22-a7e4-ec445c559855"
+            }
+          ],
+          "id": "54072961-5435-4f8b-bb24-e8338f8420d6",
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-54072961-5435-4f8b-bb24-e8338f8420d6"
+        },
+        {
+          "name": "List Payment Methods",
+          "id": "e0bec97b-0ae8-4bcd-b458-cf292f6713c6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payment-methods",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payment-methods"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "deee4cd7-2a16-4e6f-ae5e-5b6c1f02b46e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payment-methods",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payment-methods"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"ussd\",\n      \"card\": {},\n      \"mobile_money\": {},\n      \"bank_transfer\": {},\n      \"client\": {},\n      \"device_fingerprint\": \"<string>\",\n      \"created_datetime\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"bank_transfer\",\n      \"card\": {},\n      \"mobile_money\": {},\n      \"bank_transfer\": {},\n      \"client\": {},\n      \"device_fingerprint\": \"<string>\",\n      \"created_datetime\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-deee4cd7-2a16-4e6f-ae5e-5b6c1f02b46e"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-e0bec97b-0ae8-4bcd-b458-cf292f6713c6"
+        },
+        {
+          "name": "Create A Payment Method",
+          "id": "e9a65b8b-8d8d-453e-b5a4-085957949975",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "UUID-style key used to safely retry POST requests.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"card\": {},\n  \"mobile_money\": {},\n  \"bank_transfer\": {},\n  \"ussd\": {},\n  \"opay\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payment-methods",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payment-methods"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "95829914-703b-42bc-8cb0-864580d094d0",
+              "name": "Payment Method Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"card\": {},\n  \"mobile_money\": {},\n  \"bank_transfer\": {},\n  \"ussd\": {},\n  \"opay\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payment-methods",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payment-methods"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"type\": \"ussd\",\n  \"card\": {},\n  \"mobile_money\": {},\n  \"bank_transfer\": {},\n  \"client\": {},\n  \"device_fingerprint\": \"<string>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-95829914-703b-42bc-8cb0-864580d094d0"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-e9a65b8b-8d8d-453e-b5a4-085957949975"
+        }
+      ],
+      "id": "ea2e21f6-3aa1-4ec2-a50b-9f57880e1d37",
+      "createdAt": "2026-06-05T15:08:49.000Z",
+      "updatedAt": "2026-06-05T15:08:49.000Z",
+      "uid": "35240-ea2e21f6-3aa1-4ec2-a50b-9f57880e1d37"
+    },
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Retrieve An Order",
+              "id": "bba854f6-6529-4cb3-b131-45915aca34b7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d6fac14b-5efd-43bf-bcc1-6eacc9a9b4d3",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "65b10bb9-e79d-424a-bb9c-a5a94270273d",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"meta\": {}\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-65b10bb9-e79d-424a-bb9c-a5a94270273d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-bba854f6-6529-4cb3-b131-45915aca34b7"
+            },
+            {
+              "name": "Update An Order",
+              "id": "57dfda73-1ceb-4c51-8724-803737698ef3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "291cbceb-5397-4218-862c-38eacb056983",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "2cfb264f-ec8b-43c6-8a41-b4506f574ff0",
+                  "name": "Order Updated",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"meta\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"meta\": {}\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-2cfb264f-ec8b-43c6-8a41-b4506f574ff0"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-57dfda73-1ceb-4c51-8724-803737698ef3"
+            }
+          ],
+          "id": "7a8315f7-4e18-4a28-b932-6563710138ac",
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-7a8315f7-4e18-4a28-b932-6563710138ac"
+        },
+        {
+          "name": "List Orders",
+          "id": "8e7e13a4-6c4d-4218-9eea-69f1347057e6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c59096e9-f5e9-43e4-a6a9-3ed0e15e2e20",
+              "name": "Successful Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"status\": \"<string>\",\n      \"reference\": \"<string>\",\n      \"customer_id\": \"<string>\",\n      \"meta\": {}\n    },\n    {\n      \"id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"status\": \"<string>\",\n      \"reference\": \"<string>\",\n      \"customer_id\": \"<string>\",\n      \"meta\": {}\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-c59096e9-f5e9-43e4-a6a9-3ed0e15e2e20"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-8e7e13a4-6c4d-4218-9eea-69f1347057e6"
+        },
+        {
+          "name": "Create An Order",
+          "id": "af4bd9df-3ef5-43ca-a235-3c688b650d67",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "UUID-style key used to safely retry POST requests.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"meta\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c567434f-3f9e-4325-a7de-2e68761dfb3a",
+              "name": "Order Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"status\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"meta\": {}\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-c567434f-3f9e-4325-a7de-2e68761dfb3a"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-af4bd9df-3ef5-43ca-a235-3c688b650d67"
+        }
+      ],
+      "id": "a1746d24-b68a-4e42-99dc-a4311633bd3e",
+      "createdAt": "2026-06-05T15:08:49.000Z",
+      "updatedAt": "2026-06-05T15:08:49.000Z",
+      "uid": "35240-a1746d24-b68a-4e42-99dc-a4311633bd3e"
+    },
+    {
+      "name": "virtual-accounts",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Retrieve A Virtual Account",
+              "id": "d52cab9e-0ae0-4f8f-b989-6ae1051b7f39",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/virtual-accounts/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "virtual-accounts",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "61f57442-833d-46ee-83bc-f357f6551610",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "3f485d89-59a3-4911-985f-612788504390",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/virtual-accounts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "virtual-accounts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"account_number\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"account_reference\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"status\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"expiry_datetime\": \"<dateTime>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-3f485d89-59a3-4911-985f-612788504390"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-d52cab9e-0ae0-4f8f-b989-6ae1051b7f39"
+            },
+            {
+              "name": "Update A Virtual Account",
+              "id": "e876489a-ebb7-4eea-9d29-852bf596858e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currency\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"customer_id\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"bvn\": \"<string>\",\n  \"is_permanent\": \"<boolean>\",\n  \"expiry\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/virtual-accounts/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "virtual-accounts",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "53b8b408-1d36-4f9e-9627-ac0f9aa045f2",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "ad4573ac-be69-4f82-a552-56c7486eae98",
+                  "name": "Virtual Account Updated",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"currency\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"customer_id\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"bvn\": \"<string>\",\n  \"is_permanent\": \"<boolean>\",\n  \"expiry\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/virtual-accounts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "virtual-accounts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"account_number\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"account_reference\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"status\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"expiry_datetime\": \"<dateTime>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:49.000Z",
+                  "updatedAt": "2026-06-05T15:08:49.000Z",
+                  "uid": "35240-ad4573ac-be69-4f82-a552-56c7486eae98"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-e876489a-ebb7-4eea-9d29-852bf596858e"
+            }
+          ],
+          "id": "2b78af35-6562-43da-beef-d380b7b72c84",
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-2b78af35-6562-43da-beef-d380b7b72c84"
+        },
+        {
+          "name": "List All Virtual Accounts",
+          "id": "893929b6-5198-40c7-9c2d-5c6aec243770",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/virtual-accounts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "virtual-accounts"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "67704662-de93-4d34-a216-d933c2b5bde8",
+              "name": "Successful Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/virtual-accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "virtual-accounts"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"account_number\": \"<string>\",\n      \"bank_name\": \"<string>\",\n      \"account_reference\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"customer_id\": \"<string>\",\n      \"status\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"expiry_datetime\": \"<dateTime>\",\n      \"created_datetime\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"account_number\": \"<string>\",\n      \"bank_name\": \"<string>\",\n      \"account_reference\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"customer_id\": \"<string>\",\n      \"status\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"expiry_datetime\": \"<dateTime>\",\n      \"created_datetime\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-67704662-de93-4d34-a216-d933c2b5bde8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-893929b6-5198-40c7-9c2d-5c6aec243770"
+        },
+        {
+          "name": "Create A Virtual Account",
+          "id": "1c0ab02c-9cea-4f70-b27f-a3edbb503618",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "UUID-style key used to safely retry POST requests.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currency\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"customer_id\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"bvn\": \"<string>\",\n  \"is_permanent\": \"<boolean>\",\n  \"expiry\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/virtual-accounts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "virtual-accounts"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "97f6be7d-f3cf-4557-bb51-813b1b1cd7b3",
+              "name": "Virtual Account Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currency\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"customer_id\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"bvn\": \"<string>\",\n  \"is_permanent\": \"<boolean>\",\n  \"expiry\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/virtual-accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "virtual-accounts"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"account_number\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"account_reference\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"status\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"expiry_datetime\": \"<dateTime>\",\n  \"created_datetime\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:08:49.000Z",
+              "updatedAt": "2026-06-05T15:08:49.000Z",
+              "uid": "35240-97f6be7d-f3cf-4557-bb51-813b1b1cd7b3"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:49.000Z",
+          "updatedAt": "2026-06-05T15:08:49.000Z",
+          "uid": "35240-1c0ab02c-9cea-4f70-b27f-a3edbb503618"
+        }
+      ],
+      "id": "b0be6088-8dc6-4b69-9997-83e01c21cb42",
+      "createdAt": "2026-06-05T15:08:49.000Z",
+      "updatedAt": "2026-06-05T15:08:49.000Z",
+      "uid": "35240-b0be6088-8dc6-4b69-9997-83e01c21cb42"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.flutterwave.cloud/f4b/production"
+    }
+  ]
+}

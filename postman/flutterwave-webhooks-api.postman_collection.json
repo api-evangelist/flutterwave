@@ -1,0 +1,133 @@
+{
+  "info": {
+    "_postman_id": "a7f7ab0b-90c1-4300-b1c1-c475245a51ab",
+    "name": "Flutterwave Webhooks API",
+    "description": "Flutterwave delivers webhook events for payments, transfers, refunds,\nchargebacks, and virtual account funding. This document describes the\noutbound HTTP callbacks Flutterwave will send to a merchant-configured\nendpoint. The receiver must respond with 2XX within 5 seconds; Flutterwave\nretries with exponential backoff.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:54.000Z",
+    "updatedAt": "2026-06-05T15:08:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a7f7ab0b-90c1-4300-b1c1-c475245a51ab"
+  },
+  "item": [
+    {
+      "name": "webhooks",
+      "item": [
+        {
+          "name": "flutterwave",
+          "item": [
+            {
+              "name": "Receive Flutterwave Webhook",
+              "id": "1e00139f-a5f6-4cd5-879b-675d39173313",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Pre-shared secret hash configured by the merchant.",
+                    "key": "verif-hash",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"virtual_account.funded\",\n  \"data\": {\n    \"id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"status\": \"<string>\",\n    \"reference\": \"<string>\",\n    \"customer\": {\n      \"id\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    \"payment_method\": {\n      \"type\": \"<string>\"\n    },\n    \"processor_response\": {\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    \"created_datetime\": \"<dateTime>\",\n    \"meta\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/flutterwave",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    "flutterwave"
+                  ]
+                },
+                "description": "Endpoint hosted by the merchant. Flutterwave POSTs a JSON payload and\nsets the `verif-hash` header to the secret hash configured in the\ndashboard. Validate `verif-hash` before trusting the payload.\n"
+              },
+              "response": [
+                {
+                  "id": "664d9d3c-3bff-4dd5-8ea6-6af89d35405e",
+                  "name": "Acknowledgement",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Pre-shared secret hash configured by the merchant.",
+                        "key": "verif-hash",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"virtual_account.funded\",\n  \"data\": {\n    \"id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"status\": \"<string>\",\n    \"reference\": \"<string>\",\n    \"customer\": {\n      \"id\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    \"payment_method\": {\n      \"type\": \"<string>\"\n    },\n    \"processor_response\": {\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    \"created_datetime\": \"<dateTime>\",\n    \"meta\": {}\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/flutterwave",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        "flutterwave"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:55.000Z",
+                  "updatedAt": "2026-06-05T15:08:55.000Z",
+                  "uid": "35240-664d9d3c-3bff-4dd5-8ea6-6af89d35405e"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:55.000Z",
+              "updatedAt": "2026-06-05T15:08:55.000Z",
+              "uid": "35240-1e00139f-a5f6-4cd5-879b-675d39173313"
+            }
+          ],
+          "id": "d98de922-7a4e-4355-bb9b-e799bf7816f2",
+          "createdAt": "2026-06-05T15:08:55.000Z",
+          "updatedAt": "2026-06-05T15:08:55.000Z",
+          "uid": "35240-d98de922-7a4e-4355-bb9b-e799bf7816f2"
+        }
+      ],
+      "id": "04742754-8c2c-4f55-a580-6fffc19e2ba5",
+      "createdAt": "2026-06-05T15:08:55.000Z",
+      "updatedAt": "2026-06-05T15:08:55.000Z",
+      "uid": "35240-04742754-8c2c-4f55-a580-6fffc19e2ba5"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://your-webhook-endpoint.example.com"
+    }
+  ]
+}

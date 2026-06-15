@@ -1,0 +1,455 @@
+{
+  "info": {
+    "_postman_id": "8a8bce66-85aa-4c0b-8340-7378338d5fba",
+    "name": "Flutterwave Banks API",
+    "description": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:53.000Z",
+    "updatedAt": "2026-06-05T15:08:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8a8bce66-85aa-4c0b-8340-7378338d5fba"
+  },
+  "item": [
+    {
+      "name": "banks",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "branches",
+              "item": [
+                {
+                  "name": "Retrieve Bank Branches",
+                  "id": "deb454be-6c60-4542-a976-45261b76fcd8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/banks/:id/branches",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "banks",
+                        ":id",
+                        "branches"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a2cc14f2-a823-41a5-8177-53a5e1f2f5cb",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "40686115-f37a-4eeb-8ff0-7a15175963f4",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/banks/:id/branches",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "banks",
+                            ":id",
+                            "branches"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"bank_id\": \"<string>\",\n      \"swift_code\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"bank_id\": \"<string>\",\n      \"swift_code\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:08:54.000Z",
+                      "updatedAt": "2026-06-05T15:08:54.000Z",
+                      "uid": "35240-40686115-f37a-4eeb-8ff0-7a15175963f4"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:08:54.000Z",
+                  "updatedAt": "2026-06-05T15:08:54.000Z",
+                  "uid": "35240-deb454be-6c60-4542-a976-45261b76fcd8"
+                }
+              ],
+              "id": "99134b82-42c5-42e2-85fe-4f077444296e",
+              "createdAt": "2026-06-05T15:08:54.000Z",
+              "updatedAt": "2026-06-05T15:08:54.000Z",
+              "uid": "35240-99134b82-42c5-42e2-85fe-4f077444296e"
+            }
+          ],
+          "id": "b54f94cc-9bd5-42af-beeb-d77ac15264df",
+          "createdAt": "2026-06-05T15:08:54.000Z",
+          "updatedAt": "2026-06-05T15:08:54.000Z",
+          "uid": "35240-b54f94cc-9bd5-42af-beeb-d77ac15264df"
+        },
+        {
+          "name": "Retrieve Banks",
+          "id": "6d8d9e85-8cbf-4d80-b6c2-1c7c026b4b7b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/banks?country=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "banks"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "country",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve supported banks by country."
+          },
+          "response": [
+            {
+              "id": "f2582f81-0247-4636-8560-c1392d858d10",
+              "name": "Successful Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/banks?country=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "banks"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"code\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"code\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:54.000Z",
+              "updatedAt": "2026-06-05T15:08:54.000Z",
+              "uid": "35240-f2582f81-0247-4636-8560-c1392d858d10"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:54.000Z",
+          "updatedAt": "2026-06-05T15:08:54.000Z",
+          "uid": "35240-6d8d9e85-8cbf-4d80-b6c2-1c7c026b4b7b"
+        }
+      ],
+      "id": "632fb2d6-f388-477c-b5a3-39b3bbecfc1e",
+      "createdAt": "2026-06-05T15:08:54.000Z",
+      "updatedAt": "2026-06-05T15:08:54.000Z",
+      "uid": "35240-632fb2d6-f388-477c-b5a3-39b3bbecfc1e"
+    },
+    {
+      "name": "bank-account",
+      "item": [
+        {
+          "name": "resolve",
+          "item": [
+            {
+              "name": "Bank Account Look Up",
+              "id": "a5484c59-95db-4d5b-89be-6f13f3615b83",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_number\": \"<string>\",\n  \"bank_id\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bank-account/resolve",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bank-account",
+                    "resolve"
+                  ]
+                },
+                "description": "Resolve a customer's bank account information."
+              },
+              "response": [
+                {
+                  "id": "a8e24a56-cb95-48a3-8b5b-59b4301cbb17",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"account_number\": \"<string>\",\n  \"bank_id\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/bank-account/resolve",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bank-account",
+                        "resolve"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"account_number\": \"<string>\",\n  \"account_name\": \"<string>\",\n  \"bank_id\": \"<string>\",\n  \"bank_name\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:08:54.000Z",
+                  "updatedAt": "2026-06-05T15:08:54.000Z",
+                  "uid": "35240-a8e24a56-cb95-48a3-8b5b-59b4301cbb17"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:54.000Z",
+              "updatedAt": "2026-06-05T15:08:54.000Z",
+              "uid": "35240-a5484c59-95db-4d5b-89be-6f13f3615b83"
+            }
+          ],
+          "id": "e9cedd65-0048-44bd-bf89-3593366be205",
+          "createdAt": "2026-06-05T15:08:54.000Z",
+          "updatedAt": "2026-06-05T15:08:54.000Z",
+          "uid": "35240-e9cedd65-0048-44bd-bf89-3593366be205"
+        }
+      ],
+      "id": "35168c4a-e4f1-4ad2-89ad-c1669d65784a",
+      "createdAt": "2026-06-05T15:08:54.000Z",
+      "updatedAt": "2026-06-05T15:08:54.000Z",
+      "uid": "35240-35168c4a-e4f1-4ad2-89ad-c1669d65784a"
+    },
+    {
+      "name": "mobile-networks",
+      "item": [
+        {
+          "name": "Retrieve Mobile Networks",
+          "id": "2678dee0-2b39-49c3-b6bb-a80fcdd23c77",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mobile-networks?country=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mobile-networks"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "country",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve supported mobile networks by country."
+          },
+          "response": [
+            {
+              "id": "b6f2e20b-7fc1-465f-89e9-3c383b5aad8c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mobile-networks?country=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mobile-networks"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"country\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"country\": \"<string>\",\n      \"code\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:08:54.000Z",
+              "updatedAt": "2026-06-05T15:08:54.000Z",
+              "uid": "35240-b6f2e20b-7fc1-465f-89e9-3c383b5aad8c"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:54.000Z",
+          "updatedAt": "2026-06-05T15:08:54.000Z",
+          "uid": "35240-2678dee0-2b39-49c3-b6bb-a80fcdd23c77"
+        }
+      ],
+      "id": "37e652d2-93ba-4f2d-b1c9-6e9db53623c6",
+      "createdAt": "2026-06-05T15:08:54.000Z",
+      "updatedAt": "2026-06-05T15:08:54.000Z",
+      "uid": "35240-37e652d2-93ba-4f2d-b1c9-6e9db53623c6"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.flutterwave.cloud/f4b/production"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "item": [
+    {
+      "id": "c2d7ba9e-be81-440f-9c50-43504697e20b",
+      "name": "Webhooks",
+      "description": {
+        "content": "Outbound webhook callbacks delivered by Flutterwave.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a7ac737b-f6f7-43f4-a3b9-62fc645de156",
+          "name": "Receive Flutterwave Webhook",
+          "request": {
+            "name": "Receive Flutterwave Webhook",
+            "description": {
+              "content": "Endpoint hosted by the merchant. Flutterwave POSTs a JSON payload and\nsets the `verif-hash` header to the secret hash configured in the\ndashboard. Validate `verif-hash` before trusting the payload.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks",
+                "flutterwave"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Pre-shared secret hash configured by the merchant.",
+                "key": "verif-hash",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"data\": {\n    \"id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"status\": \"<string>\",\n    \"reference\": \"<string>\",\n    \"customer\": {\n      \"id\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    \"payment_method\": {\n      \"type\": \"<string>\"\n    },\n    \"processor_response\": {\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    \"created_datetime\": \"<dateTime>\",\n    \"meta\": \"<object>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e0e5efdd-313e-4d32-b887-7019381933e1",
+              "name": "Acknowledgement",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "flutterwave"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Pre-shared secret hash configured by the merchant.",
+                    "key": "verif-hash",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"data\": {\n    \"id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"status\": \"<string>\",\n    \"reference\": \"<string>\",\n    \"customer\": {\n      \"id\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    \"payment_method\": {\n      \"type\": \"<string>\"\n    },\n    \"processor_response\": {\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    \"created_datetime\": \"<dateTime>\",\n    \"meta\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://your-webhook-endpoint.example.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ffdd489e-b0d1-4220-989d-bc8f8184884a",
+    "name": "Flutterwave Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Flutterwave delivers webhook events for payments, transfers, refunds,\nchargebacks, and virtual account funding. This document describes the\noutbound HTTP callbacks Flutterwave will send to a merchant-configured\nendpoint. The receiver must respond with 2XX within 5 seconds; Flutterwave\nretries with exponential backoff.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
+      "type": "text/plain"
+    }
+  }
+}
