@@ -29,9 +29,9 @@ apis:
   - url: json-ld/flutterwave-context.jsonld
     type: JSONLD
   - url: examples/flutterwave-create-charge-example.json
-    type: Example
+    type: Examples
   - url: examples/flutterwave-create-customer-example.json
-    type: Example
+    type: Examples
   - url: graphql/flutterwave-graphql.md
     type: GraphQL
   description: Collect payments across cards, mobile money (M-Pesa, MTN, Airtel, Tigo),
@@ -59,7 +59,7 @@ apis:
   - url: json-schema/flutterwave-transfer-schema.json
     type: JSONSchema
   - url: examples/flutterwave-create-transfer-example.json
-    type: Example
+    type: Examples
   description: Disburse funds globally across bank account transfers, mobile money
     transfers, and wallet-to-wallet transfers spanning 30+ African countries plus
     US/UK/EU/Asia corridors. Manage transfer recipients, transfer senders (KYC for
@@ -87,7 +87,7 @@ apis:
   - url: json-schema/flutterwave-settlement-schema.json
     type: JSONSchema
   - url: examples/flutterwave-create-refund-example.json
-    type: Example
+    type: Examples
   description: Reconcile transaction volume with merchant payouts. Manage settlements,
     refunds, chargebacks (dispute handling), and fee computation for cards, mobile
     money, and other rails. The finance-and-ops surface of the F4B platform.
@@ -152,7 +152,7 @@ apis:
   - url: asyncapi.yml
     type: AsyncAPI
   - url: examples/flutterwave-charge-completed-webhook-example.json
-    type: Example
+    type: Examples
   description: Outbound webhook callbacks delivered by Flutterwave for charges, transfers,
     refunds, chargebacks, and virtual account funding. Receivers validate the `verif-hash`
     header against the merchant's configured secret hash before trusting the payload.
@@ -174,89 +174,66 @@ access: 3rd-Party
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/flutterwave/overview
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/flutterwave-bank-directory-then-payout-workflow.yml
-    name: Flutterwave Bank Directory Then Payout
-    summary: Look up supported banks for a country, resolve the destination account,
-      then create a recipient and send a payout.
-  - url: arazzo/flutterwave-charge-and-verify-status-workflow.yml
-    name: Flutterwave Charge And Verify Status
-    summary: Initiate a charge then poll the charge object to confirm its final settled
-      status.
-  - url: arazzo/flutterwave-charge-then-dispute-chargeback-workflow.yml
-    name: Flutterwave Charge Then Dispute Chargeback
-    summary: Confirm a charge succeeded, raise a chargeback against it, and submit
-      evidence to contest it.
-  - url: arazzo/flutterwave-charge-then-refund-workflow.yml
-    name: Flutterwave Charge Then Refund
-    summary: Verify a charge succeeded, then create a refund against it and confirm
-      the refund status.
-  - url: arazzo/flutterwave-create-recipient-transfer-verify-workflow.yml
-    name: Flutterwave Create Recipient Transfer And Verify
-    summary: Create a transfer recipient, send a payout to it, then verify the transfer
-      reached a final status.
-  - url: arazzo/flutterwave-cross-border-rate-locked-transfer-workflow.yml
-    name: Flutterwave Cross-Border Rate-Locked Transfer
-    summary: Lock an FX rate, create a sender and recipient, then send a transfer
-      at the locked rate and verify it.
-  - url: arazzo/flutterwave-direct-orchestrator-transfer-verify-workflow.yml
-    name: Flutterwave Direct Orchestrator Transfer And Verify
-    summary: Initiate a one-call Orchestrator transfer with inline sender and recipient,
-      then verify the payout status.
-  - url: arazzo/flutterwave-mobile-money-payout-workflow.yml
-    name: Flutterwave Mobile Money Payout
-    summary: Resolve a mobile money wallet, create a mobile money recipient, then
-      send and verify the payout.
-  - url: arazzo/flutterwave-orchestrator-charge-and-verify-workflow.yml
-    name: Flutterwave Orchestrator Charge And Verify
-    summary: Initiate a one-call Orchestrator charge then verify the resulting charge
-      status.
-  - url: arazzo/flutterwave-orchestrator-order-and-verify-workflow.yml
-    name: Flutterwave Orchestrator Order And Verify
-    summary: Initiate an order in one call with the Orchestrator helper, then retrieve
-      it to confirm its status.
-  - url: arazzo/flutterwave-order-checkout-and-verify-workflow.yml
-    name: Flutterwave Order Checkout And Verify
-    summary: Create a customer, place a server-side order for them, then retrieve
-      the order to confirm its status.
-  - url: arazzo/flutterwave-quote-fee-then-charge-workflow.yml
-    name: Flutterwave Quote Fee Then Charge
-    summary: Retrieve the processing fee for an amount, create the customer, then
-      charge and verify it.
-  - url: arazzo/flutterwave-resolve-account-then-payout-workflow.yml
-    name: Flutterwave Resolve Account Then Payout
-    summary: Resolve a destination bank account name, create a recipient for it, then
-      send and verify a transfer.
-  - url: arazzo/flutterwave-reuse-recipient-payout-workflow.yml
-    name: Flutterwave Reuse Recipient Payout
-    summary: Retrieve a saved recipient to confirm it exists, then send a transfer
-      to it and verify the payout.
-  - url: arazzo/flutterwave-settlement-reconciliation-refund-workflow.yml
-    name: Flutterwave Settlement Reconciliation Refund
-    summary: Retrieve a settlement, confirm a charge within it succeeded, then refund
-      the charge and verify the refund.
-  - url: arazzo/flutterwave-tokenized-recurring-charge-workflow.yml
-    name: Flutterwave Tokenized Recurring Charge
-    summary: Tokenize a payment method, charge it for a customer, then verify the
-      recurring charge status.
-  - url: arazzo/flutterwave-transfer-verify-and-retry-workflow.yml
-    name: Flutterwave Transfer Verify And Retry
-    summary: Send a transfer, verify its status, and retry it automatically when it
-      failed.
-  - url: arazzo/flutterwave-upsert-customer-and-charge-workflow.yml
-    name: Flutterwave Upsert Customer And Charge
-    summary: Search for a customer by email, create one only if missing, then charge
-      that customer and verify it.
-  - url: arazzo/flutterwave-virtual-account-collection-workflow.yml
-    name: Flutterwave Virtual Account Collection
-    summary: Create a customer, issue a dedicated virtual account for them, then verify
-      the account is active.
-  - url: arazzo/flutterwave-wallet-balance-guarded-payout-workflow.yml
-    name: Flutterwave Wallet Balance Guarded Payout
-    summary: Check a currency wallet balance, then only send a transfer to an existing
-      recipient when funds are sufficient.
+- type: Arazzo
+  url: arazzo/flutterwave-bank-directory-then-payout-workflow.yml
+  name: Flutterwave Bank Directory Then Payout
+- type: Arazzo
+  url: arazzo/flutterwave-charge-and-verify-status-workflow.yml
+  name: Flutterwave Charge And Verify Status
+- type: Arazzo
+  url: arazzo/flutterwave-charge-then-dispute-chargeback-workflow.yml
+  name: Flutterwave Charge Then Dispute Chargeback
+- type: Arazzo
+  url: arazzo/flutterwave-charge-then-refund-workflow.yml
+  name: Flutterwave Charge Then Refund
+- type: Arazzo
+  url: arazzo/flutterwave-create-recipient-transfer-verify-workflow.yml
+  name: Flutterwave Create Recipient Transfer And Verify
+- type: Arazzo
+  url: arazzo/flutterwave-cross-border-rate-locked-transfer-workflow.yml
+  name: Flutterwave Cross-Border Rate-Locked Transfer
+- type: Arazzo
+  url: arazzo/flutterwave-direct-orchestrator-transfer-verify-workflow.yml
+  name: Flutterwave Direct Orchestrator Transfer And Verify
+- type: Arazzo
+  url: arazzo/flutterwave-mobile-money-payout-workflow.yml
+  name: Flutterwave Mobile Money Payout
+- type: Arazzo
+  url: arazzo/flutterwave-orchestrator-charge-and-verify-workflow.yml
+  name: Flutterwave Orchestrator Charge And Verify
+- type: Arazzo
+  url: arazzo/flutterwave-orchestrator-order-and-verify-workflow.yml
+  name: Flutterwave Orchestrator Order And Verify
+- type: Arazzo
+  url: arazzo/flutterwave-order-checkout-and-verify-workflow.yml
+  name: Flutterwave Order Checkout And Verify
+- type: Arazzo
+  url: arazzo/flutterwave-quote-fee-then-charge-workflow.yml
+  name: Flutterwave Quote Fee Then Charge
+- type: Arazzo
+  url: arazzo/flutterwave-resolve-account-then-payout-workflow.yml
+  name: Flutterwave Resolve Account Then Payout
+- type: Arazzo
+  url: arazzo/flutterwave-reuse-recipient-payout-workflow.yml
+  name: Flutterwave Reuse Recipient Payout
+- type: Arazzo
+  url: arazzo/flutterwave-settlement-reconciliation-refund-workflow.yml
+  name: Flutterwave Settlement Reconciliation Refund
+- type: Arazzo
+  url: arazzo/flutterwave-tokenized-recurring-charge-workflow.yml
+  name: Flutterwave Tokenized Recurring Charge
+- type: Arazzo
+  url: arazzo/flutterwave-transfer-verify-and-retry-workflow.yml
+  name: Flutterwave Transfer Verify And Retry
+- type: Arazzo
+  url: arazzo/flutterwave-upsert-customer-and-charge-workflow.yml
+  name: Flutterwave Upsert Customer And Charge
+- type: Arazzo
+  url: arazzo/flutterwave-virtual-account-collection-workflow.yml
+  name: Flutterwave Virtual Account Collection
+- type: Arazzo
+  url: arazzo/flutterwave-wallet-balance-guarded-payout-workflow.yml
+  name: Flutterwave Wallet Balance Guarded Payout
 - url: https://flutterwave.com
   type: Portal
 - url: https://developer.flutterwave.com
@@ -285,7 +262,7 @@ common:
   type: Documentation
 - url: https://developer.flutterwave.com/docs/common-errors.md
   name: Errors
-  type: Errors
+  type: ErrorCodes
 - url: https://developer.flutterwave.com/docs/webhooks.md
   name: Webhooks
   type: Documentation
@@ -303,7 +280,7 @@ common:
   type: Documentation
 - url: https://onboarding.flutterwave.com/signup
   name: Sign Up
-  type: SignUp
+  type: Signup
 - url: https://status.flutterwave.com
   name: Flutterwave Status
   type: StatusPage
@@ -333,43 +310,43 @@ common:
   type: GitHubOrganization
 - url: https://github.com/Flutterwave/Node-v3
   name: Node.js SDK (v3)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/PHP-v3
   name: PHP SDK (v3)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/Python-v2
   name: Python SDK (v2)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/Ruby-v3
   name: Ruby SDK (v3)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/Java-v3
   name: Java SDK (v3)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/Dotnet-v2
   name: .NET SDK (v2)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/React-v3
   name: React SDK (v3)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/Angular-v3
   name: Angular SDK (v3)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/Vue-v3
   name: Vue.js SDK (v3)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/Flutter-v3
   name: Flutter SDK (v3)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/React-Native
   name: React Native SDK
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/AndroidSDK
   name: Android SDK
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/iOS-v3
   name: iOS SDK (v3)
-  type: SDK
+  type: SDKs
 - url: https://github.com/Flutterwave/WordPress-v2
   name: WordPress Plugin (v2)
   type: Plugin

@@ -3,12 +3,11 @@
   "feeds": [
     {
       "source": "https://flutterwave.com/us/blog",
-      "feed_url": "https://flutterwave.com/us/blog",
-      "title": "",
       "saved": 0,
-      "method": "none"
+      "error": "JS-rendered listing; no dated posts extractable"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:42:58Z",
+  "agent_pulled": "2026-06-27"
 }
