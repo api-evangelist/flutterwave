@@ -1,0 +1,33 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: flutterwave.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  2 00:34:28 2026 GMT
+  hsts: true
+  hsts_max_age: 15552000
+- host: developer.flutterwave.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 24 20:48:25 2026 GMT
+  hsts: true
+  hsts_max_age: 15552000
+- host: api.flutterwave.cloud
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 25 23:59:59 2026 GMT
+  hsts: null
+domains:
+- domain: flutterwave.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
+- domain: flutterwave.cloud
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false

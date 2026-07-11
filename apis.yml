@@ -172,6 +172,10 @@ kind: contract
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
+- type: DomainSecurity
+  url: security/flutterwave-domain-security.yml
+- type: Authentication
+  url: authentication/flutterwave-authentication.yml
 - type: OAuthScopes
   url: scopes/flutterwave-scopes.yml
 - type: PostmanWorkspace

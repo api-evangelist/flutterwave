@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/flutterwave-banks-api-openapi.yml, openapi/flutterwave-payments-api-openapi.yml,
+  openapi/flutterwave-settlements-api-openapi.yml, openapi/flutterwave-transfers-api-openapi.yml,
+  openapi/flutterwave-wallets-api-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+    scopes: 0
+  sources:
+  - openapi/flutterwave-banks-api-openapi.yml
+  - openapi/flutterwave-payments-api-openapi.yml
+  - openapi/flutterwave-settlements-api-openapi.yml
+  - openapi/flutterwave-transfers-api-openapi.yml
+  - openapi/flutterwave-wallets-api-openapi.yml
