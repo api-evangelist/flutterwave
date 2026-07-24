@@ -1,13 +1,16 @@
 openapi: 3.1.0
 info:
-  title: Flutterwave Webhooks API
-  description: |
-    Flutterwave delivers webhook events for payments, transfers, refunds,
-    chargebacks, and virtual account funding. This document describes the
-    outbound HTTP callbacks Flutterwave will send to a merchant-configured
-    endpoint. The receiver must respond with 2XX within 5 seconds; Flutterwave
-    retries with exponential backoff.
-  version: '4.0.0'
+  title: Flutterwave Banks AccountResolution Webhooks API
+  description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
+
+    mobile networks, and bank account name resolution. These endpoints are
+
+    used to populate dropdowns and validate destination accounts before
+
+    initiating payouts.
+
+    '
+  version: 4.0.0
   contact:
     name: Flutterwave
     url: https://developer.flutterwave.com
@@ -16,27 +19,36 @@ info:
     name: Flutterwave Terms of Service
     url: https://flutterwave.com/us/terms
 servers:
-  - url: https://your-webhook-endpoint.example.com
-    description: Merchant-hosted webhook endpoint
+- url: https://api.flutterwave.cloud/f4b/production
+  description: Production
+- url: https://api.flutterwave.cloud/f4b/sandbox
+  description: Sandbox
+security:
+- OAuth2: []
 tags:
-  - name: Webhooks
-    description: Outbound webhook callbacks delivered by Flutterwave.
+- name: Webhooks
+  description: Outbound webhook callbacks delivered by Flutterwave.
 paths:
   /webhooks/flutterwave:
     post:
       summary: Receive Flutterwave Webhook
-      description: |
-        Endpoint hosted by the merchant. Flutterwave POSTs a JSON payload and
+      description: 'Endpoint hosted by the merchant. Flutterwave POSTs a JSON payload and
+
         sets the `verif-hash` header to the secret hash configured in the
+
         dashboard. Validate `verif-hash` before trusting the payload.
+
+        '
       operationId: receiveWebhook
-      tags: [Webhooks]
+      tags:
+      - Webhooks
       parameters:
-        - in: header
-          name: verif-hash
-          required: true
-          description: Pre-shared secret hash configured by the merchant.
-          schema: { type: string }
+      - in: header
+        name: verif-hash
+        required: true
+        description: Pre-shared secret hash configured by the merchant.
+        schema:
+          type: string
       requestBody:
         required: true
         content:
@@ -50,41 +62,64 @@ components:
   schemas:
     WebhookEvent:
       type: object
-      required: [type, data]
+      required:
+      - type
+      - data
       properties:
         type:
           type: string
           enum:
-            - charge.completed
-            - charge.failed
-            - transfer.completed
-            - transfer.failed
-            - refund.completed
-            - refund.failed
-            - chargeback.created
-            - chargeback.updated
-            - virtual_account.funded
+          - charge.completed
+          - charge.failed
+          - transfer.completed
+          - transfer.failed
+          - refund.completed
+          - refund.failed
+          - chargeback.created
+          - chargeback.updated
+          - virtual_account.funded
         data:
           type: object
           properties:
-            id: { type: string }
-            amount: { type: number }
-            currency: { type: string }
-            status: { type: string }
-            reference: { type: string }
+            id:
+              type: string
+            amount:
+              type: number
+            currency:
+              type: string
+            status:
+              type: string
+            reference:
+              type: string
             customer:
               type: object
               properties:
-                id: { type: string }
-                email: { type: string, format: email }
+                id:
+                  type: string
+                email:
+                  type: string
+                  format: email
             payment_method:
               type: object
               properties:
-                type: { type: string }
+                type:
+                  type: string
             processor_response:
               type: object
               properties:
-                type: { type: string }
-                code: { type: string }
-            created_datetime: { type: string, format: date-time }
-            meta: { type: object }
+                type:
+                  type: string
+                code:
+                  type: string
+            created_datetime:
+              type: string
+              format: date-time
+            meta:
+              type: object
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+          scopes: {}

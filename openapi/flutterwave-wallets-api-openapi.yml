@@ -1,10 +1,16 @@
 openapi: 3.1.0
 info:
-  title: Flutterwave Wallets API
-  description: |
-    Flutterwave v4 wallet APIs for checking currency wallet balances, retrieving
-    wallet statements, and resolving wallet account details for customers.
-  version: '4.0.0'
+  title: Flutterwave Banks AccountResolution Wallets API
+  description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
+
+    mobile networks, and bank account name resolution. These endpoints are
+
+    used to populate dropdowns and validate destination accounts before
+
+    initiating payouts.
+
+    '
+  version: 4.0.0
   contact:
     name: Flutterwave
     url: https://developer.flutterwave.com
@@ -13,47 +19,22 @@ info:
     name: Flutterwave Terms of Service
     url: https://flutterwave.com/us/terms
 servers:
-  - url: https://api.flutterwave.cloud/f4b/production
-    description: Production
-  - url: https://api.flutterwave.cloud/f4b/sandbox
-    description: Sandbox
+- url: https://api.flutterwave.cloud/f4b/production
+  description: Production
+- url: https://api.flutterwave.cloud/f4b/sandbox
+  description: Sandbox
 security:
-  - OAuth2: []
+- OAuth2: []
 tags:
-  - name: Wallets
-    description: Inspect currency wallet balances and statements.
-  - name: AccountResolution
-    description: Resolve customer wallet account details.
+- name: Wallets
+  description: Inspect currency wallet balances and statements.
 paths:
-  /wallet-account/resolve:
-    post:
-      summary: Wallet Account Look Up
-      description: Verify wallet account information for a customer.
-      operationId: resolveWalletAccount
-      tags: [AccountResolution]
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [account_number, mobile_network]
-              properties:
-                account_number: { type: string }
-                mobile_network: { type: string }
-                country: { type: string }
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WalletAccount'
   /wallet-balances:
     get:
       summary: Fetch Wallet Balance For Multiple Currencies
       operationId: listWalletBalances
-      tags: [Wallets]
+      tags:
+      - Wallets
       responses:
         '200':
           description: Successful Response
@@ -63,14 +44,17 @@ paths:
                 $ref: '#/components/schemas/WalletBalanceList'
   /wallet-balances/{currency}:
     parameters:
-      - in: path
-        name: currency
-        required: true
-        schema: { type: string, example: NGN }
+    - in: path
+      name: currency
+      required: true
+      schema:
+        type: string
+        example: NGN
     get:
       summary: Fetch A Currency Wallet Balance
       operationId: getWalletBalance
-      tags: [Wallets]
+      tags:
+      - Wallets
       responses:
         '200':
           description: Successful Response
@@ -82,18 +66,24 @@ paths:
     get:
       summary: Retrieve Wallet Statement
       operationId: getWalletStatement
-      tags: [Wallets]
+      tags:
+      - Wallets
       parameters:
-        - in: query
-          name: currency
-          required: true
-          schema: { type: string }
-        - in: query
-          name: from
-          schema: { type: string, format: date }
-        - in: query
-          name: to
-          schema: { type: string, format: date }
+      - in: query
+        name: currency
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: from
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: to
+        schema:
+          type: string
+          format: date
       responses:
         '200':
           description: Successful Response
@@ -102,6 +92,55 @@ paths:
               schema:
                 $ref: '#/components/schemas/WalletStatement'
 components:
+  schemas:
+    WalletStatement:
+      type: object
+      properties:
+        currency:
+          type: string
+        opening_balance:
+          type: number
+        closing_balance:
+          type: number
+        entries:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              amount:
+                type: number
+              type:
+                type: string
+                enum:
+                - credit
+                - debit
+              narration:
+                type: string
+              balance_after:
+                type: number
+              created_datetime:
+                type: string
+                format: date-time
+    WalletBalance:
+      type: object
+      properties:
+        currency:
+          type: string
+        available_balance:
+          type: number
+        ledger_balance:
+          type: number
+        pending_balance:
+          type: number
+    WalletBalanceList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WalletBalance'
   securitySchemes:
     OAuth2:
       type: oauth2
@@ -109,41 +148,3 @@ components:
         clientCredentials:
           tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
           scopes: {}
-  schemas:
-    WalletAccount:
-      type: object
-      properties:
-        account_number: { type: string }
-        account_name: { type: string }
-        mobile_network: { type: string }
-        country: { type: string }
-    WalletBalance:
-      type: object
-      properties:
-        currency: { type: string }
-        available_balance: { type: number }
-        ledger_balance: { type: number }
-        pending_balance: { type: number }
-    WalletBalanceList:
-      type: object
-      properties:
-        data:
-          type: array
-          items: { $ref: '#/components/schemas/WalletBalance' }
-    WalletStatement:
-      type: object
-      properties:
-        currency: { type: string }
-        opening_balance: { type: number }
-        closing_balance: { type: number }
-        entries:
-          type: array
-          items:
-            type: object
-            properties:
-              id: { type: string }
-              amount: { type: number }
-              type: { type: string, enum: [credit, debit] }
-              narration: { type: string }
-              balance_after: { type: number }
-              created_datetime: { type: string, format: date-time }

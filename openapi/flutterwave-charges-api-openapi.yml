@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Flutterwave Banks AccountResolution Transfers API
+  title: Flutterwave Banks AccountResolution Charges API
   description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
 
     mobile networks, and bank account name resolution. These endpoints are
@@ -26,15 +26,15 @@ servers:
 security:
 - OAuth2: []
 tags:
-- name: Transfers
-  description: Create, list, retrieve, update, retry, and duplicate payouts.
+- name: Charges
+  description: Create and manage charges across supported payment methods.
 paths:
-  /transfers:
+  /charges:
     get:
-      summary: List Transfers
-      operationId: listTransfers
+      summary: List Charges
+      operationId: listCharges
       tags:
-      - Transfers
+      - Charges
       parameters:
       - $ref: '#/components/parameters/Limit'
       - $ref: '#/components/parameters/Page'
@@ -44,13 +44,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransferList'
+                $ref: '#/components/schemas/ChargeList'
     post:
-      summary: Create A Transfer
-      description: Create a direct transfer using only recipient and sender IDs.
-      operationId: createTransfer
+      summary: Create A Charge
+      operationId: createCharge
       tags:
-      - Transfers
+      - Charges
       parameters:
       - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
@@ -58,39 +57,34 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TransferRequest'
+              $ref: '#/components/schemas/ChargeRequest'
       responses:
         '201':
-          description: Transfer Created
+          description: Charge Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transfer'
-  /transfers/{id}:
+                $ref: '#/components/schemas/Charge'
+  /charges/{id}:
     parameters:
-    - in: path
-      name: id
-      required: true
-      schema:
-        type: string
+    - $ref: '#/components/parameters/ChargeId'
     get:
-      summary: Retrieve A Transfer
-      operationId: getTransfer
+      summary: Retrieve A Charge
+      operationId: getCharge
       tags:
-      - Transfers
+      - Charges
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transfer'
+                $ref: '#/components/schemas/Charge'
     put:
-      summary: Update A Transfer
-      description: Update instructions about a deferred payout.
-      operationId: updateTransfer
+      summary: Update A Charge
+      operationId: updateCharge
       tags:
-      - Transfers
+      - Charges
       requestBody:
         required: true
         content:
@@ -98,36 +92,15 @@ paths:
             schema:
               type: object
               properties:
-                instruction:
-                  type: string
+                authorization:
+                  type: object
       responses:
         '200':
-          description: Transfer Updated
+          description: Charge Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transfer'
-  /transfers/{id}/retry:
-    parameters:
-    - in: path
-      name: id
-      required: true
-      schema:
-        type: string
-    post:
-      summary: Retry Or Duplicate A Transfer
-      operationId: retryTransfer
-      tags:
-      - Transfers
-      parameters:
-      - $ref: '#/components/parameters/IdempotencyKey'
-      responses:
-        '200':
-          description: Transfer Retry Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Transfer'
+                $ref: '#/components/schemas/Charge'
 components:
   parameters:
     Limit:
@@ -149,15 +122,54 @@ components:
       in: header
       name: X-Idempotency-Key
       required: false
+      description: UUID-style key used to safely retry POST requests.
       schema:
         type: string
         format: uuid
+    ChargeId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
   schemas:
-    TransferRequest:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: object
+          properties:
+            first:
+              type: string
+            middle:
+              type: string
+            last:
+              type: string
+        phone:
+          type: object
+          properties:
+            country_code:
+              type: string
+            number:
+              type: string
+        address:
+          type: object
+        meta:
+          type: object
+        created_datetime:
+          type: string
+          format: date-time
+    ChargeRequest:
       type: object
       required:
       - amount
       - currency
+      - customer
       properties:
         amount:
           type: number
@@ -165,24 +177,15 @@ components:
           type: string
         reference:
           type: string
-        sender_id:
+        redirect_url:
           type: string
-        recipient_id:
-          type: string
-        rate_id:
-          type: string
-        narration:
-          type: string
+        customer:
+          type: object
+        payment_method:
+          type: object
         meta:
           type: object
-    TransferList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transfer'
-    Transfer:
+    Charge:
       type: object
       properties:
         id:
@@ -191,28 +194,66 @@ components:
           type: number
         currency:
           type: string
+          example: NGN
         status:
           type: string
           enum:
           - pending
-          - processing
           - succeeded
           - failed
         reference:
           type: string
-        sender_id:
+        customer:
+          $ref: '#/components/schemas/Customer'
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethod'
+        processor_response:
+          type: object
+          properties:
+            type:
+              type: string
+            code:
+              type: string
+        redirect_url:
           type: string
-        recipient_id:
+        meta:
+          type: object
+        created_datetime:
           type: string
-        narration:
+          format: date-time
+    PaymentMethod:
+      type: object
+      properties:
+        id:
           type: string
-        fee:
-          type: number
-        rate_id:
+        type:
+          type: string
+          enum:
+          - card
+          - mobile_money
+          - bank_transfer
+          - ussd
+          - opay
+        card:
+          type: object
+        mobile_money:
+          type: object
+        bank_transfer:
+          type: object
+        client:
+          type: object
+        device_fingerprint:
           type: string
         created_datetime:
           type: string
           format: date-time
+    ChargeList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
   securitySchemes:
     OAuth2:
       type: oauth2

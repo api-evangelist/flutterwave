@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Flutterwave Banks AccountResolution Settlements API
+  title: Flutterwave Banks AccountResolution Rates API
   description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
 
     mobile networks, and bank account name resolution. These endpoints are
@@ -26,26 +26,30 @@ servers:
 security:
 - OAuth2: []
 tags:
-- name: Settlements
-  description: List and retrieve merchant settlements.
+- name: Rates
+  description: Real-time FX conversion rates for international transfers.
 paths:
-  /settlements:
-    get:
-      summary: List Settlements
-      operationId: listSettlements
+  /transfers/rates:
+    post:
+      summary: Rate Conversion
+      description: Retrieve transfer rate for international transfers.
+      operationId: createTransferRate
       tags:
-      - Settlements
-      parameters:
-      - $ref: '#/components/parameters/Limit'
-      - $ref: '#/components/parameters/Page'
+      - Rates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RateRequest'
       responses:
         '200':
-          description: Successful Response
+          description: Rate Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SettlementList'
-  /settlements/{id}:
+                $ref: '#/components/schemas/Rate'
+  /transfers/rates/{id}:
     parameters:
     - in: path
       name: id
@@ -53,68 +57,50 @@ paths:
       schema:
         type: string
     get:
-      summary: Retrieve A Settlement
-      operationId: getSettlement
+      summary: Fetch Converted Rate
+      operationId: getTransferRate
       tags:
-      - Settlements
+      - Rates
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Settlement'
+                $ref: '#/components/schemas/Rate'
 components:
-  parameters:
-    Limit:
-      in: query
-      name: limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    Page:
-      in: query
-      name: page
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
   schemas:
-    SettlementList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Settlement'
-    Settlement:
+    Rate:
       type: object
       properties:
         id:
           type: string
-        gross_amount:
+        rate:
           type: number
-        fee:
+        source_currency:
+          type: string
+        destination_currency:
+          type: string
+        source_amount:
           type: number
-        net_amount:
+        destination_amount:
           type: number
-        currency:
-          type: string
-        status:
-          type: string
-        reference:
-          type: string
-        period_start:
+        expiry_datetime:
           type: string
           format: date-time
-        period_end:
+    RateRequest:
+      type: object
+      required:
+      - source_currency
+      - destination_currency
+      - source_amount
+      properties:
+        source_currency:
           type: string
-          format: date-time
-        created_datetime:
+        destination_currency:
           type: string
-          format: date-time
+        source_amount:
+          type: number
   securitySchemes:
     OAuth2:
       type: oauth2

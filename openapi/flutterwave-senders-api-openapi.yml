@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: Flutterwave Banks AccountResolution Senders API
+  description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
+
+    mobile networks, and bank account name resolution. These endpoints are
+
+    used to populate dropdowns and validate destination accounts before
+
+    initiating payouts.
+
+    '
+  version: 4.0.0
+  contact:
+    name: Flutterwave
+    url: https://developer.flutterwave.com
+    email: developers@flutterwavego.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+servers:
+- url: https://api.flutterwave.cloud/f4b/production
+  description: Production
+- url: https://api.flutterwave.cloud/f4b/sandbox
+  description: Sandbox
+security:
+- OAuth2: []
+tags:
+- name: Senders
+  description: Manage transfer senders (the originator of a cross-border payout).
+paths:
+  /transfers/senders:
+    get:
+      summary: List Transfer Senders
+      operationId: listTransferSenders
+      tags:
+      - Senders
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderList'
+    post:
+      summary: Create A Transfer Sender
+      operationId: createTransferSender
+      tags:
+      - Senders
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SenderRequest'
+      responses:
+        '201':
+          description: Sender Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sender'
+  /transfers/senders/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve A Transfer Sender
+      operationId: getTransferSender
+      tags:
+      - Senders
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sender'
+    delete:
+      summary: Delete A Transfer Sender
+      operationId: deleteTransferSender
+      tags:
+      - Senders
+      responses:
+        '204':
+          description: Sender Deleted
+components:
+  schemas:
+    SenderList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sender'
+    Sender:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: object
+        address:
+          type: object
+        country:
+          type: string
+        identification:
+          type: object
+        date_of_birth:
+          type: string
+          format: date
+        created_datetime:
+          type: string
+          format: date-time
+    SenderRequest:
+      type: object
+      required:
+      - name
+      - country
+      properties:
+        name:
+          type: object
+        address:
+          type: object
+        country:
+          type: string
+        identification:
+          type: object
+        date_of_birth:
+          type: string
+          format: date
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+          scopes: {}

@@ -1,0 +1,174 @@
+openapi: 3.1.0
+info:
+  title: Flutterwave Banks AccountResolution VirtualAccounts API
+  description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
+
+    mobile networks, and bank account name resolution. These endpoints are
+
+    used to populate dropdowns and validate destination accounts before
+
+    initiating payouts.
+
+    '
+  version: 4.0.0
+  contact:
+    name: Flutterwave
+    url: https://developer.flutterwave.com
+    email: developers@flutterwavego.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+servers:
+- url: https://api.flutterwave.cloud/f4b/production
+  description: Production
+- url: https://api.flutterwave.cloud/f4b/sandbox
+  description: Sandbox
+security:
+- OAuth2: []
+tags:
+- name: VirtualAccounts
+  description: Issue virtual NUBANs for pay-with-bank-transfer collections.
+paths:
+  /virtual-accounts:
+    get:
+      summary: List All Virtual Accounts
+      operationId: listVirtualAccounts
+      tags:
+      - VirtualAccounts
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccountList'
+    post:
+      summary: Create A Virtual Account
+      operationId: createVirtualAccount
+      tags:
+      - VirtualAccounts
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VirtualAccountRequest'
+      responses:
+        '201':
+          description: Virtual Account Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccount'
+  /virtual-accounts/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve A Virtual Account
+      operationId: getVirtualAccount
+      tags:
+      - VirtualAccounts
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccount'
+    put:
+      summary: Update A Virtual Account
+      operationId: updateVirtualAccount
+      tags:
+      - VirtualAccounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VirtualAccountRequest'
+      responses:
+        '200':
+          description: Virtual Account Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccount'
+components:
+  schemas:
+    VirtualAccount:
+      type: object
+      properties:
+        id:
+          type: string
+        account_number:
+          type: string
+        bank_name:
+          type: string
+        account_reference:
+          type: string
+        currency:
+          type: string
+          example: NGN
+        customer_id:
+          type: string
+        status:
+          type: string
+        amount:
+          type: number
+        expiry_datetime:
+          type: string
+          format: date-time
+        created_datetime:
+          type: string
+          format: date-time
+    VirtualAccountRequest:
+      type: object
+      required:
+      - currency
+      properties:
+        currency:
+          type: string
+        amount:
+          type: number
+        customer_id:
+          type: string
+        reference:
+          type: string
+        narration:
+          type: string
+        bvn:
+          type: string
+        is_permanent:
+          type: boolean
+        expiry:
+          type: integer
+          description: Expiry in minutes.
+    VirtualAccountList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualAccount'
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+          scopes: {}

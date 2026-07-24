@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Flutterwave Banks AccountResolution Settlements API
+  title: Flutterwave Banks AccountResolution Refunds API
   description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
 
     mobile networks, and bank account name resolution. These endpoints are
@@ -26,26 +26,43 @@ servers:
 security:
 - OAuth2: []
 tags:
-- name: Settlements
-  description: List and retrieve merchant settlements.
+- name: Refunds
+  description: Initiate and inspect refunds against successful charges.
 paths:
-  /settlements:
+  /refunds:
     get:
-      summary: List Settlements
-      operationId: listSettlements
+      summary: List Refunds
+      operationId: listRefunds
       tags:
-      - Settlements
-      parameters:
-      - $ref: '#/components/parameters/Limit'
-      - $ref: '#/components/parameters/Page'
+      - Refunds
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SettlementList'
-  /settlements/{id}:
+                $ref: '#/components/schemas/RefundList'
+    post:
+      summary: Create A Refund
+      operationId: createRefund
+      tags:
+      - Refunds
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundRequest'
+      responses:
+        '201':
+          description: Refund Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+  /refunds/{id}:
     parameters:
     - in: path
       name: id
@@ -53,68 +70,69 @@ paths:
       schema:
         type: string
     get:
-      summary: Retrieve A Settlement
-      operationId: getSettlement
+      summary: Retrieve A Refund
+      operationId: getRefund
       tags:
-      - Settlements
+      - Refunds
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Settlement'
+                $ref: '#/components/schemas/Refund'
 components:
-  parameters:
-    Limit:
-      in: query
-      name: limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    Page:
-      in: query
-      name: page
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
   schemas:
-    SettlementList:
+    RefundRequest:
       type: object
+      required:
+      - charge_id
+      - amount
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Settlement'
-    Settlement:
+        charge_id:
+          type: string
+        amount:
+          type: number
+        reason:
+          type: string
+    Refund:
       type: object
       properties:
         id:
           type: string
-        gross_amount:
-          type: number
-        fee:
-          type: number
-        net_amount:
+        charge_id:
+          type: string
+        amount:
           type: number
         currency:
           type: string
         status:
           type: string
-        reference:
+          enum:
+          - pending
+          - processing
+          - succeeded
+          - failed
+        reason:
           type: string
-        period_start:
-          type: string
-          format: date-time
-        period_end:
-          type: string
-          format: date-time
         created_datetime:
           type: string
           format: date-time
+    RefundList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Refund'
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     OAuth2:
       type: oauth2

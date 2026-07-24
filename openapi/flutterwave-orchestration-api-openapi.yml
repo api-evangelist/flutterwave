@@ -1,0 +1,330 @@
+openapi: 3.1.0
+info:
+  title: Flutterwave Banks AccountResolution Orchestration API
+  description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
+
+    mobile networks, and bank account name resolution. These endpoints are
+
+    used to populate dropdowns and validate destination accounts before
+
+    initiating payouts.
+
+    '
+  version: 4.0.0
+  contact:
+    name: Flutterwave
+    url: https://developer.flutterwave.com
+    email: developers@flutterwavego.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+servers:
+- url: https://api.flutterwave.cloud/f4b/production
+  description: Production
+- url: https://api.flutterwave.cloud/f4b/sandbox
+  description: Sandbox
+security:
+- OAuth2: []
+tags:
+- name: Orchestration
+  description: Orchestrator helpers that combine customer, payment method, and charge in one call.
+paths:
+  /orchestration/direct-charges:
+    post:
+      summary: Initiate An Orchestrator Charge
+      description: Create a charge in one call using the Orchestrator helper, which packages customer, payment method, and charge creation.
+      operationId: initiateOrchestratorCharge
+      tags:
+      - Orchestration
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeRequest'
+      responses:
+        '201':
+          description: Charge Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Charge'
+  /orchestration/direct-orders:
+    post:
+      summary: Initiate An Order With Orchestrator
+      description: Create an order in one call using the Orchestrator helper.
+      operationId: initiateOrchestratorOrder
+      tags:
+      - Orchestration
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '201':
+          description: Order Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /direct-transfers:
+    post:
+      summary: Initiate An Orchestrator Transfer
+      description: Create a transfer with the Orchestrator helper, combining sender, recipient, and movement in one call.
+      operationId: initiateOrchestratorTransfer
+      tags:
+      - Orchestration
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey_2'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+      responses:
+        '201':
+          description: Transfer Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+components:
+  schemas:
+    TransferRequest:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        reference:
+          type: string
+        sender_id:
+          type: string
+        recipient_id:
+          type: string
+        rate_id:
+          type: string
+        narration:
+          type: string
+        meta:
+          type: object
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        status:
+          type: string
+        reference:
+          type: string
+        customer_id:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+        meta:
+          type: object
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: object
+          properties:
+            first:
+              type: string
+            middle:
+              type: string
+            last:
+              type: string
+        phone:
+          type: object
+          properties:
+            country_code:
+              type: string
+            number:
+              type: string
+        address:
+          type: object
+        meta:
+          type: object
+        created_datetime:
+          type: string
+          format: date-time
+    ChargeRequest:
+      type: object
+      required:
+      - amount
+      - currency
+      - customer
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        reference:
+          type: string
+        redirect_url:
+          type: string
+        customer:
+          type: object
+        payment_method:
+          type: object
+        meta:
+          type: object
+    Charge:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+          example: NGN
+        status:
+          type: string
+          enum:
+          - pending
+          - succeeded
+          - failed
+        reference:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethod'
+        processor_response:
+          type: object
+          properties:
+            type:
+              type: string
+            code:
+              type: string
+        redirect_url:
+          type: string
+        meta:
+          type: object
+        created_datetime:
+          type: string
+          format: date-time
+    PaymentMethod:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - card
+          - mobile_money
+          - bank_transfer
+          - ussd
+          - opay
+        card:
+          type: object
+        mobile_money:
+          type: object
+        bank_transfer:
+          type: object
+        client:
+          type: object
+        device_fingerprint:
+          type: string
+        created_datetime:
+          type: string
+          format: date-time
+    OrderRequest:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        reference:
+          type: string
+        customer_id:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+        meta:
+          type: object
+    Transfer:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - succeeded
+          - failed
+        reference:
+          type: string
+        sender_id:
+          type: string
+        recipient_id:
+          type: string
+        narration:
+          type: string
+        fee:
+          type: number
+        rate_id:
+          type: string
+        created_datetime:
+          type: string
+          format: date-time
+  parameters:
+    IdempotencyKey_2:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      schema:
+        type: string
+        format: uuid
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+          scopes: {}

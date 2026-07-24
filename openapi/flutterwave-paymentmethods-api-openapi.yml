@@ -1,0 +1,152 @@
+openapi: 3.1.0
+info:
+  title: Flutterwave Banks AccountResolution PaymentMethods API
+  description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
+
+    mobile networks, and bank account name resolution. These endpoints are
+
+    used to populate dropdowns and validate destination accounts before
+
+    initiating payouts.
+
+    '
+  version: 4.0.0
+  contact:
+    name: Flutterwave
+    url: https://developer.flutterwave.com
+    email: developers@flutterwavego.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+servers:
+- url: https://api.flutterwave.cloud/f4b/production
+  description: Production
+- url: https://api.flutterwave.cloud/f4b/sandbox
+  description: Sandbox
+security:
+- OAuth2: []
+tags:
+- name: PaymentMethods
+  description: Tokenize, register, and look up payment methods (cards, mobile money, bank, USSD).
+paths:
+  /payment-methods:
+    get:
+      summary: List Payment Methods
+      operationId: listPaymentMethods
+      tags:
+      - PaymentMethods
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodList'
+    post:
+      summary: Create A Payment Method
+      operationId: createPaymentMethod
+      tags:
+      - PaymentMethods
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentMethodRequest'
+      responses:
+        '201':
+          description: Payment Method Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethod'
+  /payment-methods/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve A Payment Method
+      operationId: getPaymentMethod
+      tags:
+      - PaymentMethods
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethod'
+components:
+  schemas:
+    PaymentMethodList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+    PaymentMethodRequest:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        card:
+          type: object
+          description: Encrypted card fields with `nonce`.
+        mobile_money:
+          type: object
+        bank_transfer:
+          type: object
+        ussd:
+          type: object
+        opay:
+          type: object
+    PaymentMethod:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - card
+          - mobile_money
+          - bank_transfer
+          - ussd
+          - opay
+        card:
+          type: object
+        mobile_money:
+          type: object
+        bank_transfer:
+          type: object
+        client:
+          type: object
+        device_fingerprint:
+          type: string
+        created_datetime:
+          type: string
+          format: date-time
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+          scopes: {}

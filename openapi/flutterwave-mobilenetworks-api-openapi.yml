@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Flutterwave AccountResolution Banks API
+  title: Flutterwave Banks AccountResolution MobileNetworks API
   description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
 
     mobile networks, and bank account name resolution. These endpoints are
@@ -26,87 +26,49 @@ servers:
 security:
 - OAuth2: []
 tags:
-- name: Banks
-  description: Banks and bank branches supported by country.
+- name: MobileNetworks
+  description: Mobile money networks supported by country.
 paths:
-  /banks:
+  /mobile-networks:
     get:
-      summary: Retrieve Banks
-      description: Retrieve supported banks by country.
-      operationId: listBanks
+      summary: Retrieve Mobile Networks
+      description: Retrieve supported mobile networks by country.
+      operationId: listMobileNetworks
       tags:
-      - Banks
+      - MobileNetworks
       parameters:
       - in: query
         name: country
         required: true
         schema:
           type: string
-          example: NG
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BankList'
-  /banks/{id}/branches:
-    parameters:
-    - in: path
-      name: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: Retrieve Bank Branches
-      operationId: listBankBranches
-      tags:
-      - Banks
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BranchList'
+                $ref: '#/components/schemas/MobileNetworkList'
 components:
   schemas:
-    Bank:
+    MobileNetworkList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileNetwork'
+    MobileNetwork:
       type: object
       properties:
         id:
           type: string
         name:
-          type: string
-        code:
           type: string
         country:
           type: string
-    Branch:
-      type: object
-      properties:
-        id:
+        code:
           type: string
-        name:
-          type: string
-        bank_id:
-          type: string
-        swift_code:
-          type: string
-    BankList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Bank'
-    BranchList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Branch'
   securitySchemes:
     OAuth2:
       type: oauth2

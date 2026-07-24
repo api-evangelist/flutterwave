@@ -1,0 +1,165 @@
+openapi: 3.1.0
+info:
+  title: Flutterwave Banks AccountResolution Recipients API
+  description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
+
+    mobile networks, and bank account name resolution. These endpoints are
+
+    used to populate dropdowns and validate destination accounts before
+
+    initiating payouts.
+
+    '
+  version: 4.0.0
+  contact:
+    name: Flutterwave
+    url: https://developer.flutterwave.com
+    email: developers@flutterwavego.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+servers:
+- url: https://api.flutterwave.cloud/f4b/production
+  description: Production
+- url: https://api.flutterwave.cloud/f4b/sandbox
+  description: Sandbox
+security:
+- OAuth2: []
+tags:
+- name: Recipients
+  description: Manage transfer recipients (the destination of a payout).
+paths:
+  /transfers/recipients:
+    get:
+      summary: List Transfer Recipients
+      operationId: listTransferRecipients
+      tags:
+      - Recipients
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipientList'
+    post:
+      summary: Create A Transfer Recipient
+      operationId: createTransferRecipient
+      tags:
+      - Recipients
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipientRequest'
+      responses:
+        '201':
+          description: Recipient Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipient'
+  /transfers/recipients/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve A Transfer Recipient
+      operationId: getTransferRecipient
+      tags:
+      - Recipients
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipient'
+    delete:
+      summary: Delete A Transfer Recipient
+      operationId: deleteTransferRecipient
+      tags:
+      - Recipients
+      responses:
+        '204':
+          description: Recipient Deleted
+components:
+  schemas:
+    Recipient:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - bank_account
+          - mobile_money
+          - wallet
+        bank_account:
+          type: object
+        mobile_money:
+          type: object
+        wallet:
+          type: object
+        name:
+          type: object
+          properties:
+            first:
+              type: string
+            last:
+              type: string
+        country:
+          type: string
+        currency:
+          type: string
+        created_datetime:
+          type: string
+          format: date-time
+    RecipientList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipient'
+    RecipientRequest:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        bank_account:
+          type: object
+        mobile_money:
+          type: object
+        wallet:
+          type: object
+        name:
+          type: object
+        country:
+          type: string
+        currency:
+          type: string
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+          scopes: {}

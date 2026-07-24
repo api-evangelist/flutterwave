@@ -1,0 +1,171 @@
+openapi: 3.1.0
+info:
+  title: Flutterwave Banks AccountResolution Chargebacks API
+  description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
+
+    mobile networks, and bank account name resolution. These endpoints are
+
+    used to populate dropdowns and validate destination accounts before
+
+    initiating payouts.
+
+    '
+  version: 4.0.0
+  contact:
+    name: Flutterwave
+    url: https://developer.flutterwave.com
+    email: developers@flutterwavego.com
+  license:
+    name: Flutterwave Terms of Service
+    url: https://flutterwave.com/us/terms
+servers:
+- url: https://api.flutterwave.cloud/f4b/production
+  description: Production
+- url: https://api.flutterwave.cloud/f4b/sandbox
+  description: Sandbox
+security:
+- OAuth2: []
+tags:
+- name: Chargebacks
+  description: Manage and respond to chargebacks raised by customers.
+paths:
+  /chargebacks:
+    get:
+      summary: List Chargebacks
+      operationId: listChargebacks
+      tags:
+      - Chargebacks
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargebackList'
+    post:
+      summary: Create A Chargeback
+      operationId: createChargeback
+      tags:
+      - Chargebacks
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargebackRequest'
+      responses:
+        '201':
+          description: Chargeback Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+  /chargebacks/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get Chargeback By Id
+      operationId: getChargeback
+      tags:
+      - Chargebacks
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+    put:
+      summary: Update A Chargeback
+      operationId: updateChargeback
+      tags:
+      - Chargebacks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                evidence:
+                  type: object
+                resolution:
+                  type: string
+      responses:
+        '200':
+          description: Chargeback Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+components:
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    ChargebackRequest:
+      type: object
+      required:
+      - charge_id
+      - amount
+      - reason
+      properties:
+        charge_id:
+          type: string
+        amount:
+          type: number
+        reason:
+          type: string
+        evidence:
+          type: object
+    Chargeback:
+      type: object
+      properties:
+        id:
+          type: string
+        charge_id:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - accepted
+          - contested
+          - lost
+          - won
+        evidence:
+          type: object
+        created_datetime:
+          type: string
+          format: date-time
+    ChargebackList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chargeback'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
+          scopes: {}
