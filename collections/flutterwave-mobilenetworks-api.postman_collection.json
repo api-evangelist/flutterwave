@@ -1,0 +1,135 @@
+{
+  "item": [
+    {
+      "id": "3cefb340-567e-4073-8e99-538f3c0ec1f0",
+      "name": "MobileNetworks",
+      "description": {
+        "content": "Mobile money networks supported by country.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "40f891d8-a634-499d-95b8-98f92f40d181",
+          "name": "Retrieve Mobile Networks",
+          "request": {
+            "name": "Retrieve Mobile Networks",
+            "description": {
+              "content": "Retrieve supported mobile networks by country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mobile-networks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "49875aa2-f3b8-41dd-905b-892972ebe328",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mobile-networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"country\": \"string\",\n      \"code\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"country\": \"string\",\n      \"code\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.flutterwave.cloud/f4b/production",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "be36d2e7-b6ba-49cf-bc82-7cbfbd096403",
+    "name": "Flutterwave Banks AccountResolution MobileNetworks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
+      "type": "text/plain"
+    }
+  }
+}

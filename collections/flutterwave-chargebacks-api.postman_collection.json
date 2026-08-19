@@ -1,38 +1,27 @@
 {
   "item": [
     {
-      "id": "88839424-6761-40b4-82ba-1fe8f60d5176",
-      "name": "Transfers",
+      "id": "92fb5bb7-ec46-4b36-aaa6-23c44e3d010a",
+      "name": "Chargebacks",
       "description": {
-        "content": "Create, list, retrieve, update, retry, and duplicate payouts.",
+        "content": "Manage and respond to chargebacks raised by customers.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "2cf89f74-20cd-40cf-87f5-06ad60890cc0",
-          "name": "List Transfers",
+          "id": "e3151948-990c-40f5-a501-be085602ca95",
+          "name": "List Chargebacks",
           "request": {
-            "name": "List Transfers",
+            "name": "List Chargebacks",
             "description": {},
             "url": {
               "path": [
-                "transfers"
+                "chargebacks"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25"
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "1"
-                }
-              ],
+              "query": [],
               "variable": []
             },
             "header": [
@@ -46,26 +35,17 @@
           },
           "response": [
             {
-              "id": "ab6dc1c5-4b9a-4ad2-8c16-b2414886f65c",
+              "id": "3615c668-9f2e-4f8d-a5de-733fe08327a7",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers"
+                    "chargebacks"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -93,7 +73,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 3559.067998114237,\n      \"currency\": \"string\",\n      \"status\": \"pending\",\n      \"reference\": \"string\",\n      \"sender_id\": \"string\",\n      \"recipient_id\": \"string\",\n      \"narration\": \"string\",\n      \"fee\": 9236.958593897141,\n      \"rate_id\": \"string\",\n      \"created_datetime\": \"2010-04-07T17:32:56.177Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 6069.912512109234,\n      \"currency\": \"string\",\n      \"status\": \"succeeded\",\n      \"reference\": \"string\",\n      \"sender_id\": \"string\",\n      \"recipient_id\": \"string\",\n      \"narration\": \"string\",\n      \"fee\": 9012.039322609682,\n      \"rate_id\": \"string\",\n      \"created_datetime\": \"2021-09-16T08:10:41.750Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"charge_id\": \"string\",\n      \"amount\": 1148.0446196157357,\n      \"currency\": \"string\",\n      \"reason\": \"string\",\n      \"status\": \"won\",\n      \"evidence\": {},\n      \"created_datetime\": \"1960-12-19T20:32:48.588Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"charge_id\": \"string\",\n      \"amount\": 5964.420194388547,\n      \"currency\": \"string\",\n      \"reason\": \"string\",\n      \"status\": \"accepted\",\n      \"evidence\": {},\n      \"created_datetime\": \"1952-09-29T12:36:32.095Z\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -104,17 +84,14 @@
           }
         },
         {
-          "id": "aee87d3c-1344-4513-93f5-91b606d566a1",
-          "name": "Create A Transfer",
+          "id": "5c44fb2d-7722-458f-a23c-d4604acaadef",
+          "name": "Create A Chargeback",
           "request": {
-            "name": "Create A Transfer",
-            "description": {
-              "content": "Create a direct transfer using only recipient and sender IDs.",
-              "type": "text/plain"
-            },
+            "name": "Create A Chargeback",
+            "description": {},
             "url": {
               "path": [
-                "transfers"
+                "chargebacks"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -142,7 +119,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+              "raw": "{\n  \"charge_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"reason\": \"<string>\",\n  \"evidence\": \"<object>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -152,12 +129,12 @@
           },
           "response": [
             {
-              "id": "e843d7db-7643-4e57-9866-a844b8238050",
-              "name": "Transfer Created",
+              "id": "779773cc-e48a-40aa-8ab0-619991b3a808",
+              "name": "Chargeback Created",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers"
+                    "chargebacks"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -188,7 +165,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+                  "raw": "{\n  \"charge_id\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"reason\": \"<string>\",\n  \"evidence\": \"<object>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -204,7 +181,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"charge_id\": \"string\",\n  \"amount\": 3912.939513934025,\n  \"currency\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"pending\",\n  \"evidence\": {},\n  \"created_datetime\": \"2015-09-23T19:12:40.514Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -215,14 +192,14 @@
           }
         },
         {
-          "id": "7d28d904-d764-4b91-9403-d27d2779c705",
-          "name": "Retrieve A Transfer",
+          "id": "dcccb090-f830-4da2-bb52-e9da85ea6715",
+          "name": "Get Chargeback By Id",
           "request": {
-            "name": "Retrieve A Transfer",
+            "name": "Get Chargeback By Id",
             "description": {},
             "url": {
               "path": [
-                "transfers",
+                "chargebacks",
                 ":id"
               ],
               "host": [
@@ -250,12 +227,12 @@
           },
           "response": [
             {
-              "id": "baed040f-e0dd-4d37-899a-56187c5c6eec",
+              "id": "83b90edd-df27-47ab-ae76-ad206cd9d1d6",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
+                    "chargebacks",
                     ":id"
                   ],
                   "host": [
@@ -297,7 +274,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"charge_id\": \"string\",\n  \"amount\": 3912.939513934025,\n  \"currency\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"pending\",\n  \"evidence\": {},\n  \"created_datetime\": \"2015-09-23T19:12:40.514Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -308,17 +285,14 @@
           }
         },
         {
-          "id": "2b7d5359-fa25-4ee7-a124-cb1e2f558d5a",
-          "name": "Update A Transfer",
+          "id": "95fcf56a-6a16-493e-bc3a-804964d4896f",
+          "name": "Update A Chargeback",
           "request": {
-            "name": "Update A Transfer",
-            "description": {
-              "content": "Update instructions about a deferred payout.",
-              "type": "text/plain"
-            },
+            "name": "Update A Chargeback",
+            "description": {},
             "url": {
               "path": [
-                "transfers",
+                "chargebacks",
                 ":id"
               ],
               "host": [
@@ -349,7 +323,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"instruction\": \"<string>\"\n}",
+              "raw": "{\n  \"evidence\": \"<object>\",\n  \"resolution\": \"<string>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -359,12 +333,12 @@
           },
           "response": [
             {
-              "id": "de1ad1a3-d5db-493e-bd5e-5b1caf38099d",
-              "name": "Transfer Updated",
+              "id": "9e66b2c8-bb36-46bd-a13b-cd2e3f98f339",
+              "name": "Chargeback Updated",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
+                    "chargebacks",
                     ":id"
                   ],
                   "host": [
@@ -398,7 +372,7 @@
                 "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"instruction\": \"<string>\"\n}",
+                  "raw": "{\n  \"evidence\": \"<object>\",\n  \"resolution\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -414,114 +388,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1d443891-9700-4c0e-a261-c2b50821070e",
-          "name": "Retry Or Duplicate A Transfer",
-          "request": {
-            "name": "Retry Or Duplicate A Transfer",
-            "description": {},
-            "url": {
-              "path": [
-                "transfers",
-                ":id",
-                "retry"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "key": "X-Idempotency-Key",
-                "value": "<uuid>",
-                "description": ""
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "713f49f1-ae76-415d-ad13-b13af876e286",
-              "name": "Transfer Retry Created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfers",
-                    ":id",
-                    "retry"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "key": "X-Idempotency-Key",
-                    "value": "<uuid>",
-                    "description": ""
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"charge_id\": \"string\",\n  \"amount\": 3912.939513934025,\n  \"currency\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"pending\",\n  \"evidence\": {},\n  \"created_datetime\": \"2015-09-23T19:12:40.514Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -557,8 +424,8 @@
     ]
   },
   "info": {
-    "_postman_id": "17fc1d38-cd09-4eb2-8f1d-1a36ac26b00a",
-    "name": "Flutterwave Banks AccountResolution Transfers API",
+    "_postman_id": "3e569174-4122-44ad-83a9-ef0268f44867",
+    "name": "Flutterwave Banks AccountResolution Chargebacks API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",

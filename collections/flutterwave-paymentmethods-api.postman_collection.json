@@ -1,22 +1,22 @@
 {
   "item": [
     {
-      "id": "392ff11b-02a3-42ab-901d-30fdab6fb5d5",
-      "name": "Wallets",
+      "id": "95e252e2-6df8-4108-a205-22489034f927",
+      "name": "PaymentMethods",
       "description": {
-        "content": "Inspect currency wallet balances and statements.",
+        "content": "Tokenize, register, and look up payment methods (cards, mobile money, bank, USSD).",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "1947bd59-61f0-4d3a-9dfe-1a5b460a752e",
-          "name": "Fetch Wallet Balance For Multiple Currencies",
+          "id": "20da78ce-b465-4daf-8249-995349745263",
+          "name": "List Payment Methods",
           "request": {
-            "name": "Fetch Wallet Balance For Multiple Currencies",
+            "name": "List Payment Methods",
             "description": {},
             "url": {
               "path": [
-                "wallet-balances"
+                "payment-methods"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -35,12 +35,12 @@
           },
           "response": [
             {
-              "id": "e500acf3-1ae4-428d-95b9-23c12b4ae0d3",
+              "id": "8c1c13a5-2a7a-4cfa-845f-adbd0eea259d",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "wallet-balances"
+                    "payment-methods"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -73,7 +73,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"currency\": \"string\",\n      \"available_balance\": 6289.916121279627,\n      \"ledger_balance\": 386.67208468237567,\n      \"pending_balance\": 1613.7745704168603\n    },\n    {\n      \"currency\": \"string\",\n      \"available_balance\": 1260.7141638344187,\n      \"ledger_balance\": 5575.646466469871,\n      \"pending_balance\": 2685.045170935635\n    }\n  ]\n}",
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"opay\",\n      \"card\": {},\n      \"mobile_money\": {},\n      \"bank_transfer\": {},\n      \"client\": {},\n      \"device_fingerprint\": \"string\",\n      \"created_datetime\": \"1969-06-04T19:33:15.710Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"mobile_money\",\n      \"card\": {},\n      \"mobile_money\": {},\n      \"bank_transfer\": {},\n      \"client\": {},\n      \"device_fingerprint\": \"string\",\n      \"created_datetime\": \"1954-06-20T05:03:13.318Z\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -84,15 +84,123 @@
           }
         },
         {
-          "id": "8d6bf016-51b2-424b-9e8d-8d87625d1ce5",
-          "name": "Fetch A Currency Wallet Balance",
+          "id": "3ba14fc0-0a10-4283-be16-df6ad012cec6",
+          "name": "Create A Payment Method",
           "request": {
-            "name": "Fetch A Currency Wallet Balance",
+            "name": "Create A Payment Method",
             "description": {},
             "url": {
               "path": [
-                "wallet-balances",
-                ":currency"
+                "payment-methods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "UUID-style key used to safely retry POST requests.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"card\": \"<object>\",\n  \"mobile_money\": \"<object>\",\n  \"bank_transfer\": \"<object>\",\n  \"ussd\": \"<object>\",\n  \"opay\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "89f4b2d2-44dd-4c62-bdd6-994f7cbb3dfd",
+              "name": "Payment Method Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"card\": \"<object>\",\n  \"mobile_money\": \"<object>\",\n  \"bank_transfer\": \"<object>\",\n  \"ussd\": \"<object>\",\n  \"opay\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"mobile_money\",\n  \"card\": {},\n  \"mobile_money\": {},\n  \"bank_transfer\": {},\n  \"client\": {},\n  \"device_fingerprint\": \"string\",\n  \"created_datetime\": \"1951-03-10T22:55:45.801Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb778f0f-5fbe-40b7-abae-7f5a29834a2f",
+          "name": "Retrieve A Payment Method",
+          "request": {
+            "name": "Retrieve A Payment Method",
+            "description": {},
+            "url": {
+              "path": [
+                "payment-methods",
+                ":id"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -103,7 +211,7 @@
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "currency",
+                  "key": "id",
                   "description": "(Required) "
                 }
               ]
@@ -119,13 +227,13 @@
           },
           "response": [
             {
-              "id": "22657214-d847-4cad-9bdf-c9e51b60df2f",
+              "id": "b7577271-4e1e-4d1d-8194-7e836a06d4da",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "wallet-balances",
-                    ":currency"
+                    "payment-methods",
+                    ":id"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -136,7 +244,7 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "currency",
+                      "key": "id",
                       "description": "(Required) "
                     }
                   ]
@@ -166,114 +274,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"currency\": \"string\",\n  \"available_balance\": 7869.848427638608,\n  \"ledger_balance\": 3425.9980899104116,\n  \"pending_balance\": 4950.907153608414\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "0b27cba3-2e4e-4953-846c-286a943d53fe",
-          "name": "Retrieve Wallet Statement",
-          "request": {
-            "name": "Retrieve Wallet Statement",
-            "description": {},
-            "url": {
-              "path": [
-                "wallets",
-                "statement"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "currency",
-                  "value": "<string>",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "key": "from",
-                  "value": "<date>"
-                },
-                {
-                  "disabled": false,
-                  "key": "to",
-                  "value": "<date>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "d504aead-2df8-4aa3-ae1b-0c5a1d7b9fe3",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "wallets",
-                    "statement"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "currency",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "from",
-                      "value": "<date>"
-                    },
-                    {
-                      "key": "to",
-                      "value": "<date>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"currency\": \"string\",\n  \"opening_balance\": 9297.555392650494,\n  \"closing_balance\": 8238.633799446994,\n  \"entries\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 7701.445857083489,\n      \"type\": \"credit\",\n      \"narration\": \"string\",\n      \"balance_after\": 3155.94623598334,\n      \"created_datetime\": \"1981-03-10T01:04:45.056Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 1879.288190624273,\n      \"type\": \"debit\",\n      \"narration\": \"string\",\n      \"balance_after\": 7530.648868970064,\n      \"created_datetime\": \"1970-12-19T01:38:58.621Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"mobile_money\",\n  \"card\": {},\n  \"mobile_money\": {},\n  \"bank_transfer\": {},\n  \"client\": {},\n  \"device_fingerprint\": \"string\",\n  \"created_datetime\": \"1951-03-10T22:55:45.801Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -309,8 +310,8 @@
     ]
   },
   "info": {
-    "_postman_id": "585d9942-fcce-4522-b721-f473b394334b",
-    "name": "Flutterwave Banks AccountResolution Wallets API",
+    "_postman_id": "d3b524c3-0279-404d-bbe3-6d34d07c73d4",
+    "name": "Flutterwave Banks AccountResolution PaymentMethods API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",

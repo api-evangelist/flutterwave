@@ -1,38 +1,27 @@
 {
   "item": [
     {
-      "id": "88839424-6761-40b4-82ba-1fe8f60d5176",
-      "name": "Transfers",
+      "id": "42926d61-7793-4774-bfec-4acb195e7229",
+      "name": "VirtualAccounts",
       "description": {
-        "content": "Create, list, retrieve, update, retry, and duplicate payouts.",
+        "content": "Issue virtual NUBANs for pay-with-bank-transfer collections.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "2cf89f74-20cd-40cf-87f5-06ad60890cc0",
-          "name": "List Transfers",
+          "id": "7a690a1c-428f-48c8-91b4-0565ccb2c869",
+          "name": "List All Virtual Accounts",
           "request": {
-            "name": "List Transfers",
+            "name": "List All Virtual Accounts",
             "description": {},
             "url": {
               "path": [
-                "transfers"
+                "virtual-accounts"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25"
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "1"
-                }
-              ],
+              "query": [],
               "variable": []
             },
             "header": [
@@ -46,26 +35,17 @@
           },
           "response": [
             {
-              "id": "ab6dc1c5-4b9a-4ad2-8c16-b2414886f65c",
+              "id": "7d49bcb3-1bd0-4373-8a6f-42b5dc66f7b2",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers"
+                    "virtual-accounts"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -93,7 +73,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 3559.067998114237,\n      \"currency\": \"string\",\n      \"status\": \"pending\",\n      \"reference\": \"string\",\n      \"sender_id\": \"string\",\n      \"recipient_id\": \"string\",\n      \"narration\": \"string\",\n      \"fee\": 9236.958593897141,\n      \"rate_id\": \"string\",\n      \"created_datetime\": \"2010-04-07T17:32:56.177Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 6069.912512109234,\n      \"currency\": \"string\",\n      \"status\": \"succeeded\",\n      \"reference\": \"string\",\n      \"sender_id\": \"string\",\n      \"recipient_id\": \"string\",\n      \"narration\": \"string\",\n      \"fee\": 9012.039322609682,\n      \"rate_id\": \"string\",\n      \"created_datetime\": \"2021-09-16T08:10:41.750Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"account_number\": \"string\",\n      \"bank_name\": \"string\",\n      \"account_reference\": \"string\",\n      \"currency\": \"NGN\",\n      \"customer_id\": \"string\",\n      \"status\": \"string\",\n      \"amount\": 8887.322727219376,\n      \"expiry_datetime\": \"1982-09-23T12:01:03.458Z\",\n      \"created_datetime\": \"2006-02-18T04:38:20.552Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"account_number\": \"string\",\n      \"bank_name\": \"string\",\n      \"account_reference\": \"string\",\n      \"currency\": \"NGN\",\n      \"customer_id\": \"string\",\n      \"status\": \"string\",\n      \"amount\": 76.85403125111345,\n      \"expiry_datetime\": \"1979-07-09T03:19:47.608Z\",\n      \"created_datetime\": \"1974-10-17T17:55:47.452Z\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -104,17 +84,14 @@
           }
         },
         {
-          "id": "aee87d3c-1344-4513-93f5-91b606d566a1",
-          "name": "Create A Transfer",
+          "id": "1e26e2e8-40fb-4365-91d1-d0fd30d89adb",
+          "name": "Create A Virtual Account",
           "request": {
-            "name": "Create A Transfer",
-            "description": {
-              "content": "Create a direct transfer using only recipient and sender IDs.",
-              "type": "text/plain"
-            },
+            "name": "Create A Virtual Account",
+            "description": {},
             "url": {
               "path": [
-                "transfers"
+                "virtual-accounts"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -125,9 +102,9 @@
             "header": [
               {
                 "disabled": false,
+                "description": "UUID-style key used to safely retry POST requests.",
                 "key": "X-Idempotency-Key",
-                "value": "<uuid>",
-                "description": ""
+                "value": "<uuid>"
               },
               {
                 "key": "Content-Type",
@@ -142,7 +119,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+              "raw": "{\n  \"currency\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"customer_id\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"bvn\": \"<string>\",\n  \"is_permanent\": \"<boolean>\",\n  \"expiry\": \"<integer>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -152,12 +129,12 @@
           },
           "response": [
             {
-              "id": "e843d7db-7643-4e57-9866-a844b8238050",
-              "name": "Transfer Created",
+              "id": "77608fca-ec0c-4e83-8662-fc1f94f8ba82",
+              "name": "Virtual Account Created",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers"
+                    "virtual-accounts"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -176,9 +153,9 @@
                   },
                   {
                     "disabled": false,
+                    "description": "UUID-style key used to safely retry POST requests.",
                     "key": "X-Idempotency-Key",
-                    "value": "<uuid>",
-                    "description": ""
+                    "value": "<uuid>"
                   },
                   {
                     "key": "Accept",
@@ -188,7 +165,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+                  "raw": "{\n  \"currency\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"customer_id\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"bvn\": \"<string>\",\n  \"is_permanent\": \"<boolean>\",\n  \"expiry\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -204,7 +181,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"account_number\": \"string\",\n  \"bank_name\": \"string\",\n  \"account_reference\": \"string\",\n  \"currency\": \"NGN\",\n  \"customer_id\": \"string\",\n  \"status\": \"string\",\n  \"amount\": 1851.2185142371252,\n  \"expiry_datetime\": \"1971-08-18T06:25:21.184Z\",\n  \"created_datetime\": \"2006-07-19T21:18:18.711Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -215,14 +192,14 @@
           }
         },
         {
-          "id": "7d28d904-d764-4b91-9403-d27d2779c705",
-          "name": "Retrieve A Transfer",
+          "id": "0c64809e-b1b0-4171-a7ef-4a7e6c1c714c",
+          "name": "Retrieve A Virtual Account",
           "request": {
-            "name": "Retrieve A Transfer",
+            "name": "Retrieve A Virtual Account",
             "description": {},
             "url": {
               "path": [
-                "transfers",
+                "virtual-accounts",
                 ":id"
               ],
               "host": [
@@ -250,12 +227,12 @@
           },
           "response": [
             {
-              "id": "baed040f-e0dd-4d37-899a-56187c5c6eec",
+              "id": "8c4e37ec-b396-40c1-9d6d-416050ab5a25",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
+                    "virtual-accounts",
                     ":id"
                   ],
                   "host": [
@@ -297,7 +274,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"account_number\": \"string\",\n  \"bank_name\": \"string\",\n  \"account_reference\": \"string\",\n  \"currency\": \"NGN\",\n  \"customer_id\": \"string\",\n  \"status\": \"string\",\n  \"amount\": 1851.2185142371252,\n  \"expiry_datetime\": \"1971-08-18T06:25:21.184Z\",\n  \"created_datetime\": \"2006-07-19T21:18:18.711Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -308,17 +285,14 @@
           }
         },
         {
-          "id": "2b7d5359-fa25-4ee7-a124-cb1e2f558d5a",
-          "name": "Update A Transfer",
+          "id": "0fcab7fc-3a20-4e75-b781-e305999d45b9",
+          "name": "Update A Virtual Account",
           "request": {
-            "name": "Update A Transfer",
-            "description": {
-              "content": "Update instructions about a deferred payout.",
-              "type": "text/plain"
-            },
+            "name": "Update A Virtual Account",
+            "description": {},
             "url": {
               "path": [
-                "transfers",
+                "virtual-accounts",
                 ":id"
               ],
               "host": [
@@ -349,7 +323,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"instruction\": \"<string>\"\n}",
+              "raw": "{\n  \"currency\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"customer_id\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"bvn\": \"<string>\",\n  \"is_permanent\": \"<boolean>\",\n  \"expiry\": \"<integer>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -359,12 +333,12 @@
           },
           "response": [
             {
-              "id": "de1ad1a3-d5db-493e-bd5e-5b1caf38099d",
-              "name": "Transfer Updated",
+              "id": "302deae6-a32d-48d9-ba78-049a18441b1b",
+              "name": "Virtual Account Updated",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
+                    "virtual-accounts",
                     ":id"
                   ],
                   "host": [
@@ -398,7 +372,7 @@
                 "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"instruction\": \"<string>\"\n}",
+                  "raw": "{\n  \"currency\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"customer_id\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"bvn\": \"<string>\",\n  \"is_permanent\": \"<boolean>\",\n  \"expiry\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -414,114 +388,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1d443891-9700-4c0e-a261-c2b50821070e",
-          "name": "Retry Or Duplicate A Transfer",
-          "request": {
-            "name": "Retry Or Duplicate A Transfer",
-            "description": {},
-            "url": {
-              "path": [
-                "transfers",
-                ":id",
-                "retry"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "key": "X-Idempotency-Key",
-                "value": "<uuid>",
-                "description": ""
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "713f49f1-ae76-415d-ad13-b13af876e286",
-              "name": "Transfer Retry Created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfers",
-                    ":id",
-                    "retry"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "key": "X-Idempotency-Key",
-                    "value": "<uuid>",
-                    "description": ""
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"account_number\": \"string\",\n  \"bank_name\": \"string\",\n  \"account_reference\": \"string\",\n  \"currency\": \"NGN\",\n  \"customer_id\": \"string\",\n  \"status\": \"string\",\n  \"amount\": 1851.2185142371252,\n  \"expiry_datetime\": \"1971-08-18T06:25:21.184Z\",\n  \"created_datetime\": \"2006-07-19T21:18:18.711Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -557,8 +424,8 @@
     ]
   },
   "info": {
-    "_postman_id": "17fc1d38-cd09-4eb2-8f1d-1a36ac26b00a",
-    "name": "Flutterwave Banks AccountResolution Transfers API",
+    "_postman_id": "5565b69c-9ca8-426e-8b2e-1aee3a591e74",
+    "name": "Flutterwave Banks AccountResolution VirtualAccounts API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",

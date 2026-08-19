@@ -1,22 +1,22 @@
 {
   "item": [
     {
-      "id": "88839424-6761-40b4-82ba-1fe8f60d5176",
-      "name": "Transfers",
+      "id": "d843e4ab-3fd1-487f-9284-442d64af48f2",
+      "name": "Charges",
       "description": {
-        "content": "Create, list, retrieve, update, retry, and duplicate payouts.",
+        "content": "Create and manage charges across supported payment methods.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "2cf89f74-20cd-40cf-87f5-06ad60890cc0",
-          "name": "List Transfers",
+          "id": "ee65cf2b-1c2f-4866-a09c-1e7e024747d7",
+          "name": "List Charges",
           "request": {
-            "name": "List Transfers",
+            "name": "List Charges",
             "description": {},
             "url": {
               "path": [
-                "transfers"
+                "charges"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -46,12 +46,12 @@
           },
           "response": [
             {
-              "id": "ab6dc1c5-4b9a-4ad2-8c16-b2414886f65c",
+              "id": "e1a299ac-635e-40cd-8847-e78e3acc08d4",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers"
+                    "charges"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -93,7 +93,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 3559.067998114237,\n      \"currency\": \"string\",\n      \"status\": \"pending\",\n      \"reference\": \"string\",\n      \"sender_id\": \"string\",\n      \"recipient_id\": \"string\",\n      \"narration\": \"string\",\n      \"fee\": 9236.958593897141,\n      \"rate_id\": \"string\",\n      \"created_datetime\": \"2010-04-07T17:32:56.177Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 6069.912512109234,\n      \"currency\": \"string\",\n      \"status\": \"succeeded\",\n      \"reference\": \"string\",\n      \"sender_id\": \"string\",\n      \"recipient_id\": \"string\",\n      \"narration\": \"string\",\n      \"fee\": 9012.039322609682,\n      \"rate_id\": \"string\",\n      \"created_datetime\": \"2021-09-16T08:10:41.750Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 5526.44066725254,\n      \"currency\": \"NGN\",\n      \"status\": \"pending\",\n      \"reference\": \"string\",\n      \"customer\": {\n        \"id\": \"string\",\n        \"email\": \"Z7TUt@GA.yjh\",\n        \"name\": {\n          \"first\": \"string\",\n          \"middle\": \"string\",\n          \"last\": \"string\"\n        },\n        \"phone\": {\n          \"country_code\": \"string\",\n          \"number\": \"string\"\n        },\n        \"address\": {},\n        \"meta\": {},\n        \"created_datetime\": \"2000-11-11T14:02:35.104Z\"\n      },\n      \"payment_method\": {\n        \"id\": \"string\",\n        \"type\": \"bank_transfer\",\n        \"card\": {},\n        \"mobile_money\": {},\n        \"bank_transfer\": {},\n        \"client\": {},\n        \"device_fingerprint\": \"string\",\n        \"created_datetime\": \"1977-01-22T00:41:18.111Z\"\n      },\n      \"processor_response\": {\n        \"type\": \"string\",\n        \"code\": \"string\"\n      },\n      \"redirect_url\": \"string\",\n      \"meta\": {},\n      \"created_datetime\": \"1981-12-30T16:15:16.211Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 6732.066395931997,\n      \"currency\": \"NGN\",\n      \"status\": \"pending\",\n      \"reference\": \"string\",\n      \"customer\": {\n        \"id\": \"string\",\n        \"email\": \"TqHM8JZ@RhYNNswvlBhIHinXbeiKCLFr.hbfw\",\n        \"name\": {\n          \"first\": \"string\",\n          \"middle\": \"string\",\n          \"last\": \"string\"\n        },\n        \"phone\": {\n          \"country_code\": \"string\",\n          \"number\": \"string\"\n        },\n        \"address\": {},\n        \"meta\": {},\n        \"created_datetime\": \"1978-03-28T20:13:41.710Z\"\n      },\n      \"payment_method\": {\n        \"id\": \"string\",\n        \"type\": \"mobile_money\",\n        \"card\": {},\n        \"mobile_money\": {},\n        \"bank_transfer\": {},\n        \"client\": {},\n        \"device_fingerprint\": \"string\",\n        \"created_datetime\": \"1973-08-05T00:00:51.610Z\"\n      },\n      \"processor_response\": {\n        \"type\": \"string\",\n        \"code\": \"string\"\n      },\n      \"redirect_url\": \"string\",\n      \"meta\": {},\n      \"created_datetime\": \"1976-03-14T18:59:46.072Z\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -104,17 +104,14 @@
           }
         },
         {
-          "id": "aee87d3c-1344-4513-93f5-91b606d566a1",
-          "name": "Create A Transfer",
+          "id": "c9771cd0-64c1-417c-b7a4-08d5b1162a1a",
+          "name": "Create A Charge",
           "request": {
-            "name": "Create A Transfer",
-            "description": {
-              "content": "Create a direct transfer using only recipient and sender IDs.",
-              "type": "text/plain"
-            },
+            "name": "Create A Charge",
+            "description": {},
             "url": {
               "path": [
-                "transfers"
+                "charges"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -125,9 +122,9 @@
             "header": [
               {
                 "disabled": false,
+                "description": "UUID-style key used to safely retry POST requests.",
                 "key": "X-Idempotency-Key",
-                "value": "<uuid>",
-                "description": ""
+                "value": "<uuid>"
               },
               {
                 "key": "Content-Type",
@@ -142,7 +139,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"customer\": \"<object>\",\n  \"reference\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"payment_method\": \"<object>\",\n  \"meta\": \"<object>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -152,12 +149,12 @@
           },
           "response": [
             {
-              "id": "e843d7db-7643-4e57-9866-a844b8238050",
-              "name": "Transfer Created",
+              "id": "fa152648-a26d-49c6-9377-a8a88fa37229",
+              "name": "Charge Created",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers"
+                    "charges"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -176,9 +173,9 @@
                   },
                   {
                     "disabled": false,
+                    "description": "UUID-style key used to safely retry POST requests.",
                     "key": "X-Idempotency-Key",
-                    "value": "<uuid>",
-                    "description": ""
+                    "value": "<uuid>"
                   },
                   {
                     "key": "Accept",
@@ -188,7 +185,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"customer\": \"<object>\",\n  \"reference\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"payment_method\": \"<object>\",\n  \"meta\": \"<object>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -204,7 +201,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": 3955.273314132581,\n  \"currency\": \"NGN\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"email\": \"TdDTeq4gw@XmUejNRJORYHSmsvDxRnCtoPX.eixh\",\n    \"name\": {\n      \"first\": \"string\",\n      \"middle\": \"string\",\n      \"last\": \"string\"\n    },\n    \"phone\": {\n      \"country_code\": \"string\",\n      \"number\": \"string\"\n    },\n    \"address\": {},\n    \"meta\": {},\n    \"created_datetime\": \"1959-08-01T03:21:03.589Z\"\n  },\n  \"payment_method\": {\n    \"id\": \"string\",\n    \"type\": \"mobile_money\",\n    \"card\": {},\n    \"mobile_money\": {},\n    \"bank_transfer\": {},\n    \"client\": {},\n    \"device_fingerprint\": \"string\",\n    \"created_datetime\": \"2007-07-09T02:07:34.174Z\"\n  },\n  \"processor_response\": {\n    \"type\": \"string\",\n    \"code\": \"string\"\n  },\n  \"redirect_url\": \"string\",\n  \"meta\": {},\n  \"created_datetime\": \"1980-11-22T06:05:01.530Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -215,14 +212,14 @@
           }
         },
         {
-          "id": "7d28d904-d764-4b91-9403-d27d2779c705",
-          "name": "Retrieve A Transfer",
+          "id": "97cd96bc-2ac9-452d-afe4-03495b7a7844",
+          "name": "Retrieve A Charge",
           "request": {
-            "name": "Retrieve A Transfer",
+            "name": "Retrieve A Charge",
             "description": {},
             "url": {
               "path": [
-                "transfers",
+                "charges",
                 ":id"
               ],
               "host": [
@@ -250,12 +247,12 @@
           },
           "response": [
             {
-              "id": "baed040f-e0dd-4d37-899a-56187c5c6eec",
+              "id": "5cbea86a-f1a5-4363-85cf-fd191202062a",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
+                    "charges",
                     ":id"
                   ],
                   "host": [
@@ -297,7 +294,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": 3955.273314132581,\n  \"currency\": \"NGN\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"email\": \"TdDTeq4gw@XmUejNRJORYHSmsvDxRnCtoPX.eixh\",\n    \"name\": {\n      \"first\": \"string\",\n      \"middle\": \"string\",\n      \"last\": \"string\"\n    },\n    \"phone\": {\n      \"country_code\": \"string\",\n      \"number\": \"string\"\n    },\n    \"address\": {},\n    \"meta\": {},\n    \"created_datetime\": \"1959-08-01T03:21:03.589Z\"\n  },\n  \"payment_method\": {\n    \"id\": \"string\",\n    \"type\": \"mobile_money\",\n    \"card\": {},\n    \"mobile_money\": {},\n    \"bank_transfer\": {},\n    \"client\": {},\n    \"device_fingerprint\": \"string\",\n    \"created_datetime\": \"2007-07-09T02:07:34.174Z\"\n  },\n  \"processor_response\": {\n    \"type\": \"string\",\n    \"code\": \"string\"\n  },\n  \"redirect_url\": \"string\",\n  \"meta\": {},\n  \"created_datetime\": \"1980-11-22T06:05:01.530Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -308,17 +305,14 @@
           }
         },
         {
-          "id": "2b7d5359-fa25-4ee7-a124-cb1e2f558d5a",
-          "name": "Update A Transfer",
+          "id": "dcb4f0a3-b242-47f3-9b2e-5d440e478557",
+          "name": "Update A Charge",
           "request": {
-            "name": "Update A Transfer",
-            "description": {
-              "content": "Update instructions about a deferred payout.",
-              "type": "text/plain"
-            },
+            "name": "Update A Charge",
+            "description": {},
             "url": {
               "path": [
-                "transfers",
+                "charges",
                 ":id"
               ],
               "host": [
@@ -349,7 +343,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"instruction\": \"<string>\"\n}",
+              "raw": "{\n  \"authorization\": \"<object>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -359,12 +353,12 @@
           },
           "response": [
             {
-              "id": "de1ad1a3-d5db-493e-bd5e-5b1caf38099d",
-              "name": "Transfer Updated",
+              "id": "ccff0d5b-d988-4072-abb0-d7b838f61d31",
+              "name": "Charge Updated",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
+                    "charges",
                     ":id"
                   ],
                   "host": [
@@ -398,7 +392,7 @@
                 "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"instruction\": \"<string>\"\n}",
+                  "raw": "{\n  \"authorization\": \"<object>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -414,114 +408,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1d443891-9700-4c0e-a261-c2b50821070e",
-          "name": "Retry Or Duplicate A Transfer",
-          "request": {
-            "name": "Retry Or Duplicate A Transfer",
-            "description": {},
-            "url": {
-              "path": [
-                "transfers",
-                ":id",
-                "retry"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "key": "X-Idempotency-Key",
-                "value": "<uuid>",
-                "description": ""
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "713f49f1-ae76-415d-ad13-b13af876e286",
-              "name": "Transfer Retry Created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfers",
-                    ":id",
-                    "retry"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "key": "X-Idempotency-Key",
-                    "value": "<uuid>",
-                    "description": ""
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": 3955.273314132581,\n  \"currency\": \"NGN\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"email\": \"TdDTeq4gw@XmUejNRJORYHSmsvDxRnCtoPX.eixh\",\n    \"name\": {\n      \"first\": \"string\",\n      \"middle\": \"string\",\n      \"last\": \"string\"\n    },\n    \"phone\": {\n      \"country_code\": \"string\",\n      \"number\": \"string\"\n    },\n    \"address\": {},\n    \"meta\": {},\n    \"created_datetime\": \"1959-08-01T03:21:03.589Z\"\n  },\n  \"payment_method\": {\n    \"id\": \"string\",\n    \"type\": \"mobile_money\",\n    \"card\": {},\n    \"mobile_money\": {},\n    \"bank_transfer\": {},\n    \"client\": {},\n    \"device_fingerprint\": \"string\",\n    \"created_datetime\": \"2007-07-09T02:07:34.174Z\"\n  },\n  \"processor_response\": {\n    \"type\": \"string\",\n    \"code\": \"string\"\n  },\n  \"redirect_url\": \"string\",\n  \"meta\": {},\n  \"created_datetime\": \"1980-11-22T06:05:01.530Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -557,8 +444,8 @@
     ]
   },
   "info": {
-    "_postman_id": "17fc1d38-cd09-4eb2-8f1d-1a36ac26b00a",
-    "name": "Flutterwave Banks AccountResolution Transfers API",
+    "_postman_id": "24e75b96-162b-4ab4-9027-8b9e39b87968",
+    "name": "Flutterwave Banks AccountResolution Charges API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",

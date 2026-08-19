@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Flutterwave AccountResolution Banks API",
+    "name": "Flutterwave Banks AccountResolution MobileNetworks API",
     "version": "4.0.0"
   },
   "request": {
@@ -18,18 +18,18 @@
   "items": [
     {
       "info": {
-        "name": "Banks",
+        "name": "MobileNetworks",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "Retrieve Banks",
+            "name": "Retrieve Mobile Networks",
             "type": "http"
           },
           "http": {
             "method": "GET",
-            "url": "https://api.flutterwave.cloud/f4b/production/banks",
+            "url": "https://api.flutterwave.cloud/f4b/production/mobile-networks",
             "params": [
               {
                 "name": "country",
@@ -38,25 +38,7 @@
               }
             ]
           },
-          "docs": "Retrieve supported banks by country."
-        },
-        {
-          "info": {
-            "name": "Retrieve Bank Branches",
-            "type": "http"
-          },
-          "http": {
-            "method": "GET",
-            "url": "https://api.flutterwave.cloud/f4b/production/banks/:id/branches",
-            "params": [
-              {
-                "name": "id",
-                "value": "",
-                "type": "path"
-              }
-            ]
-          },
-          "docs": "Retrieve Bank Branches"
+          "docs": "Retrieve supported mobile networks by country."
         }
       ]
     }

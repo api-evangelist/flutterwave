@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Flutterwave Banks AccountResolution Settlements API",
+    "name": "Flutterwave Banks AccountResolution Refunds API",
     "version": "4.0.0"
   },
   "request": {
@@ -18,41 +18,50 @@
   "items": [
     {
       "info": {
-        "name": "Settlements",
+        "name": "Refunds",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "List Settlements",
+            "name": "List Refunds",
             "type": "http"
           },
           "http": {
             "method": "GET",
-            "url": "https://api.flutterwave.cloud/f4b/production/settlements",
-            "params": [
-              {
-                "name": "limit",
-                "value": "",
-                "type": "query"
-              },
-              {
-                "name": "page",
-                "value": "",
-                "type": "query"
-              }
-            ]
+            "url": "https://api.flutterwave.cloud/f4b/production/refunds"
           },
-          "docs": "List Settlements"
+          "docs": "List Refunds"
         },
         {
           "info": {
-            "name": "Retrieve A Settlement",
+            "name": "Create A Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.flutterwave.cloud/f4b/production/refunds",
+            "headers": [
+              {
+                "name": "X-Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create A Refund"
+        },
+        {
+          "info": {
+            "name": "Retrieve A Refund",
             "type": "http"
           },
           "http": {
             "method": "GET",
-            "url": "https://api.flutterwave.cloud/f4b/production/settlements/:id",
+            "url": "https://api.flutterwave.cloud/f4b/production/refunds/:id",
             "params": [
               {
                 "name": "id",
@@ -61,7 +70,7 @@
               }
             ]
           },
-          "docs": "Retrieve A Settlement"
+          "docs": "Retrieve A Refund"
         }
       ]
     }

@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Flutterwave Banks AccountResolution Webhooks API",
+    "name": "Flutterwave Banks AccountResolution API",
     "version": "4.0.0"
   },
   "request": {
@@ -18,30 +18,39 @@
   "items": [
     {
       "info": {
-        "name": "Webhooks",
+        "name": "AccountResolution",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "Receive Flutterwave Webhook",
+            "name": "Bank Account Look Up",
             "type": "http"
           },
           "http": {
             "method": "POST",
-            "url": "https://api.flutterwave.cloud/f4b/production/webhooks/flutterwave",
-            "headers": [
-              {
-                "name": "verif-hash",
-                "value": ""
-              }
-            ],
+            "url": "https://api.flutterwave.cloud/f4b/production/bank-account/resolve",
             "body": {
               "type": "json",
               "data": "{}"
             }
           },
-          "docs": "Endpoint hosted by the merchant. Flutterwave POSTs a JSON payload and\nsets the `verif-hash` header to the secret hash configured in the\ndashboard. Validate `verif-hash` before trusting the payload.\n"
+          "docs": "Resolve a customer's bank account information."
+        },
+        {
+          "info": {
+            "name": "Wallet Account Look Up",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.flutterwave.cloud/f4b/production/wallet-account/resolve",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify wallet account information for a customer."
         }
       ]
     }

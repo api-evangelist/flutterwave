@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "c2d7ba9e-be81-440f-9c50-43504697e20b",
+      "id": "e1269349-f63b-42c6-ba06-aec5294ef7c6",
       "name": "Webhooks",
       "description": {
         "content": "Outbound webhook callbacks delivered by Flutterwave.",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "a7ac737b-f6f7-43f4-a3b9-62fc645de156",
+          "id": "0cd6c3a9-0707-48a2-8b51-9784361e7933",
           "name": "Receive Flutterwave Webhook",
           "request": {
             "name": "Receive Flutterwave Webhook",
@@ -54,7 +54,7 @@
           },
           "response": [
             {
-              "id": "e0e5efdd-313e-4d32-b887-7019381933e1",
+              "id": "d263cbaa-e63b-4abc-b172-45940c079f62",
               "name": "Acknowledgement",
               "originalRequest": {
                 "url": {
@@ -69,6 +69,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
                   {
                     "disabled": false,
                     "description": "(Required) Pre-shared secret hash configured by the merchant.",
@@ -113,16 +121,29 @@
   "variable": [
     {
       "type": "string",
-      "value": "https://your-webhook-endpoint.example.com",
+      "value": "https://api.flutterwave.cloud/f4b/production",
       "key": "baseUrl"
     }
   ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
   "info": {
-    "_postman_id": "ffdd489e-b0d1-4220-989d-bc8f8184884a",
-    "name": "Flutterwave Webhooks API",
+    "_postman_id": "0b6fb801-aec3-40b6-8d14-adcc5f67d296",
+    "name": "Flutterwave Banks AccountResolution Webhooks API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Flutterwave delivers webhook events for payments, transfers, refunds,\nchargebacks, and virtual account funding. This document describes the\noutbound HTTP callbacks Flutterwave will send to a merchant-configured\nendpoint. The receiver must respond with 2XX within 5 seconds; Flutterwave\nretries with exponential backoff.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
+      "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
       "type": "text/plain"
     }
   }

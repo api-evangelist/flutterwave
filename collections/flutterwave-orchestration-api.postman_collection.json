@@ -1,0 +1,382 @@
+{
+  "item": [
+    {
+      "id": "85023665-fb14-40a1-a29c-e581ebaa9bce",
+      "name": "Orchestration",
+      "description": {
+        "content": "Orchestrator helpers that combine customer, payment method, and charge in one call.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f3b4cd9c-68c2-4212-bcd9-24f1c6ad5520",
+          "name": "Initiate An Orchestrator Charge",
+          "request": {
+            "name": "Initiate An Orchestrator Charge",
+            "description": {
+              "content": "Create a charge in one call using the Orchestrator helper, which packages customer, payment method, and charge creation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orchestration",
+                "direct-charges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "UUID-style key used to safely retry POST requests.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"customer\": \"<object>\",\n  \"reference\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"payment_method\": \"<object>\",\n  \"meta\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cc44dbab-d006-47b3-8bd8-ba64c841247b",
+              "name": "Charge Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orchestration",
+                    "direct-charges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"customer\": \"<object>\",\n  \"reference\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"payment_method\": \"<object>\",\n  \"meta\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2218.4450595299177,\n  \"currency\": \"NGN\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"email\": \"Sl9iwz2uOYDgNk@ZsTrnzltQl.ic\",\n    \"name\": {\n      \"first\": \"string\",\n      \"middle\": \"string\",\n      \"last\": \"string\"\n    },\n    \"phone\": {\n      \"country_code\": \"string\",\n      \"number\": \"string\"\n    },\n    \"address\": {},\n    \"meta\": {},\n    \"created_datetime\": \"2004-07-14T12:57:29.028Z\"\n  },\n  \"payment_method\": {\n    \"id\": \"string\",\n    \"type\": \"mobile_money\",\n    \"card\": {},\n    \"mobile_money\": {},\n    \"bank_transfer\": {},\n    \"client\": {},\n    \"device_fingerprint\": \"string\",\n    \"created_datetime\": \"1985-10-08T08:09:05.128Z\"\n  },\n  \"processor_response\": {\n    \"type\": \"string\",\n    \"code\": \"string\"\n  },\n  \"redirect_url\": \"string\",\n  \"meta\": {},\n  \"created_datetime\": \"2008-08-19T19:44:39.332Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a4a34ed-15c4-42a1-934d-b77bbc486c74",
+          "name": "Initiate An Order With Orchestrator",
+          "request": {
+            "name": "Initiate An Order With Orchestrator",
+            "description": {
+              "content": "Create an order in one call using the Orchestrator helper.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orchestration",
+                "direct-orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "UUID-style key used to safely retry POST requests.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"items\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"meta\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "34ff6c77-84fc-4f82-bc5f-c446dd72a4b2",
+              "name": "Order Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orchestration",
+                    "direct-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"items\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"meta\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": 4863.636864639694,\n  \"currency\": \"string\",\n  \"status\": \"string\",\n  \"reference\": \"string\",\n  \"customer_id\": \"string\",\n  \"meta\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "34b52e24-5014-4eb6-9e72-a052fe74e5f9",
+          "name": "Initiate An Orchestrator Transfer",
+          "request": {
+            "name": "Initiate An Orchestrator Transfer",
+            "description": {
+              "content": "Create a transfer with the Orchestrator helper, combining sender, recipient, and movement in one call.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "direct-transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c0fb951b-cd8e-459a-8d88-d036d88a5a59",
+              "name": "Transfer Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "direct-transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": 4844.445172069292,\n  \"currency\": \"string\",\n  \"status\": \"pending\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 839.7164610615538,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1968-03-03T01:48:42.492Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.flutterwave.cloud/f4b/production",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c8697f96-c023-423b-9012-816c5b93f3d7",
+    "name": "Flutterwave Banks AccountResolution Orchestration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,38 +1,27 @@
 {
   "item": [
     {
-      "id": "88839424-6761-40b4-82ba-1fe8f60d5176",
-      "name": "Transfers",
+      "id": "71f01fa1-c799-4e74-ba0f-95dc6c0d4285",
+      "name": "Orders",
       "description": {
-        "content": "Create, list, retrieve, update, retry, and duplicate payouts.",
+        "content": "Server-side cart and order objects backing checkout sessions.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "2cf89f74-20cd-40cf-87f5-06ad60890cc0",
-          "name": "List Transfers",
+          "id": "f8a471f7-c784-45fb-bbba-c359daa44de3",
+          "name": "List Orders",
           "request": {
-            "name": "List Transfers",
+            "name": "List Orders",
             "description": {},
             "url": {
               "path": [
-                "transfers"
+                "orders"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25"
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "1"
-                }
-              ],
+              "query": [],
               "variable": []
             },
             "header": [
@@ -46,26 +35,17 @@
           },
           "response": [
             {
-              "id": "ab6dc1c5-4b9a-4ad2-8c16-b2414886f65c",
+              "id": "ca9b23ab-7b72-4521-99ac-c2fb5c77fad7",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers"
+                    "orders"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -93,7 +73,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 3559.067998114237,\n      \"currency\": \"string\",\n      \"status\": \"pending\",\n      \"reference\": \"string\",\n      \"sender_id\": \"string\",\n      \"recipient_id\": \"string\",\n      \"narration\": \"string\",\n      \"fee\": 9236.958593897141,\n      \"rate_id\": \"string\",\n      \"created_datetime\": \"2010-04-07T17:32:56.177Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 6069.912512109234,\n      \"currency\": \"string\",\n      \"status\": \"succeeded\",\n      \"reference\": \"string\",\n      \"sender_id\": \"string\",\n      \"recipient_id\": \"string\",\n      \"narration\": \"string\",\n      \"fee\": 9012.039322609682,\n      \"rate_id\": \"string\",\n      \"created_datetime\": \"2021-09-16T08:10:41.750Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 6140.230879080553,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"reference\": \"string\",\n      \"customer_id\": \"string\",\n      \"meta\": {}\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 5916.367282505837,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"reference\": \"string\",\n      \"customer_id\": \"string\",\n      \"meta\": {}\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -104,17 +84,14 @@
           }
         },
         {
-          "id": "aee87d3c-1344-4513-93f5-91b606d566a1",
-          "name": "Create A Transfer",
+          "id": "6e727dd2-942b-47ac-8eb7-141f8b2905cb",
+          "name": "Create An Order",
           "request": {
-            "name": "Create A Transfer",
-            "description": {
-              "content": "Create a direct transfer using only recipient and sender IDs.",
-              "type": "text/plain"
-            },
+            "name": "Create An Order",
+            "description": {},
             "url": {
               "path": [
-                "transfers"
+                "orders"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -125,9 +102,9 @@
             "header": [
               {
                 "disabled": false,
+                "description": "UUID-style key used to safely retry POST requests.",
                 "key": "X-Idempotency-Key",
-                "value": "<uuid>",
-                "description": ""
+                "value": "<uuid>"
               },
               {
                 "key": "Content-Type",
@@ -142,7 +119,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"items\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"meta\": \"<object>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -152,12 +129,12 @@
           },
           "response": [
             {
-              "id": "e843d7db-7643-4e57-9866-a844b8238050",
-              "name": "Transfer Created",
+              "id": "18175645-8bb9-427c-b287-b4536966de79",
+              "name": "Order Created",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers"
+                    "orders"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -176,9 +153,9 @@
                   },
                   {
                     "disabled": false,
+                    "description": "UUID-style key used to safely retry POST requests.",
                     "key": "X-Idempotency-Key",
-                    "value": "<uuid>",
-                    "description": ""
+                    "value": "<uuid>"
                   },
                   {
                     "key": "Accept",
@@ -188,7 +165,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"items\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"meta\": \"<object>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -204,7 +181,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2417.7811750618525,\n  \"currency\": \"string\",\n  \"status\": \"string\",\n  \"reference\": \"string\",\n  \"customer_id\": \"string\",\n  \"meta\": {}\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -215,14 +192,14 @@
           }
         },
         {
-          "id": "7d28d904-d764-4b91-9403-d27d2779c705",
-          "name": "Retrieve A Transfer",
+          "id": "557999d2-7221-4c5f-8f2a-b0361524a720",
+          "name": "Retrieve An Order",
           "request": {
-            "name": "Retrieve A Transfer",
+            "name": "Retrieve An Order",
             "description": {},
             "url": {
               "path": [
-                "transfers",
+                "orders",
                 ":id"
               ],
               "host": [
@@ -250,12 +227,12 @@
           },
           "response": [
             {
-              "id": "baed040f-e0dd-4d37-899a-56187c5c6eec",
+              "id": "d23b30e7-3e35-4efb-9384-7949a0ca2a9a",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
+                    "orders",
                     ":id"
                   ],
                   "host": [
@@ -297,7 +274,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2417.7811750618525,\n  \"currency\": \"string\",\n  \"status\": \"string\",\n  \"reference\": \"string\",\n  \"customer_id\": \"string\",\n  \"meta\": {}\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -308,17 +285,14 @@
           }
         },
         {
-          "id": "2b7d5359-fa25-4ee7-a124-cb1e2f558d5a",
-          "name": "Update A Transfer",
+          "id": "98f0baef-94f4-41e2-8bb9-8d6c82ae503d",
+          "name": "Update An Order",
           "request": {
-            "name": "Update A Transfer",
-            "description": {
-              "content": "Update instructions about a deferred payout.",
-              "type": "text/plain"
-            },
+            "name": "Update An Order",
+            "description": {},
             "url": {
               "path": [
-                "transfers",
+                "orders",
                 ":id"
               ],
               "host": [
@@ -349,7 +323,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"instruction\": \"<string>\"\n}",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"items\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"meta\": \"<object>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -359,12 +333,12 @@
           },
           "response": [
             {
-              "id": "de1ad1a3-d5db-493e-bd5e-5b1caf38099d",
-              "name": "Transfer Updated",
+              "id": "c2a19bbf-995d-460c-8d60-a62bdfd82c7f",
+              "name": "Order Updated",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
+                    "orders",
                     ":id"
                   ],
                   "host": [
@@ -398,7 +372,7 @@
                 "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"instruction\": \"<string>\"\n}",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"items\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"meta\": \"<object>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -414,114 +388,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1d443891-9700-4c0e-a261-c2b50821070e",
-          "name": "Retry Or Duplicate A Transfer",
-          "request": {
-            "name": "Retry Or Duplicate A Transfer",
-            "description": {},
-            "url": {
-              "path": [
-                "transfers",
-                ":id",
-                "retry"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "key": "X-Idempotency-Key",
-                "value": "<uuid>",
-                "description": ""
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "713f49f1-ae76-415d-ad13-b13af876e286",
-              "name": "Transfer Retry Created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "transfers",
-                    ":id",
-                    "retry"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "disabled": false,
-                    "key": "X-Idempotency-Key",
-                    "value": "<uuid>",
-                    "description": ""
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2417.7811750618525,\n  \"currency\": \"string\",\n  \"status\": \"string\",\n  \"reference\": \"string\",\n  \"customer_id\": \"string\",\n  \"meta\": {}\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -557,8 +424,8 @@
     ]
   },
   "info": {
-    "_postman_id": "17fc1d38-cd09-4eb2-8f1d-1a36ac26b00a",
-    "name": "Flutterwave Banks AccountResolution Transfers API",
+    "_postman_id": "e8a94dec-c049-4327-b381-d50be66416a2",
+    "name": "Flutterwave Banks AccountResolution Orders API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",

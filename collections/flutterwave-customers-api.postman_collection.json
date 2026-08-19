@@ -1,22 +1,25 @@
 {
   "item": [
     {
-      "id": "88839424-6761-40b4-82ba-1fe8f60d5176",
-      "name": "Transfers",
+      "id": "f7bcd8ec-2f28-44d1-a1a6-6e432e701b9e",
+      "name": "Customers",
       "description": {
-        "content": "Create, list, retrieve, update, retry, and duplicate payouts.",
+        "content": "Create and manage customers that own charges, orders, and transfers.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "2cf89f74-20cd-40cf-87f5-06ad60890cc0",
-          "name": "List Transfers",
+          "id": "093098f4-7b90-4cc1-b63b-f3caee49e1cc",
+          "name": "List Customers",
           "request": {
-            "name": "List Transfers",
-            "description": {},
+            "name": "List Customers",
+            "description": {
+              "content": "Retrieve a paginated list of customers.",
+              "type": "text/plain"
+            },
             "url": {
               "path": [
-                "transfers"
+                "customers"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -37,6 +40,12 @@
             },
             "header": [
               {
+                "disabled": false,
+                "description": "UUID-style key used to safely retry POST requests.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
                 "key": "Accept",
                 "value": "application/json"
               }
@@ -46,12 +55,12 @@
           },
           "response": [
             {
-              "id": "ab6dc1c5-4b9a-4ad2-8c16-b2414886f65c",
+              "id": "4da8a830-e240-4c3c-a629-12d1905acde2",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers"
+                    "customers"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -78,6 +87,12 @@
                     "value": "<token>"
                   },
                   {
+                    "disabled": false,
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
                   }
@@ -93,7 +108,65 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 3559.067998114237,\n      \"currency\": \"string\",\n      \"status\": \"pending\",\n      \"reference\": \"string\",\n      \"sender_id\": \"string\",\n      \"recipient_id\": \"string\",\n      \"narration\": \"string\",\n      \"fee\": 9236.958593897141,\n      \"rate_id\": \"string\",\n      \"created_datetime\": \"2010-04-07T17:32:56.177Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 6069.912512109234,\n      \"currency\": \"string\",\n      \"status\": \"succeeded\",\n      \"reference\": \"string\",\n      \"sender_id\": \"string\",\n      \"recipient_id\": \"string\",\n      \"narration\": \"string\",\n      \"fee\": 9012.039322609682,\n      \"rate_id\": \"string\",\n      \"created_datetime\": \"2021-09-16T08:10:41.750Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"status\": \"string\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"email\": \"FrnFdj9Si@GGysPRnDDFcxBNMNfLZWokZAWXrQs.ygdy\",\n      \"name\": {\n        \"first\": \"string\",\n        \"middle\": \"string\",\n        \"last\": \"string\"\n      },\n      \"phone\": {\n        \"country_code\": \"string\",\n        \"number\": \"string\"\n      },\n      \"address\": {},\n      \"meta\": {},\n      \"created_datetime\": \"1974-11-07T06:50:38.172Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"email\": \"FnCGZJb6Q7d@rVTMNembmLArUKTTyRhWvaUTsUYgwDcm.klq\",\n      \"name\": {\n        \"first\": \"string\",\n        \"middle\": \"string\",\n        \"last\": \"string\"\n      },\n      \"phone\": {\n        \"country_code\": \"string\",\n        \"number\": \"string\"\n      },\n      \"address\": {},\n      \"meta\": {},\n      \"created_datetime\": \"2020-11-03T05:31:07.702Z\"\n    }\n  ],\n  \"meta\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64871e2b-b856-4c13-a10e-963410b0478c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"error\": {\n    \"type\": \"string\",\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -104,17 +177,17 @@
           }
         },
         {
-          "id": "aee87d3c-1344-4513-93f5-91b606d566a1",
-          "name": "Create A Transfer",
+          "id": "e8d2a9c3-7404-49cd-92bf-445cd1c25ec1",
+          "name": "Create A Customer",
           "request": {
-            "name": "Create A Transfer",
+            "name": "Create A Customer",
             "description": {
-              "content": "Create a direct transfer using only recipient and sender IDs.",
+              "content": "Create a new customer record.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "transfers"
+                "customers"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -125,9 +198,9 @@
             "header": [
               {
                 "disabled": false,
+                "description": "UUID-style key used to safely retry POST requests.",
                 "key": "X-Idempotency-Key",
-                "value": "<uuid>",
-                "description": ""
+                "value": "<uuid>"
               },
               {
                 "key": "Content-Type",
@@ -142,7 +215,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<object>\",\n  \"phone\": \"<object>\",\n  \"address\": \"<object>\",\n  \"meta\": \"<object>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -152,12 +225,12 @@
           },
           "response": [
             {
-              "id": "e843d7db-7643-4e57-9866-a844b8238050",
-              "name": "Transfer Created",
+              "id": "6e783f5f-38f1-4e4f-a451-c98d97c80584",
+              "name": "Customer Created",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers"
+                    "customers"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -176,9 +249,9 @@
                   },
                   {
                     "disabled": false,
+                    "description": "UUID-style key used to safely retry POST requests.",
                     "key": "X-Idempotency-Key",
-                    "value": "<uuid>",
-                    "description": ""
+                    "value": "<uuid>"
                   },
                   {
                     "key": "Accept",
@@ -188,7 +261,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"sender_id\": \"<string>\",\n  \"recipient_id\": \"<string>\",\n  \"rate_id\": \"<string>\",\n  \"narration\": \"<string>\",\n  \"meta\": \"<object>\"\n}",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<object>\",\n  \"phone\": \"<object>\",\n  \"address\": \"<object>\",\n  \"meta\": \"<object>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -204,7 +277,64 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"email\": \"7TeWRCKw@IQdSLxprTyCKwEpGpGS.rpsf\",\n  \"name\": {\n    \"first\": \"string\",\n    \"middle\": \"string\",\n    \"last\": \"string\"\n  },\n  \"phone\": {\n    \"country_code\": \"string\",\n    \"number\": \"string\"\n  },\n  \"address\": {},\n  \"meta\": {},\n  \"created_datetime\": \"1950-11-20T05:57:43.936Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0d91204-6164-44a0-b121-a0a9d7262866",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "UUID-style key used to safely retry POST requests.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<object>\",\n  \"phone\": \"<object>\",\n  \"address\": \"<object>\",\n  \"meta\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"error\": {\n    \"type\": \"string\",\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -215,14 +345,14 @@
           }
         },
         {
-          "id": "7d28d904-d764-4b91-9403-d27d2779c705",
-          "name": "Retrieve A Transfer",
+          "id": "25e33caa-467e-4bd1-87f5-98427c2fffaa",
+          "name": "Retrieve A Customer",
           "request": {
-            "name": "Retrieve A Transfer",
+            "name": "Retrieve A Customer",
             "description": {},
             "url": {
               "path": [
-                "transfers",
+                "customers",
                 ":id"
               ],
               "host": [
@@ -250,12 +380,12 @@
           },
           "response": [
             {
-              "id": "baed040f-e0dd-4d37-899a-56187c5c6eec",
+              "id": "ce156d23-8e7a-4125-8ba1-84219f26c5c9",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
+                    "customers",
                     ":id"
                   ],
                   "host": [
@@ -297,7 +427,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"email\": \"7TeWRCKw@IQdSLxprTyCKwEpGpGS.rpsf\",\n  \"name\": {\n    \"first\": \"string\",\n    \"middle\": \"string\",\n    \"last\": \"string\"\n  },\n  \"phone\": {\n    \"country_code\": \"string\",\n    \"number\": \"string\"\n  },\n  \"address\": {},\n  \"meta\": {},\n  \"created_datetime\": \"1950-11-20T05:57:43.936Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -308,17 +438,14 @@
           }
         },
         {
-          "id": "2b7d5359-fa25-4ee7-a124-cb1e2f558d5a",
-          "name": "Update A Transfer",
+          "id": "dcd7fe79-1b9f-459b-8f6c-130a91237360",
+          "name": "Update A Customer",
           "request": {
-            "name": "Update A Transfer",
-            "description": {
-              "content": "Update instructions about a deferred payout.",
-              "type": "text/plain"
-            },
+            "name": "Update A Customer",
+            "description": {},
             "url": {
               "path": [
-                "transfers",
+                "customers",
                 ":id"
               ],
               "host": [
@@ -349,7 +476,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"instruction\": \"<string>\"\n}",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<object>\",\n  \"phone\": \"<object>\",\n  \"address\": \"<object>\",\n  \"meta\": \"<object>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -359,12 +486,12 @@
           },
           "response": [
             {
-              "id": "de1ad1a3-d5db-493e-bd5e-5b1caf38099d",
-              "name": "Transfer Updated",
+              "id": "af33b88e-8a75-46da-9c44-722871918e6b",
+              "name": "Customer Updated",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
+                    "customers",
                     ":id"
                   ],
                   "host": [
@@ -398,7 +525,7 @@
                 "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"instruction\": \"<string>\"\n}",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<object>\",\n  \"phone\": \"<object>\",\n  \"address\": \"<object>\",\n  \"meta\": \"<object>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -414,7 +541,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"email\": \"7TeWRCKw@IQdSLxprTyCKwEpGpGS.rpsf\",\n  \"name\": {\n    \"first\": \"string\",\n    \"middle\": \"string\",\n    \"last\": \"string\"\n  },\n  \"phone\": {\n    \"country_code\": \"string\",\n    \"number\": \"string\"\n  },\n  \"address\": {},\n  \"meta\": {},\n  \"created_datetime\": \"1950-11-20T05:57:43.936Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -425,37 +552,26 @@
           }
         },
         {
-          "id": "1d443891-9700-4c0e-a261-c2b50821070e",
-          "name": "Retry Or Duplicate A Transfer",
+          "id": "dad65e03-5ab1-4cb5-aab8-2ba2562bdfca",
+          "name": "Search Customers",
           "request": {
-            "name": "Retry Or Duplicate A Transfer",
+            "name": "Search Customers",
             "description": {},
             "url": {
               "path": [
-                "transfers",
-                ":id",
-                "retry"
+                "customers",
+                "search"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
               "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
+              "variable": []
             },
             "header": [
               {
-                "disabled": false,
-                "key": "X-Idempotency-Key",
-                "value": "<uuid>",
-                "description": ""
+                "key": "Content-Type",
+                "value": "application/json"
               },
               {
                 "key": "Accept",
@@ -463,32 +579,32 @@
               }
             ],
             "method": "POST",
-            "auth": null
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"phone_number\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
           },
           "response": [
             {
-              "id": "713f49f1-ae76-415d-ad13-b13af876e286",
-              "name": "Transfer Retry Created",
+              "id": "0a1fdba5-285e-4ba3-8599-64b4e997ff1f",
+              "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "transfers",
-                    ":id",
-                    "retry"
+                    "customers",
+                    "search"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
+                  "variable": []
                 },
                 "header": [
                   {
@@ -500,18 +616,20 @@
                     "value": "<token>"
                   },
                   {
-                    "disabled": false,
-                    "key": "X-Idempotency-Key",
-                    "value": "<uuid>",
-                    "description": ""
-                  },
-                  {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
                 "method": "POST",
-                "body": {}
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"phone_number\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
               },
               "status": "OK",
               "code": 200,
@@ -521,7 +639,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"amount\": 2679.5318554406153,\n  \"currency\": \"string\",\n  \"status\": \"succeeded\",\n  \"reference\": \"string\",\n  \"sender_id\": \"string\",\n  \"recipient_id\": \"string\",\n  \"narration\": \"string\",\n  \"fee\": 2476.7159086811953,\n  \"rate_id\": \"string\",\n  \"created_datetime\": \"1982-12-02T11:17:57.985Z\"\n}",
+              "body": "{\n  \"status\": \"string\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"email\": \"FrnFdj9Si@GGysPRnDDFcxBNMNfLZWokZAWXrQs.ygdy\",\n      \"name\": {\n        \"first\": \"string\",\n        \"middle\": \"string\",\n        \"last\": \"string\"\n      },\n      \"phone\": {\n        \"country_code\": \"string\",\n        \"number\": \"string\"\n      },\n      \"address\": {},\n      \"meta\": {},\n      \"created_datetime\": \"1974-11-07T06:50:38.172Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"email\": \"FnCGZJb6Q7d@rVTMNembmLArUKTTyRhWvaUTsUYgwDcm.klq\",\n      \"name\": {\n        \"first\": \"string\",\n        \"middle\": \"string\",\n        \"last\": \"string\"\n      },\n      \"phone\": {\n        \"country_code\": \"string\",\n        \"number\": \"string\"\n      },\n      \"address\": {},\n      \"meta\": {},\n      \"created_datetime\": \"2020-11-03T05:31:07.702Z\"\n    }\n  ],\n  \"meta\": {}\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -557,8 +675,8 @@
     ]
   },
   "info": {
-    "_postman_id": "17fc1d38-cd09-4eb2-8f1d-1a36ac26b00a",
-    "name": "Flutterwave Banks AccountResolution Transfers API",
+    "_postman_id": "e285e218-815c-4f06-a400-d5e556524dad",
+    "name": "Flutterwave Banks AccountResolution Customers API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",

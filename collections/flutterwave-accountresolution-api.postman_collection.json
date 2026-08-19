@@ -1,71 +1,69 @@
 {
   "item": [
     {
-      "id": "1dde0a08-5082-4bee-876d-a8018a6305e2",
-      "name": "Settlements",
+      "id": "fae5e6ce-c0be-4774-88af-409731953cc2",
+      "name": "AccountResolution",
       "description": {
-        "content": "List and retrieve merchant settlements.",
+        "content": "Bank account name resolution before initiating payouts.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "a109e06f-8670-423d-baad-ae7d5ea755ce",
-          "name": "List Settlements",
+          "id": "04b41e2d-7b18-47a9-895a-39482f6c7344",
+          "name": "Bank Account Look Up",
           "request": {
-            "name": "List Settlements",
-            "description": {},
+            "name": "Bank Account Look Up",
+            "description": {
+              "content": "Resolve a customer's bank account information.",
+              "type": "text/plain"
+            },
             "url": {
               "path": [
-                "settlements"
+                "bank-account",
+                "resolve"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25"
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "1"
-                }
-              ],
+              "query": [],
               "variable": []
             },
             "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_number\": \"<string>\",\n  \"bank_id\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
           },
           "response": [
             {
-              "id": "a27e49bb-4297-42ca-bfa7-7ddf7e4fc172",
+              "id": "2117c76b-bdc5-41e3-8861-c1a8256221a7",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "settlements"
+                    "bank-account",
+                    "resolve"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -82,8 +80,16 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_number\": \"<string>\",\n  \"bank_id\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
               },
               "status": "OK",
               "code": 200,
@@ -93,7 +99,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"gross_amount\": 6993.499525942361,\n      \"fee\": 2247.784293790246,\n      \"net_amount\": 3416.902807906118,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"reference\": \"string\",\n      \"period_start\": \"1981-02-17T22:41:14.266Z\",\n      \"period_end\": \"2020-07-05T08:37:44.736Z\",\n      \"created_datetime\": \"1993-06-14T20:01:50.609Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"gross_amount\": 1462.5227463775736,\n      \"fee\": 5039.4746474358935,\n      \"net_amount\": 3512.4162385968525,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"reference\": \"string\",\n      \"period_start\": \"2022-02-15T15:55:18.222Z\",\n      \"period_end\": \"2020-09-28T18:44:23.623Z\",\n      \"created_datetime\": \"1959-10-03T06:27:22.033Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"account_number\": \"string\",\n  \"account_name\": \"string\",\n  \"bank_id\": \"string\",\n  \"bank_name\": \"string\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -104,62 +110,62 @@
           }
         },
         {
-          "id": "69537616-85f6-407b-9b65-bd9936b9407a",
-          "name": "Retrieve A Settlement",
+          "id": "24fa7d93-ab00-4f16-ab22-2609f54da35c",
+          "name": "Wallet Account Look Up",
           "request": {
-            "name": "Retrieve A Settlement",
-            "description": {},
+            "name": "Wallet Account Look Up",
+            "description": {
+              "content": "Verify wallet account information for a customer.",
+              "type": "text/plain"
+            },
             "url": {
               "path": [
-                "settlements",
-                ":id"
+                "wallet-account",
+                "resolve"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
               "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
+              "variable": []
             },
             "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_number\": \"<string>\",\n  \"mobile_network\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
           },
           "response": [
             {
-              "id": "dbf44ab9-3b02-4368-ba42-128930b0166b",
+              "id": "da651613-ec03-4093-9875-0a45e3fa47a5",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "settlements",
-                    ":id"
+                    "wallet-account",
+                    "resolve"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
+                  "variable": []
                 },
                 "header": [
                   {
@@ -175,8 +181,16 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_number\": \"<string>\",\n  \"mobile_network\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
               },
               "status": "OK",
               "code": 200,
@@ -186,7 +200,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"gross_amount\": 8263.10574831419,\n  \"fee\": 8101.358434897807,\n  \"net_amount\": 9740.45729095071,\n  \"currency\": \"string\",\n  \"status\": \"string\",\n  \"reference\": \"string\",\n  \"period_start\": \"2015-06-30T00:37:10.849Z\",\n  \"period_end\": \"1988-03-10T15:57:16.516Z\",\n  \"created_datetime\": \"2003-06-30T08:12:53.167Z\"\n}",
+              "body": "{\n  \"account_number\": \"string\",\n  \"account_name\": \"string\",\n  \"mobile_network\": \"string\",\n  \"country\": \"string\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -222,8 +236,8 @@
     ]
   },
   "info": {
-    "_postman_id": "f50287eb-75a3-44c0-85ab-8f80e444c3ad",
-    "name": "Flutterwave Banks AccountResolution Settlements API",
+    "_postman_id": "06650d57-8f49-4487-9568-2911b28e3a9b",
+    "name": "Flutterwave Banks AccountResolution API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",

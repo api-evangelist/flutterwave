@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Flutterwave Banks AccountResolution Settlements API",
+    "name": "Flutterwave Banks AccountResolution PaymentMethods API",
     "version": "4.0.0"
   },
   "request": {
@@ -18,41 +18,50 @@
   "items": [
     {
       "info": {
-        "name": "Settlements",
+        "name": "PaymentMethods",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "List Settlements",
+            "name": "List Payment Methods",
             "type": "http"
           },
           "http": {
             "method": "GET",
-            "url": "https://api.flutterwave.cloud/f4b/production/settlements",
-            "params": [
-              {
-                "name": "limit",
-                "value": "",
-                "type": "query"
-              },
-              {
-                "name": "page",
-                "value": "",
-                "type": "query"
-              }
-            ]
+            "url": "https://api.flutterwave.cloud/f4b/production/payment-methods"
           },
-          "docs": "List Settlements"
+          "docs": "List Payment Methods"
         },
         {
           "info": {
-            "name": "Retrieve A Settlement",
+            "name": "Create A Payment Method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.flutterwave.cloud/f4b/production/payment-methods",
+            "headers": [
+              {
+                "name": "X-Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create A Payment Method"
+        },
+        {
+          "info": {
+            "name": "Retrieve A Payment Method",
             "type": "http"
           },
           "http": {
             "method": "GET",
-            "url": "https://api.flutterwave.cloud/f4b/production/settlements/:id",
+            "url": "https://api.flutterwave.cloud/f4b/production/payment-methods/:id",
             "params": [
               {
                 "name": "id",
@@ -61,7 +70,7 @@
               }
             ]
           },
-          "docs": "Retrieve A Settlement"
+          "docs": "Retrieve A Payment Method"
         }
       ]
     }

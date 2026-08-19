@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Flutterwave Banks AccountResolution Settlements API",
+    "name": "Flutterwave Banks AccountResolution Rates API",
     "version": "4.0.0"
   },
   "request": {
@@ -18,41 +18,33 @@
   "items": [
     {
       "info": {
-        "name": "Settlements",
+        "name": "Rates",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "List Settlements",
+            "name": "Rate Conversion",
             "type": "http"
           },
           "http": {
-            "method": "GET",
-            "url": "https://api.flutterwave.cloud/f4b/production/settlements",
-            "params": [
-              {
-                "name": "limit",
-                "value": "",
-                "type": "query"
-              },
-              {
-                "name": "page",
-                "value": "",
-                "type": "query"
-              }
-            ]
+            "method": "POST",
+            "url": "https://api.flutterwave.cloud/f4b/production/transfers/rates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
           },
-          "docs": "List Settlements"
+          "docs": "Retrieve transfer rate for international transfers."
         },
         {
           "info": {
-            "name": "Retrieve A Settlement",
+            "name": "Fetch Converted Rate",
             "type": "http"
           },
           "http": {
             "method": "GET",
-            "url": "https://api.flutterwave.cloud/f4b/production/settlements/:id",
+            "url": "https://api.flutterwave.cloud/f4b/production/transfers/rates/:id",
             "params": [
               {
                 "name": "id",
@@ -61,7 +53,7 @@
               }
             ]
           },
-          "docs": "Retrieve A Settlement"
+          "docs": "Fetch Converted Rate"
         }
       ]
     }

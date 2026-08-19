@@ -1,71 +1,69 @@
 {
   "item": [
     {
-      "id": "1dde0a08-5082-4bee-876d-a8018a6305e2",
-      "name": "Settlements",
+      "id": "cd2f087c-7870-4b79-824b-426e8981a880",
+      "name": "Rates",
       "description": {
-        "content": "List and retrieve merchant settlements.",
+        "content": "Real-time FX conversion rates for international transfers.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "a109e06f-8670-423d-baad-ae7d5ea755ce",
-          "name": "List Settlements",
+          "id": "4868737d-ab73-4a5b-aa99-4488b7e3ca0a",
+          "name": "Rate Conversion",
           "request": {
-            "name": "List Settlements",
-            "description": {},
+            "name": "Rate Conversion",
+            "description": {
+              "content": "Retrieve transfer rate for international transfers.",
+              "type": "text/plain"
+            },
             "url": {
               "path": [
-                "settlements"
+                "transfers",
+                "rates"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25"
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "1"
-                }
-              ],
+              "query": [],
               "variable": []
             },
             "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_currency\": \"<string>\",\n  \"destination_currency\": \"<string>\",\n  \"source_amount\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
           },
           "response": [
             {
-              "id": "a27e49bb-4297-42ca-bfa7-7ddf7e4fc172",
-              "name": "Successful Response",
+              "id": "c4194511-ae2d-49a4-88fe-f2e71dfb5b7d",
+              "name": "Rate Created",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "settlements"
+                    "transfers",
+                    "rates"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -82,8 +80,16 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_currency\": \"<string>\",\n  \"destination_currency\": \"<string>\",\n  \"source_amount\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
               },
               "status": "OK",
               "code": 200,
@@ -93,7 +99,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"gross_amount\": 6993.499525942361,\n      \"fee\": 2247.784293790246,\n      \"net_amount\": 3416.902807906118,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"reference\": \"string\",\n      \"period_start\": \"1981-02-17T22:41:14.266Z\",\n      \"period_end\": \"2020-07-05T08:37:44.736Z\",\n      \"created_datetime\": \"1993-06-14T20:01:50.609Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"gross_amount\": 1462.5227463775736,\n      \"fee\": 5039.4746474358935,\n      \"net_amount\": 3512.4162385968525,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"reference\": \"string\",\n      \"period_start\": \"2022-02-15T15:55:18.222Z\",\n      \"period_end\": \"2020-09-28T18:44:23.623Z\",\n      \"created_datetime\": \"1959-10-03T06:27:22.033Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"rate\": 8774.961051047785,\n  \"source_currency\": \"string\",\n  \"destination_currency\": \"string\",\n  \"source_amount\": 9320.672881447443,\n  \"destination_amount\": 3208.645978147915,\n  \"expiry_datetime\": \"1970-02-04T22:45:12.479Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -104,14 +110,15 @@
           }
         },
         {
-          "id": "69537616-85f6-407b-9b65-bd9936b9407a",
-          "name": "Retrieve A Settlement",
+          "id": "dac8f3c1-0971-4a96-b5ee-3ee4b5fdac4b",
+          "name": "Fetch Converted Rate",
           "request": {
-            "name": "Retrieve A Settlement",
+            "name": "Fetch Converted Rate",
             "description": {},
             "url": {
               "path": [
-                "settlements",
+                "transfers",
+                "rates",
                 ":id"
               ],
               "host": [
@@ -139,12 +146,13 @@
           },
           "response": [
             {
-              "id": "dbf44ab9-3b02-4368-ba42-128930b0166b",
+              "id": "ef8e70ce-38ad-4a5b-afc7-23b0c3629c38",
               "name": "Successful Response",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "settlements",
+                    "transfers",
+                    "rates",
                     ":id"
                   ],
                   "host": [
@@ -186,7 +194,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"gross_amount\": 8263.10574831419,\n  \"fee\": 8101.358434897807,\n  \"net_amount\": 9740.45729095071,\n  \"currency\": \"string\",\n  \"status\": \"string\",\n  \"reference\": \"string\",\n  \"period_start\": \"2015-06-30T00:37:10.849Z\",\n  \"period_end\": \"1988-03-10T15:57:16.516Z\",\n  \"created_datetime\": \"2003-06-30T08:12:53.167Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"rate\": 8774.961051047785,\n  \"source_currency\": \"string\",\n  \"destination_currency\": \"string\",\n  \"source_amount\": 9320.672881447443,\n  \"destination_amount\": 3208.645978147915,\n  \"expiry_datetime\": \"1970-02-04T22:45:12.479Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -222,8 +230,8 @@
     ]
   },
   "info": {
-    "_postman_id": "f50287eb-75a3-44c0-85ab-8f80e444c3ad",
-    "name": "Flutterwave Banks AccountResolution Settlements API",
+    "_postman_id": "2d91ba91-448c-4d28-a8c1-3c1ed5d9b3af",
+    "name": "Flutterwave Banks AccountResolution Rates API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Flutterwave v4 reference data APIs for supported banks, bank branches,\nmobile networks, and bank account name resolution. These endpoints are\nused to populate dropdowns and validate destination accounts before\ninitiating payouts.\n\n\nContact Support:\n Name: Flutterwave\n Email: developers@flutterwavego.com",
