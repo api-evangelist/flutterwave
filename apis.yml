@@ -30,6 +30,13 @@ apis:
 - aid: flutterwave:flutterwave-settlements-api
   name: Flutterwave Settlements API
   tags:
+  - Settlement
+  - Refunds
+  - Chargebacks
+  - Disputes
+  - Fees
+  - Reconciliation
+  tags_raw:
   - Settlements
   - Refunds
   - Chargebacks
@@ -104,6 +111,10 @@ apis:
 - aid: flutterwave:flutterwave-webhooks-api
   name: Flutterwave Webhooks API
   tags:
+  - Webhook
+  - Event
+  - Asynchronous
+  tags_raw:
   - Webhooks
   - Events
   - Asynchronous
@@ -128,6 +139,8 @@ apis:
   humanURL: https://developer.flutterwave.com/reference
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
+  - Account Resolution
+  tags_raw:
   - AccountResolution
   properties:
   - type: OpenAPI
@@ -268,6 +281,8 @@ apis:
   humanURL: https://developer.flutterwave.com/reference
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
+  - Mobile Networks
+  tags_raw:
   - MobileNetworks
   properties:
   - type: OpenAPI
@@ -324,6 +339,8 @@ apis:
   humanURL: https://developer.flutterwave.com/reference
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -352,6 +369,8 @@ apis:
   humanURL: https://developer.flutterwave.com/reference
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
+  - Payment Methods
+  tags_raw:
   - PaymentMethods
   properties:
   - type: OpenAPI
@@ -492,6 +511,8 @@ apis:
   humanURL: https://developer.flutterwave.com/reference
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
+  - Virtual Accounts
+  tags_raw:
   - VirtualAccounts
   properties:
   - type: OpenAPI
