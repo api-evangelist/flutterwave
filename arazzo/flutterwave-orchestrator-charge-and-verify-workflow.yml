@@ -12,8 +12,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: paymentsApi
-  url: ../openapi/flutterwave-payments-api-openapi.yml
+- name: chargesApi
+  url: ../openapi/flutterwave-charges-api-openapi.yml
+  type: openapi
+- name: orchestrationApi
+  url: ../openapi/flutterwave-orchestration-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: orchestrator-charge-and-verify

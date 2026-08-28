@@ -12,11 +12,11 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: paymentsApi
-  url: ../openapi/flutterwave-payments-api-openapi.yml
+- name: chargebacksApi
+  url: ../openapi/flutterwave-chargebacks-api-openapi.yml
   type: openapi
-- name: settlementsApi
-  url: ../openapi/flutterwave-settlements-api-openapi.yml
+- name: chargesApi
+  url: ../openapi/flutterwave-charges-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: charge-then-dispute-chargeback

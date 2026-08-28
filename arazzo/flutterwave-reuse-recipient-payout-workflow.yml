@@ -13,6 +13,9 @@ info:
     and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
+- name: recipientsApi
+  url: ../openapi/flutterwave-recipients-api-openapi.yml
+  type: openapi
 - name: transfersApi
   url: ../openapi/flutterwave-transfers-api-openapi.yml
   type: openapi

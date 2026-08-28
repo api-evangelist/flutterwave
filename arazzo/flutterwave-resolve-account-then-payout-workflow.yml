@@ -13,8 +13,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: banksApi
-  url: ../openapi/flutterwave-banks-api-openapi.yml
+- name: accountresolutionApi
+  url: ../openapi/flutterwave-accountresolution-api-openapi.yml
+  type: openapi
+- name: recipientsApi
+  url: ../openapi/flutterwave-recipients-api-openapi.yml
   type: openapi
 - name: transfersApi
   url: ../openapi/flutterwave-transfers-api-openapi.yml

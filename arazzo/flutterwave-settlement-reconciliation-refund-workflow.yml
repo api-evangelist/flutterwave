@@ -12,11 +12,14 @@ info:
     be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
+- name: chargesApi
+  url: ../openapi/flutterwave-charges-api-openapi.yml
+  type: openapi
+- name: refundsApi
+  url: ../openapi/flutterwave-refunds-api-openapi.yml
+  type: openapi
 - name: settlementsApi
   url: ../openapi/flutterwave-settlements-api-openapi.yml
-  type: openapi
-- name: paymentsApi
-  url: ../openapi/flutterwave-payments-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: settlement-reconciliation-refund

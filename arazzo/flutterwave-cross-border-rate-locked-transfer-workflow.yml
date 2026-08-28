@@ -13,6 +13,15 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
+- name: ratesApi
+  url: ../openapi/flutterwave-rates-api-openapi.yml
+  type: openapi
+- name: recipientsApi
+  url: ../openapi/flutterwave-recipients-api-openapi.yml
+  type: openapi
+- name: sendersApi
+  url: ../openapi/flutterwave-senders-api-openapi.yml
+  type: openapi
 - name: transfersApi
   url: ../openapi/flutterwave-transfers-api-openapi.yml
   type: openapi

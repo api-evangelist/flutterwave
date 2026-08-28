@@ -11,8 +11,11 @@ info:
     can be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: paymentsApi
-  url: ../openapi/flutterwave-payments-api-openapi.yml
+- name: customersApi
+  url: ../openapi/flutterwave-customers-api-openapi.yml
+  type: openapi
+- name: ordersApi
+  url: ../openapi/flutterwave-orders-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: order-checkout-and-verify

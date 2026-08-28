@@ -14,8 +14,14 @@ info:
     the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: paymentsApi
-  url: ../openapi/flutterwave-payments-api-openapi.yml
+- name: chargesApi
+  url: ../openapi/flutterwave-charges-api-openapi.yml
+  type: openapi
+- name: customersApi
+  url: ../openapi/flutterwave-customers-api-openapi.yml
+  type: openapi
+- name: paymentmethodsApi
+  url: ../openapi/flutterwave-paymentmethods-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: tokenized-recurring-charge

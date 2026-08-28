@@ -12,8 +12,11 @@ info:
     be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: paymentsApi
-  url: ../openapi/flutterwave-payments-api-openapi.yml
+- name: customersApi
+  url: ../openapi/flutterwave-customers-api-openapi.yml
+  type: openapi
+- name: virtualaccountsApi
+  url: ../openapi/flutterwave-virtualaccounts-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: virtual-account-collection
