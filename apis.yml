@@ -139,7 +139,7 @@ apis:
   humanURL: https://developer.flutterwave.com/reference
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
-  - Account Resolution
+  - AccountResolution
   tags_raw:
   - AccountResolution
   properties:
@@ -281,7 +281,7 @@ apis:
   humanURL: https://developer.flutterwave.com/reference
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
-  - Mobile Networks
+  - MobileNetworks
   tags_raw:
   - MobileNetworks
   properties:
@@ -369,7 +369,7 @@ apis:
   humanURL: https://developer.flutterwave.com/reference
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
-  - Payment Methods
+  - PaymentMethods
   tags_raw:
   - PaymentMethods
   properties:
@@ -511,7 +511,7 @@ apis:
   humanURL: https://developer.flutterwave.com/reference
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
-  - Virtual Accounts
+  - VirtualAccounts
   tags_raw:
   - VirtualAccounts
   properties:
