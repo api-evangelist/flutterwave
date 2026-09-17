@@ -133,36 +133,6 @@ apis:
     Outbound webhook callbacks delivered by Flutterwave for charges, transfers, refunds, chargebacks,
     and virtual account funding. Receivers validate the `verif-hash` header against the merchant's configured
     secret hash before trusting the payload.
-- aid: flutterwave:flutterwave-accountresolution-api
-  name: Flutterwave AccountResolution API
-  description: Bank account name resolution before initiating payouts.
-  humanURL: https://developer.flutterwave.com/reference
-  baseURL: https://api.flutterwave.cloud/f4b/production
-  tags:
-  - Account Resolution
-  tags_raw:
-  - AccountResolution
-  properties:
-  - type: OpenAPI
-    url: openapi/flutterwave-accountresolution-api-openapi.yml
-  - type: Documentation
-    url: https://developer.flutterwave.com/docs/introduction-1.md
-  - type: Documentation
-    url: https://developer.flutterwave.com/reference/charges_post.md
-  - type: JSONSchema
-    url: json-schema/flutterwave-charge-schema.json
-  - type: JSONSchema
-    url: json-schema/flutterwave-customer-schema.json
-  - type: JSONStructure
-    url: json-structure/flutterwave-charge-structure.json
-  - type: JSONLD
-    url: json-ld/flutterwave-context.jsonld
-  - type: Examples
-    url: examples/flutterwave-create-charge-example.json
-  - type: Examples
-    url: examples/flutterwave-create-customer-example.json
-  - type: GraphQL
-    url: graphql/flutterwave-graphql.md
 - aid: flutterwave:flutterwave-chargebacks-api
   name: Flutterwave Chargebacks API
   description: Manage and respond to chargebacks raised by customers.
@@ -363,36 +333,6 @@ apis:
     url: examples/flutterwave-create-customer-example.json
   - type: GraphQL
     url: graphql/flutterwave-graphql.md
-- aid: flutterwave:flutterwave-paymentmethods-api
-  name: Flutterwave PaymentMethods API
-  description: Tokenize, register, and look up payment methods (cards, mobile money, bank, USSD).
-  humanURL: https://developer.flutterwave.com/reference
-  baseURL: https://api.flutterwave.cloud/f4b/production
-  tags:
-  - Payment Methods
-  tags_raw:
-  - PaymentMethods
-  properties:
-  - type: OpenAPI
-    url: openapi/flutterwave-paymentmethods-api-openapi.yml
-  - type: Documentation
-    url: https://developer.flutterwave.com/docs/introduction-1.md
-  - type: Documentation
-    url: https://developer.flutterwave.com/reference/charges_post.md
-  - type: JSONSchema
-    url: json-schema/flutterwave-charge-schema.json
-  - type: JSONSchema
-    url: json-schema/flutterwave-customer-schema.json
-  - type: JSONStructure
-    url: json-structure/flutterwave-charge-structure.json
-  - type: JSONLD
-    url: json-ld/flutterwave-context.jsonld
-  - type: Examples
-    url: examples/flutterwave-create-charge-example.json
-  - type: Examples
-    url: examples/flutterwave-create-customer-example.json
-  - type: GraphQL
-    url: graphql/flutterwave-graphql.md
 - aid: flutterwave:flutterwave-rates-api
   name: Flutterwave Rates API
   description: Real-time FX conversion rates for international transfers.
@@ -505,18 +445,72 @@ apis:
     url: examples/flutterwave-create-customer-example.json
   - type: GraphQL
     url: graphql/flutterwave-graphql.md
-- aid: flutterwave:flutterwave-virtualaccounts-api
-  name: Flutterwave VirtualAccounts API
+- aid: flutterwave:flutterwave-account-resolution-api
+  name: Flutterwave Account Resolution API
+  description: Bank account name resolution before initiating payouts.
+  humanURL: https://developer.flutterwave.com/docs/introduction-3.md
+  baseURL: https://api.flutterwave.cloud/f4b/production
+  tags:
+  - Account Resolution
+  properties:
+  - type: OpenAPI
+    url: openapi/flutterwave-account-resolution-api-openapi.yml
+  - type: Documentation
+    url: https://developer.flutterwave.com/docs/introduction-1.md
+  - type: Documentation
+    url: https://developer.flutterwave.com/reference/charges_post.md
+  - type: JSONSchema
+    url: json-schema/flutterwave-charge-schema.json
+  - type: JSONSchema
+    url: json-schema/flutterwave-customer-schema.json
+  - type: JSONStructure
+    url: json-structure/flutterwave-charge-structure.json
+  - type: JSONLD
+    url: json-ld/flutterwave-context.jsonld
+  - type: Examples
+    url: examples/flutterwave-create-charge-example.json
+  - type: Examples
+    url: examples/flutterwave-create-customer-example.json
+  - type: GraphQL
+    url: graphql/flutterwave-graphql.md
+- aid: flutterwave:flutterwave-payment-methods-api
+  name: Flutterwave Payment Methods API
+  description: Tokenize, register, and look up payment methods (cards, mobile money, bank, USSD).
+  humanURL: https://developer.flutterwave.com/docs/introduction-3.md
+  baseURL: https://api.flutterwave.cloud/f4b/production
+  tags:
+  - Payment Methods
+  properties:
+  - type: OpenAPI
+    url: openapi/flutterwave-payment-methods-api-openapi.yml
+  - type: Documentation
+    url: https://developer.flutterwave.com/docs/introduction-1.md
+  - type: Documentation
+    url: https://developer.flutterwave.com/reference/charges_post.md
+  - type: JSONSchema
+    url: json-schema/flutterwave-charge-schema.json
+  - type: JSONSchema
+    url: json-schema/flutterwave-customer-schema.json
+  - type: JSONStructure
+    url: json-structure/flutterwave-charge-structure.json
+  - type: JSONLD
+    url: json-ld/flutterwave-context.jsonld
+  - type: Examples
+    url: examples/flutterwave-create-charge-example.json
+  - type: Examples
+    url: examples/flutterwave-create-customer-example.json
+  - type: GraphQL
+    url: graphql/flutterwave-graphql.md
+- aid: flutterwave:flutterwave-virtual-accounts-api
+  name: Flutterwave Virtual Accounts API
   description: Issue virtual NUBANs for pay-with-bank-transfer collections.
-  humanURL: https://developer.flutterwave.com/reference
+  humanURL: https://developer.flutterwave.com/docs/introduction-3.md
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
   - Virtual Accounts
-  tags_raw:
-  - VirtualAccounts
   properties:
   - type: OpenAPI
-    url: openapi/flutterwave-virtualaccounts-api-openapi.yml
+    url: openapi/flutterwave-virtual-accounts-api-openapi.yml
   - type: Documentation
     url: https://developer.flutterwave.com/docs/introduction-1.md
   - type: Documentation
