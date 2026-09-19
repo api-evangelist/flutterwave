@@ -6,6 +6,13 @@ apis:
   tags:
   - Payouts
   - Transfers
+  - Remittances
+  - FX
+  - Cross-Border
+  - Mobile Money
+  tags_raw:
+  - Payouts
+  - Transfers
   - Remittance
   - FX
   - Cross-Border
@@ -89,6 +96,11 @@ apis:
 - aid: flutterwave:flutterwave-banks-api
   name: Flutterwave Banks API
   tags:
+  - Banks
+  - Reference Data
+  - Mobile Network
+  - Account Resolution
+  tags_raw:
   - Banks
   - Reference Data
   - Mobile Networks
@@ -251,7 +263,7 @@ apis:
   humanURL: https://developer.flutterwave.com/reference
   baseURL: https://api.flutterwave.cloud/f4b/production
   tags:
-  - Mobile Networks
+  - Mobile Network
   tags_raw:
   - MobileNetworks
   properties:
@@ -531,6 +543,17 @@ apis:
     url: graphql/flutterwave-graphql.md
 name: Flutterwave
 tags:
+- Payments
+- Payouts
+- Mobile Money
+- Cards
+- Africa
+- Fintech
+- Remittances
+- Virtual Accounts
+- Chargebacks
+- Multi-Currency
+tags_raw:
 - Payments
 - Payouts
 - Mobile Money
