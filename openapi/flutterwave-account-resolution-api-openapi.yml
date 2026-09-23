@@ -1,15 +1,13 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Flutterwave Banks AccountResolution API
+  title: Flutterwave Banks Account Resolution API
   description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
 
     mobile networks, and bank account name resolution. These endpoints are
 
     used to populate dropdowns and validate destination accounts before
 
-    initiating payouts.
-
-    '
+    initiating payouts.'
   version: 4.0.0
   contact:
     name: Flutterwave
@@ -26,7 +24,7 @@ servers:
 security:
 - OAuth2: []
 tags:
-- name: AccountResolution
+- name: Account Resolution
   description: Bank account name resolution before initiating payouts.
 paths:
   /bank-account/resolve:
@@ -35,7 +33,7 @@ paths:
       description: Resolve a customer's bank account information.
       operationId: resolveBankAccount
       tags:
-      - AccountResolution
+      - Account Resolution
       requestBody:
         required: true
         content:
@@ -65,7 +63,7 @@ paths:
       description: Verify wallet account information for a customer.
       operationId: resolveWalletAccount
       tags:
-      - AccountResolution
+      - Account Resolution
       requestBody:
         required: true
         content:
@@ -91,17 +89,6 @@ paths:
                 $ref: '#/components/schemas/WalletAccount'
 components:
   schemas:
-    WalletAccount:
-      type: object
-      properties:
-        account_number:
-          type: string
-        account_name:
-          type: string
-        mobile_network:
-          type: string
-        country:
-          type: string
     BankAccount:
       type: object
       properties:
@@ -112,6 +99,17 @@ components:
         bank_id:
           type: string
         bank_name:
+          type: string
+    WalletAccount:
+      type: object
+      properties:
+        account_number:
+          type: string
+        account_name:
+          type: string
+        mobile_network:
+          type: string
+        country:
           type: string
   securitySchemes:
     OAuth2:

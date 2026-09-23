@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Flutterwave AccountResolution Banks API
   description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
@@ -7,9 +7,7 @@ info:
 
     used to populate dropdowns and validate destination accounts before
 
-    initiating payouts.
-
-    '
+    initiating payouts.'
   version: 4.0.0
   contact:
     name: Flutterwave
@@ -71,17 +69,13 @@ paths:
                 $ref: '#/components/schemas/BranchList'
 components:
   schemas:
-    Bank:
+    BankList:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        code:
-          type: string
-        country:
-          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bank'
     Branch:
       type: object
       properties:
@@ -93,13 +87,17 @@ components:
           type: string
         swift_code:
           type: string
-    BankList:
+    Bank:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Bank'
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        country:
+          type: string
     BranchList:
       type: object
       properties:

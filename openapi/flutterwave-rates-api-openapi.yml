@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Flutterwave Banks AccountResolution Rates API
   description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
@@ -7,9 +7,7 @@ info:
 
     used to populate dropdowns and validate destination accounts before
 
-    initiating payouts.
-
-    '
+    initiating payouts.'
   version: 4.0.0
   contact:
     name: Flutterwave

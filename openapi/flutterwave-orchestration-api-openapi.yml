@@ -1,15 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Flutterwave Banks AccountResolution Orchestration API
-  description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
-
-    mobile networks, and bank account name resolution. These endpoints are
-
-    used to populate dropdowns and validate destination accounts before
-
-    initiating payouts.
-
-    '
+  title: Flutterwave Orchestration API
   version: 4.0.0
   contact:
     name: Flutterwave
@@ -18,6 +9,7 @@ info:
   license:
     name: Flutterwave Terms of Service
     url: https://flutterwave.com/us/terms
+  description: 'Operations tagged Orchestration across 2 of this provider''s published API definitions: flutterwave-payments-api-openapi.yml, flutterwave-orchestration-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.flutterwave.cloud/f4b/production
   description: Production
@@ -51,6 +43,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Charge'
+    servers:
+    - url: https://api.flutterwave.cloud/f4b/production
+      description: Production
+    - url: https://api.flutterwave.cloud/f4b/sandbox
+      description: Sandbox
   /orchestration/direct-orders:
     post:
       summary: Initiate An Order With Orchestrator
@@ -73,7 +70,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Order'
+    servers:
+    - url: https://api.flutterwave.cloud/f4b/production
+      description: Production
+    - url: https://api.flutterwave.cloud/f4b/sandbox
+      description: Sandbox
   /direct-transfers:
+    servers:
+    - url: https://api.flutterwave.cloud/f4b/production
+      description: Production
+    - url: https://api.flutterwave.cloud/f4b/sandbox
+      description: Sandbox
     post:
       summary: Initiate An Orchestrator Transfer
       description: Create a transfer with the Orchestrator helper, combining sender, recipient, and movement in one call.
@@ -97,80 +104,6 @@ paths:
                 $ref: '#/components/schemas/Transfer'
 components:
   schemas:
-    TransferRequest:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-        reference:
-          type: string
-        sender_id:
-          type: string
-        recipient_id:
-          type: string
-        rate_id:
-          type: string
-        narration:
-          type: string
-        meta:
-          type: object
-    Order:
-      type: object
-      properties:
-        id:
-          type: string
-        amount:
-          type: number
-        currency:
-          type: string
-        status:
-          type: string
-        reference:
-          type: string
-        customer_id:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-        meta:
-          type: object
-    Customer:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: object
-          properties:
-            first:
-              type: string
-            middle:
-              type: string
-            last:
-              type: string
-        phone:
-          type: object
-          properties:
-            country_code:
-              type: string
-            number:
-              type: string
-        address:
-          type: object
-        meta:
-          type: object
-        created_datetime:
-          type: string
-          format: date-time
     ChargeRequest:
       type: object
       required:
@@ -274,6 +207,58 @@ components:
             type: object
         meta:
           type: object
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: object
+          properties:
+            first:
+              type: string
+            middle:
+              type: string
+            last:
+              type: string
+        phone:
+          type: object
+          properties:
+            country_code:
+              type: string
+            number:
+              type: string
+        address:
+          type: object
+        meta:
+          type: object
+        created_datetime:
+          type: string
+          format: date-time
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        status:
+          type: string
+        reference:
+          type: string
+        customer_id:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+        meta:
+          type: object
     Transfer:
       type: object
       properties:
@@ -305,19 +290,41 @@ components:
         created_datetime:
           type: string
           format: date-time
+    TransferRequest:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        reference:
+          type: string
+        sender_id:
+          type: string
+        recipient_id:
+          type: string
+        rate_id:
+          type: string
+        narration:
+          type: string
+        meta:
+          type: object
   parameters:
-    IdempotencyKey_2:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      schema:
-        type: string
-        format: uuid
     IdempotencyKey:
       in: header
       name: X-Idempotency-Key
       required: false
       description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
+    IdempotencyKey_2:
+      in: header
+      name: X-Idempotency-Key
+      required: false
       schema:
         type: string
         format: uuid
@@ -328,3 +335,6 @@ components:
         clientCredentials:
           tokenUrl: https://idp.flutterwave.com/realms/flutterwave/protocol/openid-connect/token
           scopes: {}
+x-refined-from:
+- flutterwave-payments-api-openapi.yml
+- flutterwave-orchestration-api-openapi.yml

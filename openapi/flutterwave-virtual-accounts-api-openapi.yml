@@ -1,15 +1,13 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Flutterwave Banks AccountResolution VirtualAccounts API
-  description: 'Flutterwave v4 reference data APIs for supported banks, bank branches,
+  title: Flutterwave Payments Virtual Accounts API
+  description: 'Flutterwave v4 payment collection APIs covering customers, charges, payment
 
-    mobile networks, and bank account name resolution. These endpoints are
+    methods, the Orchestrator helper, orders, and virtual accounts. Use these
 
-    used to populate dropdowns and validate destination accounts before
+    endpoints to accept card, mobile money, bank transfer, USSD and OPay
 
-    initiating payouts.
-
-    '
+    payments across 30+ African and global markets.'
   version: 4.0.0
   contact:
     name: Flutterwave
@@ -26,7 +24,7 @@ servers:
 security:
 - OAuth2: []
 tags:
-- name: VirtualAccounts
+- name: Virtual Accounts
   description: Issue virtual NUBANs for pay-with-bank-transfer collections.
 paths:
   /virtual-accounts:
@@ -34,7 +32,7 @@ paths:
       summary: List All Virtual Accounts
       operationId: listVirtualAccounts
       tags:
-      - VirtualAccounts
+      - Virtual Accounts
       responses:
         '200':
           description: Successful Response
@@ -46,7 +44,7 @@ paths:
       summary: Create A Virtual Account
       operationId: createVirtualAccount
       tags:
-      - VirtualAccounts
+      - Virtual Accounts
       parameters:
       - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
@@ -73,7 +71,7 @@ paths:
       summary: Retrieve A Virtual Account
       operationId: getVirtualAccount
       tags:
-      - VirtualAccounts
+      - Virtual Accounts
       responses:
         '200':
           description: Successful Response
@@ -85,7 +83,7 @@ paths:
       summary: Update A Virtual Account
       operationId: updateVirtualAccount
       tags:
-      - VirtualAccounts
+      - Virtual Accounts
       requestBody:
         required: true
         content:
@@ -100,6 +98,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/VirtualAccount'
 components:
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
   schemas:
     VirtualAccount:
       type: object
@@ -156,15 +163,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VirtualAccount'
-  parameters:
-    IdempotencyKey:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      description: UUID-style key used to safely retry POST requests.
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     OAuth2:
       type: oauth2
