@@ -91,6 +91,13 @@ paths:
                 $ref: '#/components/schemas/WalletStatement'
 components:
   schemas:
+    WalletBalanceList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WalletBalance'
     WalletBalance:
       type: object
       properties:
@@ -132,13 +139,6 @@ components:
               created_datetime:
                 type: string
                 format: date-time
-    WalletBalanceList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/WalletBalance'
   securitySchemes:
     OAuth2:
       type: oauth2

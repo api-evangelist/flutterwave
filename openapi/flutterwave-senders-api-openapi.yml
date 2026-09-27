@@ -89,13 +89,6 @@ paths:
           description: Sender Deleted
 components:
   schemas:
-    SenderList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sender'
     Sender:
       type: object
       properties:
@@ -132,6 +125,13 @@ components:
         date_of_birth:
           type: string
           format: date
+    SenderList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sender'
   parameters:
     IdempotencyKey:
       in: header

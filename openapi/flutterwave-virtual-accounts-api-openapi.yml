@@ -98,16 +98,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/VirtualAccount'
 components:
-  parameters:
-    IdempotencyKey:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      description: UUID-style key used to safely retry POST requests.
-      schema:
-        type: string
-        format: uuid
   schemas:
+    VirtualAccountList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualAccount'
     VirtualAccount:
       type: object
       properties:
@@ -156,13 +154,15 @@ components:
         expiry:
           type: integer
           description: Expiry in minutes.
-    VirtualAccountList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualAccount'
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     OAuth2:
       type: oauth2

@@ -80,41 +80,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaymentMethod'
 components:
-  parameters:
-    IdempotencyKey:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      description: UUID-style key used to safely retry POST requests.
-      schema:
-        type: string
-        format: uuid
   schemas:
-    PaymentMethodList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentMethod'
-    PaymentMethodRequest:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-        card:
-          type: object
-          description: Encrypted card fields with `nonce`.
-        mobile_money:
-          type: object
-        bank_transfer:
-          type: object
-        ussd:
-          type: object
-        opay:
-          type: object
     PaymentMethod:
       type: object
       properties:
@@ -141,6 +107,40 @@ components:
         created_datetime:
           type: string
           format: date-time
+    PaymentMethodRequest:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        card:
+          type: object
+          description: Encrypted card fields with `nonce`.
+        mobile_money:
+          type: object
+        bank_transfer:
+          type: object
+        ussd:
+          type: object
+        opay:
+          type: object
+    PaymentMethodList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     OAuth2:
       type: oauth2

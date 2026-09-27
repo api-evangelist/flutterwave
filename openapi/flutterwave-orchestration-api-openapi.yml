@@ -104,89 +104,6 @@ paths:
                 $ref: '#/components/schemas/Transfer'
 components:
   schemas:
-    ChargeRequest:
-      type: object
-      required:
-      - amount
-      - currency
-      - customer
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-        reference:
-          type: string
-        redirect_url:
-          type: string
-        customer:
-          type: object
-        payment_method:
-          type: object
-        meta:
-          type: object
-    Charge:
-      type: object
-      properties:
-        id:
-          type: string
-        amount:
-          type: number
-        currency:
-          type: string
-          example: NGN
-        status:
-          type: string
-          enum:
-          - pending
-          - succeeded
-          - failed
-        reference:
-          type: string
-        customer:
-          $ref: '#/components/schemas/Customer'
-        payment_method:
-          $ref: '#/components/schemas/PaymentMethod'
-        processor_response:
-          type: object
-          properties:
-            type:
-              type: string
-            code:
-              type: string
-        redirect_url:
-          type: string
-        meta:
-          type: object
-        created_datetime:
-          type: string
-          format: date-time
-    PaymentMethod:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - card
-          - mobile_money
-          - bank_transfer
-          - ussd
-          - opay
-        card:
-          type: object
-        mobile_money:
-          type: object
-        bank_transfer:
-          type: object
-        client:
-          type: object
-        device_fingerprint:
-          type: string
-        created_datetime:
-          type: string
-          format: date-time
     OrderRequest:
       type: object
       required:
@@ -238,6 +155,42 @@ components:
         created_datetime:
           type: string
           format: date-time
+    Charge:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+          example: NGN
+        status:
+          type: string
+          enum:
+          - pending
+          - succeeded
+          - failed
+        reference:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethod'
+        processor_response:
+          type: object
+          properties:
+            type:
+              type: string
+            code:
+              type: string
+        redirect_url:
+          type: string
+        meta:
+          type: object
+        created_datetime:
+          type: string
+          format: date-time
     Order:
       type: object
       properties:
@@ -259,6 +212,53 @@ components:
             type: object
         meta:
           type: object
+    ChargeRequest:
+      type: object
+      required:
+      - amount
+      - currency
+      - customer
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        reference:
+          type: string
+        redirect_url:
+          type: string
+        customer:
+          type: object
+        payment_method:
+          type: object
+        meta:
+          type: object
+    PaymentMethod:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - card
+          - mobile_money
+          - bank_transfer
+          - ussd
+          - opay
+        card:
+          type: object
+        mobile_money:
+          type: object
+        bank_transfer:
+          type: object
+        client:
+          type: object
+        device_fingerprint:
+          type: string
+        created_datetime:
+          type: string
+          format: date-time
     Transfer:
       type: object
       properties:

@@ -89,13 +89,6 @@ components:
         type: string
         format: uuid
   schemas:
-    RefundList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Refund'
     RefundRequest:
       type: object
       required:
@@ -108,6 +101,13 @@ components:
           type: number
         reason:
           type: string
+    RefundList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Refund'
     Refund:
       type: object
       properties:

@@ -104,13 +104,6 @@ paths:
                 $ref: '#/components/schemas/Chargeback'
 components:
   schemas:
-    ChargebackList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Chargeback'
     Chargeback:
       type: object
       properties:
@@ -152,6 +145,13 @@ components:
           type: string
         evidence:
           type: object
+    ChargebackList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chargeback'
   parameters:
     IdempotencyKey:
       in: header

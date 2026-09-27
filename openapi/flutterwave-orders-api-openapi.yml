@@ -99,13 +99,6 @@ paths:
                 $ref: '#/components/schemas/Order'
 components:
   schemas:
-    OrderList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
     OrderRequest:
       type: object
       required:
@@ -126,6 +119,13 @@ components:
             type: object
         meta:
           type: object
+    OrderList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
     Order:
       type: object
       properties:

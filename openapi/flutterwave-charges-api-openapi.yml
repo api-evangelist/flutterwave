@@ -101,27 +101,44 @@ paths:
                 $ref: '#/components/schemas/Charge'
 components:
   schemas:
-    ChargeRequest:
+    Customer:
       type: object
-      required:
-      - amount
-      - currency
-      - customer
       properties:
-        amount:
-          type: number
-        currency:
+        id:
           type: string
-        reference:
+        email:
           type: string
-        redirect_url:
-          type: string
-        customer:
+          format: email
+        name:
           type: object
-        payment_method:
+          properties:
+            first:
+              type: string
+            middle:
+              type: string
+            last:
+              type: string
+        phone:
+          type: object
+          properties:
+            country_code:
+              type: string
+            number:
+              type: string
+        address:
           type: object
         meta:
           type: object
+        created_datetime:
+          type: string
+          format: date-time
+    ChargeList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
     Charge:
       type: object
       properties:
@@ -158,13 +175,27 @@ components:
         created_datetime:
           type: string
           format: date-time
-    ChargeList:
+    ChargeRequest:
       type: object
+      required:
+      - amount
+      - currency
+      - customer
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Charge'
+        amount:
+          type: number
+        currency:
+          type: string
+        reference:
+          type: string
+        redirect_url:
+          type: string
+        customer:
+          type: object
+        payment_method:
+          type: object
+        meta:
+          type: object
     PaymentMethod:
       type: object
       properties:
@@ -191,51 +222,7 @@ components:
         created_datetime:
           type: string
           format: date-time
-    Customer:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: object
-          properties:
-            first:
-              type: string
-            middle:
-              type: string
-            last:
-              type: string
-        phone:
-          type: object
-          properties:
-            country_code:
-              type: string
-            number:
-              type: string
-        address:
-          type: object
-        meta:
-          type: object
-        created_datetime:
-          type: string
-          format: date-time
   parameters:
-    ChargeId:
-      in: path
-      name: id
-      required: true
-      schema:
-        type: string
-    Page:
-      in: query
-      name: page
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
     IdempotencyKey:
       in: header
       name: X-Idempotency-Key
@@ -244,6 +231,19 @@ components:
       schema:
         type: string
         format: uuid
+    Page:
+      in: query
+      name: page
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    ChargeId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
     Limit:
       in: query
       name: limit

@@ -128,6 +128,35 @@ paths:
                 $ref: '#/components/schemas/Transfer'
 components:
   schemas:
+    TransferRequest:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        reference:
+          type: string
+        sender_id:
+          type: string
+        recipient_id:
+          type: string
+        rate_id:
+          type: string
+        narration:
+          type: string
+        meta:
+          type: object
+    TransferList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transfer'
     Transfer:
       type: object
       properties:
@@ -159,43 +188,7 @@ components:
         created_datetime:
           type: string
           format: date-time
-    TransferList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transfer'
-    TransferRequest:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-        reference:
-          type: string
-        sender_id:
-          type: string
-        recipient_id:
-          type: string
-        rate_id:
-          type: string
-        narration:
-          type: string
-        meta:
-          type: object
   parameters:
-    Page:
-      in: query
-      name: page
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
     IdempotencyKey:
       in: header
       name: X-Idempotency-Key
@@ -203,6 +196,13 @@ components:
       schema:
         type: string
         format: uuid
+    Page:
+      in: query
+      name: page
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
     Limit:
       in: query
       name: limit
