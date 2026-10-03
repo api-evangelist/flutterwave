@@ -104,25 +104,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Recipient'
-    RecipientRequest:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-        bank_account:
-          type: object
-        mobile_money:
-          type: object
-        wallet:
-          type: object
-        name:
-          type: object
-        country:
-          type: string
-        currency:
-          type: string
     Recipient:
       type: object
       properties:
@@ -154,6 +135,25 @@ components:
         created_datetime:
           type: string
           format: date-time
+    RecipientRequest:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        bank_account:
+          type: object
+        mobile_money:
+          type: object
+        wallet:
+          type: object
+        name:
+          type: object
+        country:
+          type: string
+        currency:
+          type: string
   securitySchemes:
     OAuth2:
       type: oauth2

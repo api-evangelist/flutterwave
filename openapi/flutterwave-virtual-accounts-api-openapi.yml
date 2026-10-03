@@ -98,14 +98,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/VirtualAccount'
 components:
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
   schemas:
-    VirtualAccountList:
+    VirtualAccountRequest:
       type: object
+      required:
+      - currency
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualAccount'
+        currency:
+          type: string
+        amount:
+          type: number
+        customer_id:
+          type: string
+        reference:
+          type: string
+        narration:
+          type: string
+        bvn:
+          type: string
+        is_permanent:
+          type: boolean
+        expiry:
+          type: integer
+          description: Expiry in minutes.
     VirtualAccount:
       type: object
       properties:
@@ -132,37 +156,13 @@ components:
         created_datetime:
           type: string
           format: date-time
-    VirtualAccountRequest:
+    VirtualAccountList:
       type: object
-      required:
-      - currency
       properties:
-        currency:
-          type: string
-        amount:
-          type: number
-        customer_id:
-          type: string
-        reference:
-          type: string
-        narration:
-          type: string
-        bvn:
-          type: string
-        is_permanent:
-          type: boolean
-        expiry:
-          type: integer
-          description: Expiry in minutes.
-  parameters:
-    IdempotencyKey:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      description: UUID-style key used to safely retry POST requests.
-      schema:
-        type: string
-        format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualAccount'
   securitySchemes:
     OAuth2:
       type: oauth2

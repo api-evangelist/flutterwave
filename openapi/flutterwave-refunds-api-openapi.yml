@@ -89,25 +89,6 @@ components:
         type: string
         format: uuid
   schemas:
-    RefundRequest:
-      type: object
-      required:
-      - charge_id
-      - amount
-      properties:
-        charge_id:
-          type: string
-        amount:
-          type: number
-        reason:
-          type: string
-    RefundList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Refund'
     Refund:
       type: object
       properties:
@@ -131,6 +112,25 @@ components:
         created_datetime:
           type: string
           format: date-time
+    RefundRequest:
+      type: object
+      required:
+      - charge_id
+      - amount
+      properties:
+        charge_id:
+          type: string
+        amount:
+          type: number
+        reason:
+          type: string
+    RefundList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Refund'
   securitySchemes:
     OAuth2:
       type: oauth2

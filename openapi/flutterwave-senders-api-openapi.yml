@@ -88,26 +88,15 @@ paths:
         '204':
           description: Sender Deleted
 components:
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      schema:
+        type: string
+        format: uuid
   schemas:
-    Sender:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: object
-        address:
-          type: object
-        country:
-          type: string
-        identification:
-          type: object
-        date_of_birth:
-          type: string
-          format: date
-        created_datetime:
-          type: string
-          format: date-time
     SenderRequest:
       type: object
       required:
@@ -132,14 +121,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Sender'
-  parameters:
-    IdempotencyKey:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      schema:
-        type: string
-        format: uuid
+    Sender:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: object
+        address:
+          type: object
+        country:
+          type: string
+        identification:
+          type: object
+        date_of_birth:
+          type: string
+          format: date
+        created_datetime:
+          type: string
+          format: date-time
   securitySchemes:
     OAuth2:
       type: oauth2

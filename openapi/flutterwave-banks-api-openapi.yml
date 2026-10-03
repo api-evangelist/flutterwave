@@ -69,13 +69,6 @@ paths:
                 $ref: '#/components/schemas/BranchList'
 components:
   schemas:
-    BranchList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Branch'
     BankList:
       type: object
       properties:
@@ -83,17 +76,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Bank'
-    Branch:
+    BranchList:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        bank_id:
-          type: string
-        swift_code:
-          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
     Bank:
       type: object
       properties:
@@ -104,6 +93,17 @@ components:
         code:
           type: string
         country:
+          type: string
+    Branch:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        bank_id:
+          type: string
+        swift_code:
           type: string
   securitySchemes:
     OAuth2:

@@ -104,6 +104,48 @@ paths:
                 $ref: '#/components/schemas/Transfer'
 components:
   schemas:
+    ChargeRequest:
+      type: object
+      required:
+      - amount
+      - currency
+      - customer
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        reference:
+          type: string
+        redirect_url:
+          type: string
+        customer:
+          type: object
+        payment_method:
+          type: object
+        meta:
+          type: object
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        status:
+          type: string
+        reference:
+          type: string
+        customer_id:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+        meta:
+          type: object
     OrderRequest:
       type: object
       required:
@@ -124,6 +166,32 @@ components:
             type: object
         meta:
           type: object
+    PaymentMethod:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - card
+          - mobile_money
+          - bank_transfer
+          - ussd
+          - opay
+        card:
+          type: object
+        mobile_money:
+          type: object
+        bank_transfer:
+          type: object
+        client:
+          type: object
+        device_fingerprint:
+          type: string
+        created_datetime:
+          type: string
+          format: date-time
     Customer:
       type: object
       properties:
@@ -191,33 +259,11 @@ components:
         created_datetime:
           type: string
           format: date-time
-    Order:
-      type: object
-      properties:
-        id:
-          type: string
-        amount:
-          type: number
-        currency:
-          type: string
-        status:
-          type: string
-        reference:
-          type: string
-        customer_id:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-        meta:
-          type: object
-    ChargeRequest:
+    TransferRequest:
       type: object
       required:
       - amount
       - currency
-      - customer
       properties:
         amount:
           type: number
@@ -225,40 +271,16 @@ components:
           type: string
         reference:
           type: string
-        redirect_url:
+        sender_id:
           type: string
-        customer:
-          type: object
-        payment_method:
-          type: object
+        recipient_id:
+          type: string
+        rate_id:
+          type: string
+        narration:
+          type: string
         meta:
           type: object
-    PaymentMethod:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - card
-          - mobile_money
-          - bank_transfer
-          - ussd
-          - opay
-        card:
-          type: object
-        mobile_money:
-          type: object
-        bank_transfer:
-          type: object
-        client:
-          type: object
-        device_fingerprint:
-          type: string
-        created_datetime:
-          type: string
-          format: date-time
     Transfer:
       type: object
       properties:
@@ -290,28 +312,6 @@ components:
         created_datetime:
           type: string
           format: date-time
-    TransferRequest:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-        reference:
-          type: string
-        sender_id:
-          type: string
-        recipient_id:
-          type: string
-        rate_id:
-          type: string
-        narration:
-          type: string
-        meta:
-          type: object
   parameters:
     IdempotencyKey:
       in: header

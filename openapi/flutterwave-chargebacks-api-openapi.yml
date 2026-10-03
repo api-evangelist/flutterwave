@@ -103,6 +103,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Chargeback'
 components:
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      schema:
+        type: string
+        format: uuid
   schemas:
     Chargeback:
       type: object
@@ -152,14 +160,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Chargeback'
-  parameters:
-    IdempotencyKey:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     OAuth2:
       type: oauth2

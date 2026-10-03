@@ -68,19 +68,6 @@ paths:
                 $ref: '#/components/schemas/Rate'
 components:
   schemas:
-    RateRequest:
-      type: object
-      required:
-      - source_currency
-      - destination_currency
-      - source_amount
-      properties:
-        source_currency:
-          type: string
-        destination_currency:
-          type: string
-        source_amount:
-          type: number
     Rate:
       type: object
       properties:
@@ -99,6 +86,19 @@ components:
         expiry_datetime:
           type: string
           format: date-time
+    RateRequest:
+      type: object
+      required:
+      - source_currency
+      - destination_currency
+      - source_amount
+      properties:
+        source_currency:
+          type: string
+        destination_currency:
+          type: string
+        source_amount:
+          type: number
   securitySchemes:
     OAuth2:
       type: oauth2

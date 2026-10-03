@@ -89,17 +89,6 @@ paths:
                 $ref: '#/components/schemas/WalletAccount'
 components:
   schemas:
-    WalletAccount:
-      type: object
-      properties:
-        account_number:
-          type: string
-        account_name:
-          type: string
-        mobile_network:
-          type: string
-        country:
-          type: string
     BankAccount:
       type: object
       properties:
@@ -110,6 +99,17 @@ components:
         bank_id:
           type: string
         bank_name:
+          type: string
+    WalletAccount:
+      type: object
+      properties:
+        account_number:
+          type: string
+        account_name:
+          type: string
+        mobile_network:
+          type: string
+        country:
           type: string
   securitySchemes:
     OAuth2:

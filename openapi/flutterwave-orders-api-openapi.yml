@@ -98,7 +98,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/Order'
 components:
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
   schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        status:
+          type: string
+        reference:
+          type: string
+        customer_id:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+        meta:
+          type: object
     OrderRequest:
       type: object
       required:
@@ -126,36 +156,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Order'
-    Order:
-      type: object
-      properties:
-        id:
-          type: string
-        amount:
-          type: number
-        currency:
-          type: string
-        status:
-          type: string
-        reference:
-          type: string
-        customer_id:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-        meta:
-          type: object
-  parameters:
-    IdempotencyKey:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      description: UUID-style key used to safely retry POST requests.
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     OAuth2:
       type: oauth2
