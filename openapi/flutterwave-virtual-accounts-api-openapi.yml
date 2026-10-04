@@ -98,15 +98,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/VirtualAccount'
 components:
-  parameters:
-    IdempotencyKey:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      description: UUID-style key used to safely retry POST requests.
-      schema:
-        type: string
-        format: uuid
   schemas:
     VirtualAccountRequest:
       type: object
@@ -163,6 +154,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VirtualAccount'
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     OAuth2:
       type: oauth2

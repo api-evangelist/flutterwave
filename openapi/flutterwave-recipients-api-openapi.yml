@@ -97,13 +97,6 @@ components:
         type: string
         format: uuid
   schemas:
-    RecipientList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recipient'
     Recipient:
       type: object
       properties:
@@ -135,6 +128,13 @@ components:
         created_datetime:
           type: string
           format: date-time
+    RecipientList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipient'
     RecipientRequest:
       type: object
       required:

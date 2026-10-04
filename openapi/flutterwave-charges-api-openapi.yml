@@ -101,12 +101,6 @@ paths:
                 $ref: '#/components/schemas/Charge'
 components:
   parameters:
-    ChargeId:
-      in: path
-      name: id
-      required: true
-      schema:
-        type: string
     Page:
       in: query
       name: page
@@ -114,6 +108,12 @@ components:
         type: integer
         minimum: 1
         default: 1
+    ChargeId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
     IdempotencyKey:
       in: header
       name: X-Idempotency-Key
@@ -152,6 +152,13 @@ components:
           type: object
         meta:
           type: object
+    ChargeList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
     PaymentMethod:
       type: object
       properties:
@@ -209,13 +216,6 @@ components:
         created_datetime:
           type: string
           format: date-time
-    ChargeList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Charge'
     Charge:
       type: object
       properties:

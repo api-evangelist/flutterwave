@@ -104,27 +104,6 @@ paths:
                 $ref: '#/components/schemas/Transfer'
 components:
   schemas:
-    ChargeRequest:
-      type: object
-      required:
-      - amount
-      - currency
-      - customer
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-        reference:
-          type: string
-        redirect_url:
-          type: string
-        customer:
-          type: object
-        payment_method:
-          type: object
-        meta:
-          type: object
     Order:
       type: object
       properties:
@@ -164,6 +143,27 @@ components:
           type: array
           items:
             type: object
+        meta:
+          type: object
+    ChargeRequest:
+      type: object
+      required:
+      - amount
+      - currency
+      - customer
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        reference:
+          type: string
+        redirect_url:
+          type: string
+        customer:
+          type: object
+        payment_method:
+          type: object
         meta:
           type: object
     PaymentMethod:

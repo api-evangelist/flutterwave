@@ -80,15 +80,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Refund'
 components:
-  parameters:
-    IdempotencyKey:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      schema:
-        type: string
-        format: uuid
   schemas:
+    RefundList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Refund'
     Refund:
       type: object
       properties:
@@ -124,13 +123,14 @@ components:
           type: number
         reason:
           type: string
-    RefundList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Refund'
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     OAuth2:
       type: oauth2

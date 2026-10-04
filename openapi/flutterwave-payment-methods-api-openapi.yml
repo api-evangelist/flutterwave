@@ -90,13 +90,6 @@ components:
         type: string
         format: uuid
   schemas:
-    PaymentMethodList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentMethod'
     PaymentMethodRequest:
       type: object
       required:
@@ -115,6 +108,13 @@ components:
           type: object
         opay:
           type: object
+    PaymentMethodList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
     PaymentMethod:
       type: object
       properties:

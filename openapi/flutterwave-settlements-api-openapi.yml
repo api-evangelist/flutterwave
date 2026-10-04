@@ -64,13 +64,6 @@ paths:
                 $ref: '#/components/schemas/Settlement'
 components:
   schemas:
-    SettlementList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Settlement'
     Settlement:
       type: object
       properties:
@@ -97,6 +90,13 @@ components:
         created_datetime:
           type: string
           format: date-time
+    SettlementList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Settlement'
   parameters:
     Page:
       in: query
