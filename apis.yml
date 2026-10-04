@@ -1,5 +1,8 @@
 aid: flutterwave
 url: https://raw.githubusercontent.com/api-evangelist/flutterwave/refs/heads/main/apis.yml
+x-docs-platform: readme
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 apis:
 - aid: flutterwave:flutterwave-transfers-api
   name: Flutterwave Transfers API
@@ -593,6 +596,9 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/flutterwave.png
 access: 3rd-Party
 common:
+- type: CapabilityMap
+  url: capabilities/flutterwave-capability-edges.yml
+  name: Flutterwave Business Capability Map
 - type: Website
   url: https://www.flutterwave.com/
 - type: AgenticAccess
