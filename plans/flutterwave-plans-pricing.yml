@@ -170,3 +170,84 @@ plans:
         unit: 1
         price: '20'
         userMultiplied: false
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  units:
+  - money
+  plans:
+  - name: Local Cards (Nigeria)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - money
+    periods:
+    - per-use
+  - name: International Cards (Nigeria)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - money
+    periods:
+    - per-use
+  - name: Mobile Money (Kenya / M-Pesa)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - money
+    periods:
+    - per-use
+  - name: Mobile Money (Ghana)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - money
+    periods:
+    - per-use
+  - name: Pay With Bank Transfer (Nigeria)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - money
+    periods:
+    - per-use
+  - name: Payouts to Bank Accounts (Nigeria)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - money
+    periods:
+    - per-use
+  - name: International Payouts
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - money
+    periods:
+    - per-use
+  - name: Refunds
+    access: free
+    model: free
+    model_how: derived
+    units:
+    - money
+    periods:
+    - per-use
+  - name: Chargebacks
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - money
+    periods:
+    - per-use
