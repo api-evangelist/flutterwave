@@ -101,19 +101,6 @@ paths:
                 $ref: '#/components/schemas/Charge'
 components:
   parameters:
-    Page:
-      in: query
-      name: page
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    ChargeId:
-      in: path
-      name: id
-      required: true
-      schema:
-        type: string
     IdempotencyKey:
       in: header
       name: X-Idempotency-Key
@@ -122,6 +109,19 @@ components:
       schema:
         type: string
         format: uuid
+    ChargeId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+    Page:
+      in: query
+      name: page
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
     Limit:
       in: query
       name: limit

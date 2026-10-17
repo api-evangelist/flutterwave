@@ -128,13 +128,6 @@ components:
         created_datetime:
           type: string
           format: date-time
-    RecipientList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recipient'
     RecipientRequest:
       type: object
       required:
@@ -154,6 +147,13 @@ components:
           type: string
         currency:
           type: string
+    RecipientList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipient'
   securitySchemes:
     OAuth2:
       type: oauth2

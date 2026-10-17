@@ -81,13 +81,18 @@ paths:
                 $ref: '#/components/schemas/Refund'
 components:
   schemas:
-    RefundList:
+    RefundRequest:
       type: object
+      required:
+      - charge_id
+      - amount
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Refund'
+        charge_id:
+          type: string
+        amount:
+          type: number
+        reason:
+          type: string
     Refund:
       type: object
       properties:
@@ -111,18 +116,13 @@ components:
         created_datetime:
           type: string
           format: date-time
-    RefundRequest:
+    RefundList:
       type: object
-      required:
-      - charge_id
-      - amount
       properties:
-        charge_id:
-          type: string
-        amount:
-          type: number
-        reason:
-          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Refund'
   parameters:
     IdempotencyKey:
       in: header

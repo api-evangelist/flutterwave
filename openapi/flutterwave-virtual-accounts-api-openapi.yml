@@ -121,6 +121,13 @@ components:
         expiry:
           type: integer
           description: Expiry in minutes.
+    VirtualAccountList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualAccount'
     VirtualAccount:
       type: object
       properties:
@@ -147,13 +154,6 @@ components:
         created_datetime:
           type: string
           format: date-time
-    VirtualAccountList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualAccount'
   parameters:
     IdempotencyKey:
       in: header

@@ -49,6 +49,13 @@ paths:
                 $ref: '#/components/schemas/MobileNetworkList'
 components:
   schemas:
+    MobileNetworkList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileNetwork'
     MobileNetwork:
       type: object
       properties:
@@ -60,13 +67,6 @@ components:
           type: string
         code:
           type: string
-    MobileNetworkList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MobileNetwork'
   securitySchemes:
     OAuth2:
       type: oauth2

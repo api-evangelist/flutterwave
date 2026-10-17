@@ -103,48 +103,23 @@ paths:
               schema:
                 $ref: '#/components/schemas/Transfer'
 components:
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      description: UUID-style key used to safely retry POST requests.
+      schema:
+        type: string
+        format: uuid
+    IdempotencyKey_2:
+      in: header
+      name: X-Idempotency-Key
+      required: false
+      schema:
+        type: string
+        format: uuid
   schemas:
-    Order:
-      type: object
-      properties:
-        id:
-          type: string
-        amount:
-          type: number
-        currency:
-          type: string
-        status:
-          type: string
-        reference:
-          type: string
-        customer_id:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-        meta:
-          type: object
-    OrderRequest:
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: number
-        currency:
-          type: string
-        reference:
-          type: string
-        customer_id:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-        meta:
-          type: object
     ChargeRequest:
       type: object
       required:
@@ -164,6 +139,27 @@ components:
           type: object
         payment_method:
           type: object
+        meta:
+          type: object
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        status:
+          type: string
+        reference:
+          type: string
+        customer_id:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
         meta:
           type: object
     PaymentMethod:
@@ -192,6 +188,26 @@ components:
         created_datetime:
           type: string
           format: date-time
+    OrderRequest:
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        reference:
+          type: string
+        customer_id:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+        meta:
+          type: object
     Customer:
       type: object
       properties:
@@ -312,22 +328,6 @@ components:
         created_datetime:
           type: string
           format: date-time
-  parameters:
-    IdempotencyKey:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      description: UUID-style key used to safely retry POST requests.
-      schema:
-        type: string
-        format: uuid
-    IdempotencyKey_2:
-      in: header
-      name: X-Idempotency-Key
-      required: false
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     OAuth2:
       type: oauth2

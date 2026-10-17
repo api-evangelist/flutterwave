@@ -99,15 +99,16 @@ paths:
                 $ref: '#/components/schemas/Order'
 components:
   schemas:
-    OrderRequest:
+    Order:
       type: object
-      required:
-      - amount
-      - currency
       properties:
+        id:
+          type: string
         amount:
           type: number
         currency:
+          type: string
+        status:
           type: string
         reference:
           type: string
@@ -119,16 +120,15 @@ components:
             type: object
         meta:
           type: object
-    Order:
+    OrderRequest:
       type: object
+      required:
+      - amount
+      - currency
       properties:
-        id:
-          type: string
         amount:
           type: number
         currency:
-          type: string
-        status:
           type: string
         reference:
           type: string
