@@ -10,7 +10,7 @@ apis:
   - Payouts
   - Transfers
   - Remittances
-  - FX
+  - Foreign Exchange
   - Cross-Border
   - Mobile Money
   tags_raw:
