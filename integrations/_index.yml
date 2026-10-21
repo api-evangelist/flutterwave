@@ -104,3 +104,30 @@
     identity_note: register-name 'flutterwave' = flutterwave; no wikidata P856
   status: not-a-workflow
   arazzo: null
+- slug: flutterwave-bank-of-ghana-approved-payment-institutions
+  label: Bank of Ghana approved payment institutions
+  partner_name: Bank of Ghana approved payment institutions
+  category: Ghanaian payment-service licence
+  type: register
+  channel: regulator-register
+  evidence: https://www.bog.gov.gh/fintech-innovation/approved-institutions/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Bank of Ghana approved payment institutions
+    spec_file: null
+    standard: null
+    role: licensed-participant
+    registrations:
+    - registered_name: Flutterwave Technology Solutions LTD
+      licences:
+      - PSP Enhanced
+      register_country: GH
+      matched_domain: flutterwave.com
+      matched_by: domain
+    signal_note: 'participation only: a regulator licence / registration; no API conformance is published by this
+      register'
+    detected_by: sweep-africa-payments.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null

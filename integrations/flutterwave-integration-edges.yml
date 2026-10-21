@@ -105,6 +105,33 @@ edges:
     identity_note: register-name 'flutterwave' = flutterwave; no wikidata P856
   detected_by: sweep-compliance-assurance.py
   first_seen: '2026-10-20'
+- partner_name: Bank of Ghana approved payment institutions
+  partner: null
+  partner_match: register
+  type: register
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.bog.gov.gh/fintech-innovation/approved-institutions/
+  category: Ghanaian payment-service licence
+  contract_reference:
+    register: Bank of Ghana approved payment institutions
+    spec_file: null
+    standard: null
+    role: licensed-participant
+    registrations:
+    - registered_name: Flutterwave Technology Solutions LTD
+      licences:
+      - PSP Enhanced
+      register_country: GH
+      matched_domain: flutterwave.com
+      matched_by: domain
+    signal_note: 'participation only: a regulator licence / registration; no API conformance is published by this
+      register'
+    detected_by: sweep-africa-payments.py
+    detected: '2026-10-20'
+  detected_by: sweep-africa-payments.py
+  first_seen: '2026-10-20'
 method: searched
 checked:
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
@@ -112,6 +139,15 @@ checked:
 - https://zapier.com/api/v4/apps/
 - wordpress/integrations/wordpress-integration-edges.yml
 - https://listings.pcisecuritystandards.org/assessors_and_solutions
+- https://authorisation.pasa.org.za/so-and-tppp/documents/
+- https://authorisation.pasa.org.za/wp-content/uploads/2026/07/Public-list-SO-July-2026.pdf
+- https://authorisation.pasa.org.za/wp-content/uploads/2026/07/Public-list-TPPP-July-2026.pdf
+- https://www.bceao.int/fr/content/etablissements-de-monnaie-electronique
+- https://www.bog.gov.gh/fintech-innovation/approved-institutions/
+- https://www.cbn.gov.ng/PaymentsSystem/InternationalMoneyTransferOperators.html
+- https://www.cbn.gov.ng/PaymentsSystem/PSPs.html
+- https://www.centralbank.go.ke/wp-content/uploads/2026/09/Directory-of-Authorized-Payment-Service-Providers-August-10-2026.pdf
+- https://www.centralbank.go.ke/wp-content/uploads/2026/10/Directory-of-Licenced-Money-Remittance-Providers-as-at-September-30-2026.pdf
 source:
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
 - https://zapier.com/api/v4/apps/
