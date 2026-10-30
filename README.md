@@ -1,4 +1,4 @@
-# Flutterwave (flutterwave)
+# Flutterwave
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,238 +66,248 @@
 
 Flutterwave is a pan-African payment infrastructure company providing the rails for businesses to accept, send, and manage money across Africa and globally. The Flutterwave for Business (F4B) v4 API exposes a unified surface for collections (cards, mobile money, bank transfer, USSD, OPay, virtual NUBANs), payouts (bank, mobile money, wallet-to-wallet across 30+ countries), real-time FX conversion, settlements, refunds, chargebacks, multi-currency wallets, KYC, card issuing, and bill payments. Flutterwave is one of the most valuable African fintech companies (unicorn status) and processes 20M+ API calls and 500k+ payments per day.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/flutterwave/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/flutterwave/refs/heads/main/apis.yml)
+**Areas:** Payments · Payouts · Mobile Money · Cards · Africa · Fintech · Remittances · Virtual Accounts · Chargebacks · Multi-Currency
 
-## Scope
+## Flutterwave on APIs.io
 
-- **Position:** Producing
-- **Access:** 3rd-Party
+Everything profiled for Flutterwave is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/flutterwave/](https://apis.io/providers/flutterwave/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (19)
 
-- Payments
-- Payouts
-- Mobile Money
-- Cards
-- Africa
-- Fintech
-- Remittance
-- Virtual Accounts
-- Chargebacks
-- Multi-Currency
+- [Flutterwave Transfers API](https://apis.io/apis/flutterwave/flutterwave-transfers-api/) — Disburse funds globally across bank account transfers, mobile money transfers, and wallet-to-wallet transfers spanning 30+ African countries plus…
+- [Flutterwave Settlements API](https://apis.io/apis/flutterwave/flutterwave-settlements-api/) — Reconcile transaction volume with merchant payouts. Manage settlements, refunds, chargebacks (dispute handling), and fee computation for cards, mobile…
+- [Flutterwave Wallets API](https://apis.io/apis/flutterwave/flutterwave-wallets-api/) — Inspect multi-currency wallet balances, retrieve wallet statements, and resolve mobile money wallet account details. Backs the FAAS (Finance as a Service)…
+- [Flutterwave Banks API](https://apis.io/apis/flutterwave/flutterwave-banks-api/) — Reference data for banks, bank branches, and mobile networks supported by country, plus bank account name-enquiry endpoints. Used to populate checkout…
+- [Flutterwave Webhooks API](https://apis.io/apis/flutterwave/flutterwave-webhooks-api/) — Outbound webhook callbacks delivered by Flutterwave for charges, transfers, refunds, chargebacks, and virtual account funding. Receivers validate the…
+- [Flutterwave Chargebacks API](https://apis.io/apis/flutterwave/flutterwave-chargebacks-api/) — Manage and respond to chargebacks raised by customers.
+- [Flutterwave Charges API](https://apis.io/apis/flutterwave/flutterwave-charges-api/) — Create and manage charges across supported payment methods.
+- [Flutterwave Customers API](https://apis.io/apis/flutterwave/flutterwave-customers-api/) — Create and manage customers that own charges, orders, and transfers.
+- [Flutterwave Fees API](https://apis.io/apis/flutterwave/flutterwave-fees-api/) — Retrieve Flutterwave's fee calculation for a transaction.
+- [Flutterwave MobileNetworks API](https://apis.io/apis/flutterwave/flutterwave-mobilenetworks-api/) — Mobile money networks supported by country.
+- [Flutterwave Orchestration API](https://apis.io/apis/flutterwave/flutterwave-orchestration-api/) — Orchestrator helpers that combine customer, payment method, and charge in one call.
+- [Flutterwave Orders API](https://apis.io/apis/flutterwave/flutterwave-orders-api/) — Server-side cart and order objects backing checkout sessions.
+- [Flutterwave Rates API](https://apis.io/apis/flutterwave/flutterwave-rates-api/) — Real-time FX conversion rates for international transfers.
+- [Flutterwave Recipients API](https://apis.io/apis/flutterwave/flutterwave-recipients-api/) — Manage transfer recipients (the destination of a payout).
+- [Flutterwave Refunds API](https://apis.io/apis/flutterwave/flutterwave-refunds-api/) — Initiate and inspect refunds against successful charges.
+- [Flutterwave Senders API](https://apis.io/apis/flutterwave/flutterwave-senders-api/) — Manage transfer senders (the originator of a cross-border payout).
+- [Flutterwave Account Resolution API](https://apis.io/apis/flutterwave/flutterwave-account-resolution-api/) — Bank account name resolution before initiating payouts.
+- [Flutterwave Payment Methods API](https://apis.io/apis/flutterwave/flutterwave-payment-methods-api/) — Tokenize, register, and look up payment methods (cards, mobile money, bank, USSD).
+- [Flutterwave Virtual Accounts API](https://apis.io/apis/flutterwave/flutterwave-virtual-accounts-api/) — Issue virtual NUBANs for pay-with-bank-transfer collections.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-24
-- **Modified:** 2026-05-30
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Arazzo workflows (20)
 
-### Flutterwave Payments API
+Multi-step workflows that chain operations into a business task.
 
-Collect payments across cards, mobile money (M-Pesa, MTN, Airtel, Tigo), bank transfers, USSD, OPay, and virtual NUBANs. Includes customers, charges, payment methods, orchestrator helpers, orders, and virtual accounts. The primary surface for accepting money on Flutterwave.
+- [Flutterwave Bank Directory Then Payout](https://apis.io/arazzos/flutterwave/flutterwave-bank-directory-then-payout-workflow/)
+- [Flutterwave Charge And Verify Status](https://apis.io/arazzos/flutterwave/flutterwave-charge-and-verify-status-workflow/)
+- [Flutterwave Charge Then Dispute Chargeback](https://apis.io/arazzos/flutterwave/flutterwave-charge-then-dispute-chargeback-workflow/)
+- [Flutterwave Charge Then Refund](https://apis.io/arazzos/flutterwave/flutterwave-charge-then-refund-workflow/)
+- [Flutterwave Create Recipient Transfer And Verify](https://apis.io/arazzos/flutterwave/flutterwave-create-recipient-transfer-verify-workflow/)
+- [Flutterwave Cross-Border Rate-Locked Transfer](https://apis.io/arazzos/flutterwave/flutterwave-cross-border-rate-locked-transfer-workflow/)
+- [Flutterwave Direct Orchestrator Transfer And Verify](https://apis.io/arazzos/flutterwave/flutterwave-direct-orchestrator-transfer-verify-workflow/)
+- [Flutterwave Mobile Money Payout](https://apis.io/arazzos/flutterwave/flutterwave-mobile-money-payout-workflow/)
+- [Flutterwave Orchestrator Charge And Verify](https://apis.io/arazzos/flutterwave/flutterwave-orchestrator-charge-and-verify-workflow/)
+- [Flutterwave Orchestrator Order And Verify](https://apis.io/arazzos/flutterwave/flutterwave-orchestrator-order-and-verify-workflow/)
+- [Flutterwave Order Checkout And Verify](https://apis.io/arazzos/flutterwave/flutterwave-order-checkout-and-verify-workflow/)
+- [Flutterwave Quote Fee Then Charge](https://apis.io/arazzos/flutterwave/flutterwave-quote-fee-then-charge-workflow/)
+- [Flutterwave Resolve Account Then Payout](https://apis.io/arazzos/flutterwave/flutterwave-resolve-account-then-payout-workflow/)
+- [Flutterwave Reuse Recipient Payout](https://apis.io/arazzos/flutterwave/flutterwave-reuse-recipient-payout-workflow/)
+- [Flutterwave Settlement Reconciliation Refund](https://apis.io/arazzos/flutterwave/flutterwave-settlement-reconciliation-refund-workflow/)
+- [Flutterwave Tokenized Recurring Charge](https://apis.io/arazzos/flutterwave/flutterwave-tokenized-recurring-charge-workflow/)
+- [Flutterwave Transfer Verify And Retry](https://apis.io/arazzos/flutterwave/flutterwave-transfer-verify-and-retry-workflow/)
+- [Flutterwave Upsert Customer And Charge](https://apis.io/arazzos/flutterwave/flutterwave-upsert-customer-and-charge-workflow/)
+- [Flutterwave Virtual Account Collection](https://apis.io/arazzos/flutterwave/flutterwave-virtual-account-collection-workflow/)
+- [Flutterwave Wallet Balance Guarded Payout](https://apis.io/arazzos/flutterwave/flutterwave-wallet-balance-guarded-payout-workflow/)
 
-- **Human URL:** [https://developer.flutterwave.com/reference](https://developer.flutterwave.com/reference)
-- **Base URL:** `https://api.flutterwave.cloud/f4b/production`
+#### GraphQL (1)
 
-#### Tags
+GraphQL schemas.
 
-- Payments
-- Charges
-- Customers
-- Orders
-- Virtual Accounts
-- Cards
-- Mobile Money
+- [Flutterwave GraphQL Schema](https://apis.io/graphqls/flutterwave/flutterwave-graphql/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://developer.flutterwave.com/docs/introduction-1.md)
-- [Documentation](https://developer.flutterwave.com/reference/charges_post.md)
-- [OpenAPI](openapi/flutterwave-payments-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/flutterwave-payments-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/flutterwave-payments-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/flutterwave-charge-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/flutterwave-customer-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/flutterwave-charge-structure.json)
-- [JSON-LD](json-ld/flutterwave-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Example](examples/flutterwave-create-charge-example.json)
-- [Example](examples/flutterwave-create-customer-example.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Flutterwave Transfers API
+- [Flutterwave Agentic Access](https://apis.io/agentic-access/flutterwave/flutterwave-agentic-access/)
 
-Disburse funds globally across bank account transfers, mobile money transfers, and wallet-to-wallet transfers spanning 30+ African countries plus US/UK/EU/Asia corridors. Manage transfer recipients, transfer senders (KYC for cross-border), and real-time FX conversion via the Rates endpoints.
+#### JSON Schema (5)
 
-- **Human URL:** [https://developer.flutterwave.com/docs/introduction-3.md](https://developer.flutterwave.com/docs/introduction-3.md)
-- **Base URL:** `https://api.flutterwave.cloud/f4b/production`
+The data models the API reads and writes.
 
-#### Tags
+- [Flutterwave Charge](https://apis.io/schemas/flutterwave/flutterwave-charge/)
+- [Flutterwave Customer](https://apis.io/schemas/flutterwave/flutterwave-customer/)
+- [Flutterwave Settlement](https://apis.io/schemas/flutterwave/flutterwave-settlement/)
+- [Flutterwave Transfer](https://apis.io/schemas/flutterwave/flutterwave-transfer/)
+- [Flutterwave Wallet Balance](https://apis.io/schemas/flutterwave/flutterwave-wallet/)
 
-- Payouts
-- Transfers
-- Remittance
-- FX
-- Cross-Border
-- Mobile Money
+#### JSON Structure (1)
 
-#### Properties
+Data models expressed in JSON Structure.
 
-- [Documentation](https://developer.flutterwave.com/docs/introduction-3.md)
-- [Documentation](https://developer.flutterwave.com/reference/transfers_post.md)
-- [OpenAPI](openapi/flutterwave-transfers-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/flutterwave-transfers-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/flutterwave-transfers-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/flutterwave-transfer-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Example](examples/flutterwave-create-transfer-example.json)
+- [Flutterwave Charge Structure](https://apis.io/json-structure/flutterwave/flutterwave-charge-structure/)
 
-### Flutterwave Settlements API
+#### JSON-LD (1)
 
-Reconcile transaction volume with merchant payouts. Manage settlements, refunds, chargebacks (dispute handling), and fee computation for cards, mobile money, and other rails. The finance-and-ops surface of the F4B platform.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://developer.flutterwave.com/docs/settlements.md](https://developer.flutterwave.com/docs/settlements.md)
-- **Base URL:** `https://api.flutterwave.cloud/f4b/production`
+- [Flutterwave Context](https://apis.io/jsonld/flutterwave/flutterwave-context/)
 
-#### Tags
+#### Vocabulary (1)
 
-- Settlements
-- Refunds
-- Chargebacks
-- Disputes
-- Fees
-- Reconciliation
+The provider's domain terms, defined.
 
-#### Properties
+- [Flutterwave Vocabulary](https://apis.io/vocabularies/flutterwave/flutterwave-vocabulary/)
 
-- [Documentation](https://developer.flutterwave.com/docs/settlements.md)
-- [Documentation](https://developer.flutterwave.com/docs/refunds.md)
-- [Documentation](https://developer.flutterwave.com/docs/chargebacks-1.md)
-- [OpenAPI](openapi/flutterwave-settlements-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/flutterwave-settlements-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/flutterwave-settlements-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/flutterwave-settlement-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Example](examples/flutterwave-create-refund-example.json)
+#### Examples (5)
 
-### Flutterwave Wallets API
+Example requests and responses.
 
-Inspect multi-currency wallet balances, retrieve wallet statements, and resolve mobile money wallet account details. Backs the FAAS (Finance as a Service) and capital flows for merchants holding balances in NGN, USD, EUR, GBP, KES, GHS, ZAR, UGX, TZS, RWF, XAF, XOF and other supported currencies.
+- [Flutterwave Charge Completed Webhook Example](https://apis.io/examples/flutterwave/flutterwave-charge-completed-webhook-example/)
+- [Flutterwave Create Charge Example](https://apis.io/examples/flutterwave/flutterwave-create-charge-example/)
+- [Flutterwave Create Customer Example](https://apis.io/examples/flutterwave/flutterwave-create-customer-example/)
+- [Flutterwave Create Refund Example](https://apis.io/examples/flutterwave/flutterwave-create-refund-example/)
+- [Flutterwave Create Transfer Example](https://apis.io/examples/flutterwave/flutterwave-create-transfer-example/)
 
-- **Human URL:** [https://developer.flutterwave.com/reference/fetch_wallet_balances.md](https://developer.flutterwave.com/reference/fetch_wallet_balances.md)
-- **Base URL:** `https://api.flutterwave.cloud/f4b/production`
+#### Collections (26)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Wallets
-- Balances
-- Statements
-- Multi-Currency
+- [Flutterwave Banks AccountResolution API](https://apis.io/collections/flutterwave/open-flutterwave-accountresolution-api/)
+- [Flutterwave AccountResolution Banks API](https://apis.io/collections/flutterwave/open-flutterwave-banks-api/)
+- [Flutterwave Banks AccountResolution Chargebacks API](https://apis.io/collections/flutterwave/open-flutterwave-chargebacks-api/)
+- [Flutterwave Banks AccountResolution Charges API](https://apis.io/collections/flutterwave/open-flutterwave-charges-api/)
+- [Flutterwave Banks AccountResolution Customers API](https://apis.io/collections/flutterwave/open-flutterwave-customers-api/)
+- [Flutterwave Banks AccountResolution Fees API](https://apis.io/collections/flutterwave/open-flutterwave-fees-api/)
+- [Flutterwave Banks AccountResolution MobileNetworks API](https://apis.io/collections/flutterwave/open-flutterwave-mobilenetworks-api/)
+- [Flutterwave Banks AccountResolution Orchestration API](https://apis.io/collections/flutterwave/open-flutterwave-orchestration-api/)
+- [Flutterwave Banks AccountResolution Orders API](https://apis.io/collections/flutterwave/open-flutterwave-orders-api/)
+- [Flutterwave Banks AccountResolution PaymentMethods API](https://apis.io/collections/flutterwave/open-flutterwave-paymentmethods-api/)
+- [Flutterwave Payments API](https://apis.io/collections/flutterwave/open-flutterwave-payments-api/)
+- [Flutterwave Banks AccountResolution Rates API](https://apis.io/collections/flutterwave/open-flutterwave-rates-api/)
+- [Flutterwave Banks AccountResolution Recipients API](https://apis.io/collections/flutterwave/open-flutterwave-recipients-api/)
+- [Flutterwave Banks AccountResolution Refunds API](https://apis.io/collections/flutterwave/open-flutterwave-refunds-api/)
+- [Flutterwave Banks AccountResolution Senders API](https://apis.io/collections/flutterwave/open-flutterwave-senders-api/)
+- [Flutterwave Banks AccountResolution Settlements API](https://apis.io/collections/flutterwave/open-flutterwave-settlements-api/)
+- [Flutterwave Banks AccountResolution Transfers API](https://apis.io/collections/flutterwave/open-flutterwave-transfers-api/)
+- [Flutterwave Banks AccountResolution VirtualAccounts API](https://apis.io/collections/flutterwave/open-flutterwave-virtualaccounts-api/)
+- [Flutterwave Banks AccountResolution Wallets API](https://apis.io/collections/flutterwave/open-flutterwave-wallets-api/)
+- [Flutterwave Banks AccountResolution Webhooks API](https://apis.io/collections/flutterwave/open-flutterwave-webhooks-api/)
+- [Flutterwave Banks API](https://apis.io/collections/flutterwave/postman-flutterwave-banks-api/)
+- [Flutterwave Payments API](https://apis.io/collections/flutterwave/postman-flutterwave-payments-api/)
+- [Flutterwave Settlements API](https://apis.io/collections/flutterwave/postman-flutterwave-settlements-api/)
+- [Flutterwave Transfers API](https://apis.io/collections/flutterwave/postman-flutterwave-transfers-api/)
+- [Flutterwave Wallets API](https://apis.io/collections/flutterwave/postman-flutterwave-wallets-api/)
+- …and 1 more published on APIs.io
 
-#### Properties
+#### Governance rules (2)
 
-- [Documentation](https://developer.flutterwave.com/reference/fetch_wallet_balances.md)
-- [Documentation](https://developer.flutterwave.com/reference/get_wallet_statement.md)
-- [Documentation](https://developer.flutterwave.com/reference/wallet_account_resolve_post.md)
-- [OpenAPI](openapi/flutterwave-wallets-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/flutterwave-wallets-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/flutterwave-wallets-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/flutterwave-wallet-schema.json) — [JSON Schema](https://json-schema.org/specification)
+Spectral rulesets for the provider's contracts.
 
-### Flutterwave Banks API
+- [Flutterwave — jsonschema rules](https://apis.io/rules/flutterwave/flutterwave-jsonschema-spectral-rules/)
+- [Flutterwave API Rules](https://apis.io/rules/flutterwave/flutterwave-rules/)
 
-Reference data for banks, bank branches, and mobile networks supported by country, plus bank account name-enquiry endpoints. Used to populate checkout dropdowns and validate destination accounts before initiating payouts.
+#### Security (2)
 
-- **Human URL:** [https://developer.flutterwave.com/reference/banks_get.md](https://developer.flutterwave.com/reference/banks_get.md)
-- **Base URL:** `https://api.flutterwave.cloud/f4b/production`
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Flutterwave Authentication](https://apis.io/security/flutterwave/flutterwave-authentication/)
+- [Flutterwave Domain Security](https://apis.io/security/flutterwave/flutterwave-domain-security/)
 
-- Banks
-- Reference Data
-- Mobile Networks
-- Account Resolution
+#### OAuth scopes (1)
 
-#### Properties
+The permissions the API asks for.
 
-- [Documentation](https://developer.flutterwave.com/reference/banks_get.md)
-- [Documentation](https://developer.flutterwave.com/reference/mobile_networks_get.md)
-- [Documentation](https://developer.flutterwave.com/reference/bank_account_resolve_post.md)
-- [OpenAPI](openapi/flutterwave-banks-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/flutterwave-banks-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/flutterwave-banks-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Flutterwave Scopes](https://apis.io/scopes/flutterwave/flutterwave-scopes/)
 
-### Flutterwave Webhooks API
+#### Plans and pricing (1)
 
-Outbound webhook callbacks delivered by Flutterwave for charges, transfers, refunds, chargebacks, and virtual account funding. Receivers validate the `verif-hash` header against the merchant's configured secret hash before trusting the payload.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://developer.flutterwave.com/docs/webhooks.md](https://developer.flutterwave.com/docs/webhooks.md)
-- **Base URL:** `https://your-webhook-endpoint.example.com`
+- [Flutterwave Plans Pricing](https://apis.io/plans/flutterwave/flutterwave-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- Webhooks
-- Events
-- Asynchronous
+Published request limits.
 
-#### Properties
+- [Flutterwave Rate Limits](https://apis.io/rate-limits/flutterwave/flutterwave-rate-limits/)
 
-- [Documentation](https://developer.flutterwave.com/docs/webhooks.md)
-- [OpenAPI](openapi/flutterwave-webhooks-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/flutterwave-webhooks-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/flutterwave-webhooks-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [AsyncAPI](asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Example](examples/flutterwave-charge-completed-webhook-example.json)
+#### FinOps (1)
 
-## Common Properties
+What the API costs to run, by operation.
 
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [Portal](https://flutterwave.com)
-- [Portal](https://developer.flutterwave.com)
+- [Flutterwave Finops](https://apis.io/finops/flutterwave/flutterwave-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.flutterwave.com/)
 - [Documentation](https://developer.flutterwave.com/docs)
-- [Documentation](https://developer.flutterwave.com/reference)
-- [Documentation](https://developer.flutterwave.com/llms.txt)
-- [Getting Started](https://developer.flutterwave.com/docs/getting-started.md)
-- [Documentation](https://developer.flutterwave.com/docs/authentication.md)
-- [Documentation](https://developer.flutterwave.com/docs/api-headers.md)
-- [Documentation](https://developer.flutterwave.com/docs/encryption.md)
-- [Errors](https://developer.flutterwave.com/docs/common-errors.md)
-- [Documentation](https://developer.flutterwave.com/docs/webhooks.md)
-- [Documentation](https://developer.flutterwave.com/docs/idempotency.md)
-- [Documentation](https://developer.flutterwave.com/docs/testing.md)
-- [Documentation](https://developer.flutterwave.com/docs/best-practices.md)
-- [Documentation](https://developer.flutterwave.com/docs/environments.md)
-- [Sign Up](https://onboarding.flutterwave.com/signup)
-- [Status Page](https://status.flutterwave.com)
-- [Support](https://support.flutterwave.com)
+- [Getting started](https://developer.flutterwave.com/docs/getting-started.md)
 - [Pricing](https://flutterwave.com/us/pricing)
+- [Support](https://support.flutterwave.com)
 - [Blog](https://flutterwave.com/us/blog)
-- [Terms of Service](https://flutterwave.com/us/terms)
-- [Privacy Policy](https://flutterwave.com/us/privacy-notice)
-- [Contact](https://flutterwave.com/us/contact-sales)
-- [LinkedIn](https://www.linkedin.com/company/flutterwave)
-- [Twitter](https://twitter.com/theflutterwave)
-- [GitHub Organization](https://github.com/Flutterwave)
-- [SDK](https://github.com/Flutterwave/Node-v3)
-- [SDK](https://github.com/Flutterwave/PHP-v3)
-- [SDK](https://github.com/Flutterwave/Python-v2)
-- [SDK](https://github.com/Flutterwave/Ruby-v3)
-- [SDK](https://github.com/Flutterwave/Java-v3)
-- [SDK](https://github.com/Flutterwave/Dotnet-v2)
-- [SDK](https://github.com/Flutterwave/React-v3)
-- [SDK](https://github.com/Flutterwave/Angular-v3)
-- [SDK](https://github.com/Flutterwave/Vue-v3)
-- [SDK](https://github.com/Flutterwave/Flutter-v3)
-- [SDK](https://github.com/Flutterwave/React-Native)
-- [SDK](https://github.com/Flutterwave/AndroidSDK)
-- [SDK](https://github.com/Flutterwave/iOS-v3)
-- [Plugin](https://github.com/Flutterwave/WordPress-v2)
-- [Plans](plans/flutterwave-plans-pricing.yml)
-- [Rate Limits](rate-limits/flutterwave-rate-limits.yml)
-- [Fin Ops](finops/flutterwave-finops.yml)
-- [Spectral Rules](rules/flutterwave-rules.yml)
-- [Vocabulary](vocabulary/flutterwave-vocabulary.yml)
-- [Features](undefined)
+- [Terms of service](https://flutterwave.com/us/terms)
+- [Privacy policy](https://flutterwave.com/us/privacy-notice)
+- [GitHub](https://github.com/Flutterwave)
+- [Status](https://status.flutterwave.com)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** info@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 54.1** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 58.9 |
+| Contract governance | 27.3 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 67.9 |
+| Access clarity | 60.5 |
+
+**Agent readiness 33.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | verified |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 31.3** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/flutterwave/](https://apis.io/providers/flutterwave/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Flutterwave: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/flutterwave/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
